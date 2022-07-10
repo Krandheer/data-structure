@@ -1,3 +1,4 @@
+# assume top row is rth row and then column as usual
 def star_pattern(r, c):
     if r == 0:
         return
@@ -9,6 +10,7 @@ def star_pattern(r, c):
         star_pattern(r - 1, 0)
 
 
+# just reverse the printing,instead of printing first call the function first
 def normal_triangle(r, c):
     if r == 0:
         return
