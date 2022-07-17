@@ -10,6 +10,7 @@ def factor(n):
     return factors
 
 
+# time complexity is reduced by square root of n
 def factor2(n):
     factors = []
     for i in range(1, math.ceil(math.sqrt(n))):
@@ -20,3 +21,4 @@ def factor2(n):
 
 
 print(factor2(10))
+print(factor(10))

@@ -25,7 +25,7 @@ def MinCoinChange(d, n, k):
         minimum = INF
 
         for j in range(1, k):
-            if (i >= d[j]):
+            if i >= d[j]:
                 minimum = get_minimum(minimum, 1 + M[i - d[j]])
         M[i] = minimum
     return M[n]
