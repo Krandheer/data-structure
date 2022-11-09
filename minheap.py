@@ -10,7 +10,7 @@ class MinHeap:
 
     # to balance the inserted new element in the heap
     # we heapify it
-    def heapifyUp(self, i):
+    def heapify_up(self, i):
         while i // 2 > 0:
             if self.heap[i] < self.heap[i // 2]:
                 self.heap[i], self.heap[i // 2] = self.heap[i // 2], self.heap[i]
@@ -21,7 +21,7 @@ class MinHeap:
     def insert(self, key):
         self.heap.append(key)
         self.size = self.size + 1
-        self.heapifyUp(self.size)
+        self.heapify_up(self.size)
 
     # to del with delete operation we move down
     # the new root to its logical correct position

@@ -1,7 +1,6 @@
 """
 to reverse the digit take a variable temp initialized with 0 and keep adding the remainder in it
 by multiplying it 10 and divide the original number by 10 before the next recursion call.
-
 to check is_palindrome just check if number == reverse of it (digit reversed)
 """
 
