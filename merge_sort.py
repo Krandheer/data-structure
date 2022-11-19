@@ -1,7 +1,6 @@
 def merge_sort(unsorted_list):
     """
     sort the given list in ascending order and return the new sorted list
-
     divide and conquer type algo
     1. first divide the list from mid
     2. conquer the divided list, means sort them
