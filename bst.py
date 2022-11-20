@@ -61,3 +61,50 @@ class BST:
         if self.right_child:
             self.right_child.preorder()
 
+    def inorder(self):
+        if self.left_child:
+            self.left_child.inorder()
+        print(self.data)
+        if self.right_child:
+            self.right_child.inorder()
+
+    def postorder(self):
+        if self.left_child:
+            self.left_child.postorder()
+        if self.right_child:
+            self.right_child.postorder()
+        print(self.data)
+
+    def delete(self, data):
+        """
+        currently this doesn't work for root node, but that also can be easily achieved
+        """
+        if self.data is None:
+            print('tree is empty')
+            return
+        if data < self.data:
+            if self.left_child:
+                self.left_child = self.left_child.delete(data)
+            else:
+                print('data is not present')
+        elif data > self.data:
+            if self.right_child:
+                self.right_child = self.right_child(data)
+            else:
+                print("data is not present")
+        else:
+            if self.left_child is None:
+                temp = self.right_child
+                self = None
+                return temp
+            if self.right_child is None:
+                temp = self.left_child
+                self = None
+                return temp
+
+            node = self.right_child
+            while node.left_child:
+                node = node.left_child
+            self.data = node.data
+            self.right_child = self.right_child.delete(node.data)
+        return self
