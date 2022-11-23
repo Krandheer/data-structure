@@ -5,9 +5,9 @@ def powerset(temp_p, temp_up):
     elem = temp_up[0]
     powerset(temp_p+elem, temp_up[1:])
     powerset(temp_p, temp_up[1:])
-
-
-powerset("", 'abc')
+#
+#
+# powerset("", 'abc')
 
 
 def powerset2(temp_p, temp_up, ans):
@@ -23,3 +23,4 @@ def powerset2(temp_p, temp_up, ans):
 
 temp_ans = []
 print(powerset2("", 'abc', temp_ans))
+
