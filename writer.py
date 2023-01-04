@@ -79,6 +79,7 @@ def form_counter_resp(value, resp, look_for, temp):
 def helper_row_based_extraction(look_for, key_val, ocr_resp):
     resp = {}
     ocr_resp_row = []
+    switch_change_values = {}
     # switch_res_row will contain value for type1 and type2 under key type1 and for type3 and 4 under key type2
     counter_res_row = {}
 
@@ -105,10 +106,8 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
                         resp[keyword] = {'value': value,
                                          'value_co_ords': rows[index + 1]['pts'],
                                          'key_co_ords': row['pts']}
-                    # else:
-                    #     resp[keyword] = {"value": key_val[keyword][value],
-                    #                      'value_co_ords': key_val[keyword]["value_co_ords"],
-                    #                      'key_co_ords': key_val[keyword]["key_co_ords"]}
+                        if value != key_val[keyword]["value"]:
+                            switch_change_values[keyword] = True
                 if keyword == 'END':
                     resp['CTR'] = look_for
 
@@ -147,6 +146,13 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
 
     if is_triangulation_pass(resp, look_for):
         resp['TRIANGULATION'] = 'PASS'
+        return resp
+    elif len(switch_change_values) == 1:
+        for key in switch_change_values.keys():
+            if key in ['INC', "DEC", "OUT"]:
+                resp[key]['value'] = 0
+        if is_triangulation_pass(resp, look_for):
+            resp['TRIANGULATION'] = "PASS"
         return resp
     return None
 
