@@ -13,32 +13,34 @@ def get_keyword(keyword, look_for):
             return 'END'
 
     # look for counter related keys
-    elif look_for in ['type1', 'type2', 'type3', 'type4']:
-        if keyword in ['+CASSETTE', 'CASSETTE', 'SETTE', 'CASS', 'CST']:
+    elif look_for in ['TYPE1', 'TYPE2', 'TYPE3', 'TYPE4', 'TYPE5']:
+        if keyword in ['+CASSETTE', 'CASSETTE', 'SETTE', 'CASS', 'CST'] or "CASSETTE" in keyword:
             return 'CASSETTE'
-        elif keyword in ['+REJECTED', 'REJECTED', '+REJ', 'REJ', 'PURG']:
+        elif keyword in ['+REJECTED', 'REJECTED', '+REJ', 'REJ', 'PURG'] or "REJECTED" in keyword:
             return 'REJECTED'
-        elif keyword in ['=REMAINING', 'REMAINING', '=REMAIN', 'REMAIN' '+REM' 'REM']:
+        elif keyword in ['=REMAINING', "REAINING" 'REMAINING', '=REMAIN',
+                         'REMAIN' '+REM' 'REM'] or 'REMAINING' in keyword:
             return 'REMAINING'
-        elif keyword in ['+DISPENSED', 'DISPENSED', '+DISPEN', 'DISPEN' '+DISP', 'DISP', 'OISP', '0ISP']:
+        elif keyword in ['+DISPENSED', 'DISPENSED', '+DISPEN', 'DISPEN' '+DISP', 'DISP', 'OISP',
+                         '0ISP'] or "DISPENSED" in keyword:
             return 'DISPENSED'
-        elif keyword in ['=TOTAL', 'TOTAL']:
+        elif keyword in ['=TOTAL', 'TOTAL'] or "TOTAL" in keyword:
             return 'TOTAL'
 
 
 def get_keyword_value(keyword_value):
     value = ''
+    if keyword_value[-1].isnumeric():
+        i = len(keyword_value) - 1
+        while i > -1 and keyword_value[i].isnumeric():
+            value += keyword_value[i]
+            i -= 1
+        return int(value[::-1])
     if keyword_value[0].isnumeric():
         i = 0
         while keyword_value[i].isnumeric():
             value += keyword_value[i]
             i += 1
-        return int(value)
-    elif keyword_value[-1].isnumeric():
-        i = len(keyword_value) - 1
-        while i > -1 and keyword_value[i].isnumeric():
-            value += keyword_value[i]
-            i -= 1
         return int(value)
     return 0
 
@@ -51,12 +53,12 @@ def is_triangulation_pass(resp, look_for):
             'value']
 
     # for counter
-    elif look_for in ['type1', 'type2', 'type3', 'type4']:
+    elif look_for in ['TYPE1', 'TYPE2', 'TYPE3', 'TYPE4']:
         return resp['REMAINING']['value'] == resp['CASSETTE']['value'] + resp['REJECTED']['value'] and \
                resp['REMAINING']['value'] + resp['DISPENSED']['value'] == resp['TOTAL']['value']
 
 
-def form_counter_resp(value, resp, look_for, temp):
+def form_counter_resp(value, key_val, resp, look_for, temp):
     # if isnumeric is false then may be value has some alpha character in end or start which can be
     # cleaned using regex or other logic later, write function that checks if first character is digit, if yes then
     # take all digit starting from first till you get none digit character, else check end and if digit then go back
@@ -65,7 +67,9 @@ def form_counter_resp(value, resp, look_for, temp):
         for index, row in enumerate(v):
             keyword = get_keyword(row['text'], look_for)
             if keyword in ['CASSETTE', 'REJECTED', 'REMAINING', 'DISPENSED', 'TOTAL']:
-                if v[index + temp]['text'].isnumeric():
+                if row['text'][-5:].isnumeric():
+                    denom_value = get_keyword_value(row['text'])
+                elif v[index + temp]['text'].isnumeric():
                     denom_value = int(v[index + temp]['text'])
                 else:
                     denom_value = get_keyword_value(v[index + temp]['text'])
@@ -74,6 +78,16 @@ def form_counter_resp(value, resp, look_for, temp):
                                  'key_co_ords': row['pts']}
             if index == len(v) - 2:
                 resp['final_col_hdr_'] = look_for
+
+    # add other field that were already present and need not be modified
+    resp_keys = resp.keys()
+    for key in key_val.keys():
+        if key not in resp_keys:
+            resp[key] = key_val[key]
+
+
+def contains_number(string):
+    return any(char.isdigit() for char in string)
 
 
 def helper_row_based_extraction(look_for, key_val, ocr_resp):
@@ -98,27 +112,46 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
                         # case, so take value of that
                         if 'XXX' in rows[index + 1]['text']:
                             value = key_val[keyword]['value']
+                            value_co_ords = key_val[keyword]['value_co_ords']
+                            key_co_ords = key_val[keyword]['key_co_ords']
 
                         elif rows[index + 1]['text'].isnumeric():
                             value = int(rows[index + 1]['text'])
-                        else:
+                            value_co_ords = rows[index + 1]['pts']
+                            key_co_ords = row['pts']
+
+                        elif contains_number(rows[index + 1]['text']):
                             value = get_keyword_value(rows[index + 1]['text'])
+                            value_co_ords = rows[index + 1]['pts']
+                            key_co_ords = row['pts']
+
+                        else:
+                            value = key_val[keyword]['value']
+                            if "value_co_ords" in key_val[keyword].keys():
+                                value_co_ords = key_val[keyword]['value_co_ords']
+                            else:
+                                value_co_ords = "NA"
+                            if "key_co_ords" in key_val[keyword].keys():
+                                key_co_ords = key_val[keyword]['key_co_ords']
+                            else:
+                                key_co_ords = "NA"
+
                         resp[keyword] = {'value': value,
-                                         'value_co_ords': rows[index + 1]['pts'],
-                                         'key_co_ords': row['pts']}
+                                         'value_co_ords': value_co_ords,
+                                         'key_co_ords': key_co_ords}
+
                         if value != key_val[keyword]["value"]:
                             switch_change_values[keyword] = True
                 if keyword == 'END':
                     resp['CTR'] = look_for
 
         # check if key-val that were present before in extraction is there or not, if not then add
-        key_val_keys = key_val.keys()
         resp_keys = resp.keys()
-        for key in key_val_keys:
+        for key in key_val.keys():
             if key not in resp_keys:
                 resp[key] = key_val[key]
     # for counter
-    elif look_for in ['type1', 'type2', 'type3', 'type4', 'type5']:
+    elif look_for in ['TYPE1', 'TYPE2', 'TYPE3', 'TYPE4', 'TYPE5']:
         temp = 0
         for res in ocr_resp:
             if res[0]['text'] == 'TYPE':
@@ -128,25 +161,27 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
             if temp > 0:
                 counter_res_row[f'type{temp}'].append(res)
 
-        if look_for == 'type1':
+        if look_for == 'TYPE1':
             value = counter_res_row['type1']
-            form_counter_resp(value, resp, look_for, 1)
+            form_counter_resp(value, key_val, resp, look_for, 1)
 
-        elif look_for == 'type2':
+        elif look_for == 'TYPE2':
             value = counter_res_row['type1']
-            form_counter_resp(value, resp, look_for, 2)
+            form_counter_resp(value, key_val, resp, look_for, 2)
 
-        elif look_for == 'type3':
+        elif look_for == 'TYPE3':
             value = counter_res_row['type2']
-            form_counter_resp(value, resp, look_for, 1)
+            form_counter_resp(value, key_val, resp, look_for, 1)
 
-        elif look_for == 'type4' or look_for == 'type5':
+        elif look_for == 'TYPE4' or look_for == 'TYPE5':
             value = counter_res_row['type2']
-            form_counter_resp(value, resp, look_for, 2)
+            form_counter_resp(value, key_val, resp, look_for, 2)
 
     if is_triangulation_pass(resp, look_for):
         resp['TRIANGULATION'] = 'PASS'
         return resp
+    # for switch: if only one value was changed and then also triangulation is failing try triangulation by making
+    # that value 0, and do this on inc, dec, out as they have high chance of being 0.
     elif len(switch_change_values) == 1:
         for key in switch_change_values.keys():
             if key in ['INC', "DEC", "OUT"]:
@@ -155,6 +190,41 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
             resp['TRIANGULATION'] = "PASS"
         return resp
     return None
+
+
+def fraud_end_correction(look_for, key_val, ocr_resp):
+    ocr_resp_row = []
+    resp = {}
+
+    if look_for in ['C1', 'C2', 'C3', 'C4']:
+        for res in ocr_resp:
+            if res[0]['text'] == look_for:
+                ocr_resp_row.append(res)
+
+    if key_val['END']["value_co_ords"] != "NA":
+        return key_val
+    for rows in ocr_resp_row:
+        for index, row in enumerate(rows):
+            keyword = get_keyword(row['text'], look_for)
+            value = 0
+            if keyword == 'END':
+                if index + 1 < len(rows):
+                    if rows[index + 1]['text'].isnumeric():
+                        value = int(rows[index + 1]['text'])
+                    else:
+                        value = get_keyword_value(rows[index + 1]['text'])
+                    resp[keyword] = {'value': value,
+                                     'value_co_ords': rows[index + 1]['pts'],
+                                     'key_co_ords': row['pts']}
+
+    if "END" in key_val.keys() and "END" not in resp.keys():
+        return key_val
+    else:
+        for key in key_val.keys():
+            if key not in resp.keys() and key != "END":
+                resp[key] = key_val[key]
+
+    return resp
 
 
 def helper_fields_extract(extracted_resp, slip_type, ocr_resp):
@@ -170,23 +240,31 @@ def helper_fields_extract(extracted_resp, slip_type, ocr_resp):
 
                 if helper_resp is not None:
                     extracted_resp[key] = helper_resp
+            if extracted_resp['FRAUD_END'] == 'YES' and key_val['TRIANGULATION'] == 'PASS':
+                look_for = key_val["CTR"]
+                helper_resp = fraud_end_correction(look_for, key_val, ocr_resp)
+                if helper_resp is not None:
+                    extracted_resp[key] = helper_resp
 
         elif slip_type == 'COUNTER' and key in ['TYPE1', 'TYPE2', 'TYPE3', 'TYPE4', 'TYPE5']:
             print('randheer called')
             key_val = extracted_resp[key]
             if key_val['TRIANGULATION'] != 'PASS':
-                look_for = f'type{key[-1]}'
-                helper_resp = helper_row_based_extraction(look_for, ocr_resp)
+                print("randheer code used")
+                look_for = key_val['final_col_hdr_']
+                helper_resp = helper_row_based_extraction(look_for, key_val, ocr_resp)
 
                 if helper_resp is not None:
                     extracted_resp[key] = helper_resp
 
     if slip_type == "SWITCH":
-        end_val_co_ord = None
+        end_val_co_ord = "NA"
         for key, val in extracted_resp.items():
             if len(val) == 0:
                 continue
-            if type(val) == "dict":
+            elif key in ['Counter#0', "Counter#1", "Counter#2", "Counter#3", 'Counter#4', 'Counter#5',
+                         'Counter#6'] and isinstance(val, dict):
+                end_val_co_ord = "NA"
                 for k, v in val.items():
                     if k == 'END':
                         end_val_co_ord = v['value_co_ords']
@@ -195,4 +273,4 @@ def helper_fields_extract(extracted_resp, slip_type, ocr_resp):
     return extracted_resp
 
 
-# print(helper_fields_extract(extracted_resp, 'SWITCH', ocr_resp))
+# print(helper_fields_extract(extracted_resp, 'COUNTER', ocr_resp))
