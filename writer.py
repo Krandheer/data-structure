@@ -28,7 +28,7 @@ def get_keyword(keyword, look_for):
             return 'TOTAL'
 
 
-def get_keyword_value(keyword_value):
+def get_value_sticked_with_keyword(keyword_value):
     value = ''
     if keyword_value[-1].isnumeric():
         i = len(keyword_value) - 1
@@ -36,7 +36,7 @@ def get_keyword_value(keyword_value):
             value += keyword_value[i]
             i -= 1
         return int(value[::-1])
-    if keyword_value[0].isnumeric():
+    elif keyword_value[0].isnumeric():
         i = 0
         while keyword_value[i].isnumeric():
             value += keyword_value[i]
@@ -68,11 +68,11 @@ def form_counter_resp(value, key_val, resp, look_for, temp):
             keyword = get_keyword(row['text'], look_for)
             if keyword in ['CASSETTE', 'REJECTED', 'REMAINING', 'DISPENSED', 'TOTAL']:
                 if row['text'][-5:].isnumeric():
-                    denom_value = get_keyword_value(row['text'])
+                    denom_value = get_value_sticked_with_keyword(row['text'])
                 elif v[index + temp]['text'].isnumeric():
                     denom_value = int(v[index + temp]['text'])
                 else:
-                    denom_value = get_keyword_value(v[index + temp]['text'])
+                    denom_value = get_value_sticked_with_keyword(v[index + temp]['text'])
                 resp[keyword] = {'value': denom_value,
                                  'value_co_ord': v[index + temp]['pts'],
                                  'key_co_ords': row['pts']}
@@ -120,8 +120,13 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
                             value_co_ords = rows[index + 1]['pts']
                             key_co_ords = row['pts']
 
-                        elif contains_number(rows[index + 1]['text']):
-                            value = get_keyword_value(rows[index + 1]['text'])
+                        # change this to check for alpha_numeric
+                        elif rows[index + 1]['text'].isalnum():
+                            value = get_value_sticked_with_keyword(rows[index + 1]['text'])
+                            value_co_ords = rows[index + 1]['pts']
+                            key_co_ords = row['pts']
+                        elif len(rows[index + 1]['text'].split(" ")) > 1:
+                            value = int(''.join(rows[index + 1]['text'].split(" ")))
                             value_co_ords = rows[index + 1]['pts']
                             key_co_ords = row['pts']
 
@@ -212,7 +217,7 @@ def fraud_end_correction(look_for, key_val, ocr_resp):
                     if rows[index + 1]['text'].isnumeric():
                         value = int(rows[index + 1]['text'])
                     else:
-                        value = get_keyword_value(rows[index + 1]['text'])
+                        value = get_value_sticked_with_keyword(rows[index + 1]['text'])
                     resp[keyword] = {'value': value,
                                      'value_co_ords': rows[index + 1]['pts'],
                                      'key_co_ords': row['pts']}
@@ -272,5 +277,4 @@ def helper_fields_extract(extracted_resp, slip_type, ocr_resp):
 
     return extracted_resp
 
-
-# print(helper_fields_extract(extracted_resp, 'COUNTER', ocr_resp))
+# print(helper_fields_extract(extracted_resp, 'SWITCH', ocr_resp))
