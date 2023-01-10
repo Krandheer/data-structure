@@ -230,7 +230,7 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
 
         val_len_counts = Counter(val_lengths.values())
 
-        # find the odd one that has greater or less value than most and eleminate one from left or right if more or add
+        # find the odd one that has greater or less value than most and eliminate one from left or right if more or add
         # one more of same value in left or right if less and check triangulation
         if len(val_len_counts) == 2:
             lowest_val_key = []
@@ -312,60 +312,61 @@ def fraud_end_correction(look_for, key_val, ocr_resp):
 
 
 def helper_fields_extract(extracted_resp, slip_type, ocr_resp):
-    for key in extracted_resp.keys():
-        if slip_type == "SWITCH" and key in ['Counter#0', "Counter#1", "Counter#2", "Counter#3", 'Counter#4',
-                                             'Counter#5', 'Counter#6']:
-            print('randheer called')
-            key_val = extracted_resp[key]
-            if key_val['TRIANGULATION'] != 'PASS':
-                print('randheer code used')
-                look_for = key_val["CTR"]
-                key_val_1 = {}
-                for key1, val1 in key_val.items():
-                    if key1 == "OUT2":
-                        key_val_1['OUT'] = key_val["OUT2"]
-                    else:
-                        key_val_1[key1] = key_val[key1]
-                helper_resp = helper_row_based_extraction(look_for, key_val_1, ocr_resp)
+    try:
+        for key in extracted_resp.keys():
+            if slip_type == "SWITCH" and key in ['Counter#0', "Counter#1", "Counter#2", "Counter#3", 'Counter#4',
+                                                 'Counter#5', 'Counter#6']:
+                key_val = extracted_resp[key]
+                if key_val['TRIANGULATION'] != 'PASS':
+                    print('helper code used')
+                    look_for = key_val["CTR"]
+                    key_val_1 = {}
+                    for key1, val1 in key_val.items():
+                        if key1 == "OUT2":
+                            key_val_1['OUT'] = key_val["OUT2"]
+                        else:
+                            key_val_1[key1] = key_val[key1]
+                    helper_resp = helper_row_based_extraction(look_for, key_val_1, ocr_resp)
 
-                if helper_resp is not None:
-                    extracted_resp[key] = helper_resp
-            if extracted_resp['FRAUD_END'] == 'YES' and key_val['TRIANGULATION'] == 'PASS':
-                look_for = key_val["CTR"]
-                helper_resp = fraud_end_correction(look_for, key_val, ocr_resp)
-                if helper_resp is not None:
-                    extracted_resp[key] = helper_resp
+                    if helper_resp is not None:
+                        extracted_resp[key] = helper_resp
+                if extracted_resp['FRAUD_END'] == 'YES' and key_val['TRIANGULATION'] == 'PASS':
+                    look_for = key_val["CTR"]
+                    helper_resp = fraud_end_correction(look_for, key_val, ocr_resp)
+                    if helper_resp is not None:
+                        extracted_resp[key] = helper_resp
 
-        elif slip_type == 'COUNTER' and key in ['TYPE1', 'TYPE2', 'TYPE3', 'TYPE4', 'TYPE5']:
-            print('randheer called')
-            key_val = extracted_resp[key]
-            if key_val['TRIANGULATION'] != 'PASS':
-                print("randheer code used")
-                look_for = key_val['final_col_hdr_']
-                helper_resp = helper_row_based_extraction(look_for, key_val, ocr_resp)
+            elif slip_type == 'COUNTER' and key in ['TYPE1', 'TYPE2', 'TYPE3', 'TYPE4', 'TYPE5']:
+                key_val = extracted_resp[key]
+                if key_val['TRIANGULATION'] != 'PASS':
+                    print("helper code used")
+                    look_for = key_val['final_col_hdr_']
+                    helper_resp = helper_row_based_extraction(look_for, key_val, ocr_resp)
 
-                if helper_resp is not None:
-                    extracted_resp[key] = helper_resp
+                    if helper_resp is not None:
+                        extracted_resp[key] = helper_resp
 
-    if slip_type == "SWITCH":
-        end_val_co_ord = "NA"
-        for key, val in extracted_resp.items():
-            if len(val) == 0:
-                continue
-            elif key in ['Counter#0', "Counter#1", "Counter#2", "Counter#3", 'Counter#4', 'Counter#5',
-                         'Counter#6'] and isinstance(val, dict):
-                end_val_co_ord = "NA"
-                look_for = val["CTR"]
-                for k, v in val.items():
-                    if k == 'END':
-                        end_val_co_ord = v['value_co_ords']
-                if look_for == "C5" and extracted_resp['FRAUD_END'] == "YES":
-                    end_val_co_ord = "AN"
-                    extracted_resp['FRAUD_END'] = "NO"
+        if slip_type == "SWITCH":
+            end_val_co_ord = "NA"
+            for key, val in extracted_resp.items():
+                if len(val) == 0:
+                    continue
+                elif key in ['Counter#0', "Counter#1", "Counter#2", "Counter#3", 'Counter#4', 'Counter#5',
+                             'Counter#6'] and isinstance(val, dict):
+                    end_val_co_ord = "NA"
+                    look_for = val["CTR"]
+                    for k, v in val.items():
+                        if k == 'END':
+                            end_val_co_ord = v['value_co_ords']
+                    if look_for == "C5" and extracted_resp['FRAUD_END'] == "YES":
+                        end_val_co_ord = "AN"
+                        extracted_resp['FRAUD_END'] = "NO"
 
-        extracted_resp['FRAUD_END'] = 'YES' if end_val_co_ord == 'NA' else 'NO'
+            extracted_resp['FRAUD_END'] = 'YES' if end_val_co_ord == 'NA' else 'NO'
 
-    return extracted_resp
+        return extracted_resp
+    except:
+        return extracted_resp
 
 
 # print(helper_fields_extract(extracted_resp, 'COUNTER', ocr_resp))
