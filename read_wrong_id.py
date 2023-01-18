@@ -54,7 +54,7 @@ for ids in atm_ids:
     result[f"{ids}_ca_cb"] = atm_id_ca_cb
 
 for key, val in result.items():
-    print(key, len(val), val)
+    print(key, len(val))
 
 # df = df[df.ATMID.str[:4] == "S1BB"]
 # df = df[((df['CA-FILE_PASS'] == "True") & (df['CB-FILE_PASS'] == "True")) & (
