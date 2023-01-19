@@ -26,6 +26,6 @@ def dice3(pat, target, result):
     return len(result)
 
 
-dice("", 4)
-# print(dice2("", 4, []))
+# dice("", 4)
+print(dice2("", 4, []))
 # print(dice3("", 4, []))
