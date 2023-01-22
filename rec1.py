@@ -30,7 +30,7 @@ def ways_to_climb_stairs2(p, target):
     return result
 
 
-print(len(ways_to_climb_stairs2('', 10)))
+# print(len(ways_to_climb_stairs2('', 10)))
 
 
 def swap(arr):
@@ -60,6 +60,7 @@ def horizontal_flip(mat):
                 mat2[index].append(i)
     return mat2
 
+
 # img = [[1, 1, 0, 0, 1],
 #        [0, 0, 1, 0, 1],
 #        [1, 1, 1, 0, 1]]
@@ -70,3 +71,5 @@ def horizontal_flip(mat):
 #         [0, 0, 1],
 #         [1, 0, 1]]
 # print(horizontal_flip(img2))
+
+print(ways_to_climb_stairs('', 10, []))
