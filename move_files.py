@@ -17,18 +17,13 @@ for item in df['ATMID']:
     atm_ids.append(item)
 
 
-def create_json():
-    with open(f'{downloads}/hdfc.json', 'w') as f:
-        json.dump({'hdfc': atm_ids}, f)
-
-
 def move(src, desti):
     files_to_move = glob(f'{src}/{id}*')
     for temp in files_to_move:
         shutil.copy(temp, desti)
 
 
-# here folder to move is destination
+# here folder is destination
 def move_to_folder(folder):
     for id in atm_ids:
         if 'S1AC' in id:
@@ -42,3 +37,19 @@ def move_to_folder(folder):
         elif 'S1AN' in id:
             source = os.path.join(downloads, 'chunk_1')
             move(source, folder)
+
+
+def create_json():
+    with open(f'{downloads}/hdfc.json', 'w') as f:
+        json.dump({'hdfc': atm_ids}, f)
+
+
+def create_folder_inside_folder():
+    hdfc_reports = os.path.join(downloads, 'hdfc_reports')
+    for ids in atm_ids:
+        os.makedirs(f'{hdfc_reports}/{ids}', exist_ok=True)
+
+
+def file_inside_folder():
+    hdfc_reports = os.path.join(downloads, 'hdfc_reports')
+    os.listdir(hdfc_reports)
