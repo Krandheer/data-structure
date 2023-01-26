@@ -9,4 +9,4 @@ def grid_travel(m, n):
 # 	grid_traveller(a,b)=grid_traveller(b,a), implement dp on this ?
 
 
-print(grid_travel(4, 4))
+print(grid_travel(3, 3))
