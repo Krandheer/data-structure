@@ -60,7 +60,6 @@ def extract_texts(image_path, texts):
                     if max(row_y) - 8 < current_y_max < max(row_y) + 8:
                         row.append({"text": description, 'pts': contour})
                         added = True
-                        break
 
         elif current_x_max > w and current_y_max < h:
             for row in counter2:
@@ -71,7 +70,6 @@ def extract_texts(image_path, texts):
                     if max(row_y) - 8 < current_y_max < max(row_y) + 8:
                         row.append({"text": description, 'pts': contour})
                         added = True
-                        break
 
         elif current_x_max < w and current_y_max > h:
             for row in switch1:
@@ -82,7 +80,6 @@ def extract_texts(image_path, texts):
                     if max(row_y) - 8 < current_y_max < max(row_y) + 8:
                         row.append({"text": description, 'pts': contour})
                         added = True
-                        break
 
         elif current_x_max > w and current_x_max > h:
             for row in switch2:
@@ -93,16 +90,20 @@ def extract_texts(image_path, texts):
                     if max(row_y) - 8 < current_y_max < max(row_y) + 8:
                         row.append({"text": description, 'pts': contour})
                         added = True
-                        break
+
+        # prev_y_min should come from temp maybe as here I'm deciding if it should go in current temp or not,
 
         if not added:
             if prev_y_min + 8 >= current_y_min >= prev_y_min - 8 and prev_y_max - 8 <= current_y_max <= prev_y_max + 8 and prev_x_max < current_x_max:
                 temp.append({"text": description, 'pts': contour})
 
             # coming here means next row is starting
-            elif prev_contour[-1][0] < w and prev_contour[-1][1] < h or index == 0:
-                counter1.append(temp)
-                temp = [{"text": description, 'pts': contour}]
+            elif prev_contour[-1][0] < w and prev_contour[-1][1] < h:
+                if index == 0:
+                    counter1.append([{"text": description, 'pts': contour}])
+                else:
+                    counter1.append(temp)
+                    temp = [{"text": description, 'pts': contour}]
 
             elif prev_contour[-1][0] > w and prev_contour[-1][1] < h:
                 counter2.append(temp)
@@ -147,4 +148,4 @@ def get_image_ocr_data(image_path, ocr_output_path):
         json.dump({'ocr_opt': ocr_opt}, f)
 
 
-get_image_ocr_data("S1AWTX12.jpg", 'ocr.json')
+get_image_ocr_data("result.jpg", 'ocr.json')
