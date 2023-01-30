@@ -87,35 +87,47 @@ def extract_texts(image_path, texts):
                     row_contour = row[0]['pts']
                     row_y = [vertex[1] for vertex in row_contour]
                     # to check in same row we need to use y coordinate
-                    if max(row_y) - 8 < current_y_max < max(row_y) + 8:
+                    if max(row_y) - 8 <= current_y_max <= max(row_y) + 8:
                         row.append({"text": description, 'pts': contour})
                         added = True
 
-        # prev_y_min should come from temp maybe as here I'm deciding if it should go in current temp or not,
-
+        # prev_y_min should come from temp, as here I'm deciding if it should go in current temp or not,
+        start_new_temp = True
         if not added:
-            if prev_y_min + 8 >= current_y_min >= prev_y_min - 8 and prev_y_max - 8 <= current_y_max <= prev_y_max + 8 and prev_x_max < current_x_max:
-                temp.append({"text": description, 'pts': contour})
+            min_x = 0
+            for row in temp:
+                row_contour = row['pts']
+                row_y = [vertex[1] for vertex in row_contour]
+                row_x = [vertex[0] for vertex in row_contour]
+                if min_x > min(row_x):
+                    min_x = min(row_x)
+                if max(row_y) - 8 <= current_y_max <= max(row_y) + 8 and min(row_y) - 8 <= current_y_min <= min(
+                        row_y) + 8 and min_x < current_x_max:
+                    temp.append({"text": description, 'pts': contour})
+                    start_new_temp = False
+                    break
+            # here prev_countour should come from temp values, and max and min values of y and h
+            # if index == 0 then keep prev counter same, else get it from temp
 
-            # coming here means next row is starting
-            elif prev_contour[-1][0] < w and prev_contour[-1][1] < h:
-                if index == 0:
-                    counter1.append([{"text": description, 'pts': contour}])
-                else:
-                    counter1.append(temp)
+            if start_new_temp:
+                if prev_contour[-1][0] < w and prev_contour[-1][1] < h:
+                    if index == 0:
+                        counter1.append([{"text": description, 'pts': contour}])
+                    else:
+                        counter1.append(temp)
+                        temp = [{"text": description, 'pts': contour}]
+
+                elif prev_contour[-1][0] > w and prev_contour[-1][1] < h:
+                    counter2.append(temp)
                     temp = [{"text": description, 'pts': contour}]
 
-            elif prev_contour[-1][0] > w and prev_contour[-1][1] < h:
-                counter2.append(temp)
-                temp = [{"text": description, 'pts': contour}]
+                elif prev_contour[-1][0] < w and prev_contour[-1][1] > h:
+                    switch1.append(temp)
+                    temp = [{"text": description, 'pts': contour}]
 
-            elif prev_contour[-1][0] < w and prev_contour[-1][1] > h:
-                switch1.append(temp)
-                temp = [{"text": description, 'pts': contour}]
-
-            elif prev_contour[-1][0] > w and prev_contour[-1][1] > h:
-                switch2.append(temp)
-                temp = [{"text": description, 'pts': contour}]
+                elif prev_contour[-1][0] > w and prev_contour[-1][1] > h:
+                    switch2.append(temp)
+                    temp = [{"text": description, 'pts': contour}]
     result = {'Counter1': counter1, 'Counter2': counter2, "Switch1": switch1, "Switch2": switch2}
     return result
 
