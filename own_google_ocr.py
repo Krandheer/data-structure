@@ -38,11 +38,16 @@ def extract_texts(image_path, texts):
             prev_y_max = max(prev_y_coords)
             prev_x_max = max([vertex[0] for vertex in prev_contour])
         else:
-            prev_contour = texts[index - 1]['bounding_box']
-            prev_y_coords = [vertex[1] for vertex in prev_contour]
-            prev_y_min = min(prev_y_coords)
-            prev_y_max = max(prev_y_coords)
-            prev_x_max = max([vertex[0] for vertex in prev_contour])
+            prev_x_max = 0
+            prev_y_max = 0
+            for row in temp:
+                row_contour = row['pts']
+                row_y = [vertex[1] for vertex in row_contour]
+                row_x = [vertex[0] for vertex in row_contour]
+                if prev_x_max < max(row_x):
+                    prev_x_max = max(row_x)
+                if prev_y_max < max(row_y):
+                    prev_y_max = max(row_y)
 
         current_contour = text['bounding_box']
         current_y_coords = [vertex[1] for vertex in current_contour]
@@ -52,44 +57,68 @@ def extract_texts(image_path, texts):
 
         added = False
         if current_x_max < w and current_y_max < h:
-            for row in counter1:
-                if row and row[0]['pts']:
-                    row_contour = row[0]['pts']
-                    row_y = [vertex[1] for vertex in row_contour]
-                    # to check in same row we need to use y coordinate
-                    if max(row_y) - 8 < current_y_max < max(row_y) + 8:
-                        row.append({"text": description, 'pts': contour})
-                        added = True
+            for rows in counter1:
+                min_x = 0
+                if rows and rows[0]['pts']:
+                    for row in rows:
+                        row_contour = row['pts']
+                        row_y = [vertex[1] for vertex in row_contour]
+                        row_x = [vertex[0] for vertex in row_contour]
+                        if min_x > min(row_x):
+                            min_x = min(row_x)
+                        if max(row_y) - 11 <= current_y_max <= max(row_y) + 11 and min(
+                                row_y) - 11 <= current_y_min <= min(row_y) + 10 and min_x < current_x_max:
+                            rows.append({"text": description, 'pts': contour})
+                            added = True
+                            break
 
         elif current_x_max > w and current_y_max < h:
-            for row in counter2:
-                if row and row[0]['pts']:
-                    row_contour = row[0]['pts']
-                    row_y = [vertex[1] for vertex in row_contour]
-                    # to check in same row we need to use y coordinate
-                    if max(row_y) - 8 < current_y_max < max(row_y) + 8:
-                        row.append({"text": description, 'pts': contour})
-                        added = True
+            for rows in counter2:
+                min_x = 0
+                if rows and rows[0]['pts']:
+                    for row in rows:
+                        row_contour = row['pts']
+                        row_y = [vertex[1] for vertex in row_contour]
+                        row_x = [vertex[0] for vertex in row_contour]
+                        if min_x > min(row_x):
+                            min_x = min(row_x)
+                        if max(row_y) - 11 <= current_y_max <= max(row_y) + 11 and min(
+                                row_y) - 11 <= current_y_min <= min(row_y) + 10 and min_x < current_x_max:
+                            rows.append({"text": description, 'pts': contour})
+                            added = True
+                            break
 
         elif current_x_max < w and current_y_max > h:
-            for row in switch1:
-                if row and row[0]['pts']:
-                    row_contour = row[0]['pts']
-                    row_y = [vertex[1] for vertex in row_contour]
-                    # to check in same row we need to use y coordinate
-                    if max(row_y) - 8 < current_y_max < max(row_y) + 8:
-                        row.append({"text": description, 'pts': contour})
-                        added = True
+            for rows in switch1:
+                min_x = 0
+                if rows and rows[0]['pts']:
+                    for row in rows:
+                        row_contour = row['pts']
+                        row_y = [vertex[1] for vertex in row_contour]
+                        row_x = [vertex[0] for vertex in row_contour]
+                        if min_x > min(row_x):
+                            min_x = min(row_x)
+                        if max(row_y) - 11 <= current_y_max <= max(row_y) + 11 and min(
+                                row_y) - 11 <= current_y_min <= min(row_y) + 10 and min_x < current_x_max:
+                            rows.append({"text": description, 'pts': contour})
+                            added = True
+                            break
 
         elif current_x_max > w and current_x_max > h:
-            for row in switch2:
-                if row and row[0]['pts']:
-                    row_contour = row[0]['pts']
-                    row_y = [vertex[1] for vertex in row_contour]
-                    # to check in same row we need to use y coordinate
-                    if max(row_y) - 8 <= current_y_max <= max(row_y) + 8:
-                        row.append({"text": description, 'pts': contour})
-                        added = True
+            for rows in switch2:
+                min_x = 0
+                if rows and rows[0]['pts']:
+                    for row in rows:
+                        row_contour = row['pts']
+                        row_y = [vertex[1] for vertex in row_contour]
+                        row_x = [vertex[0] for vertex in row_contour]
+                        if min_x > min(row_x):
+                            min_x = min(row_x)
+                        if max(row_y) - 11 <= current_y_max <= max(row_y) + 11 and min(
+                                row_y) - 11 <= current_y_min <= min(row_y) + 10 and min_x < current_x_max:
+                            rows.append({"text": description, 'pts': contour})
+                            added = True
+                            break
 
         # prev_y_min should come from temp, as here I'm deciding if it should go in current temp or not,
         start_new_temp = True
@@ -101,8 +130,7 @@ def extract_texts(image_path, texts):
                 row_x = [vertex[0] for vertex in row_contour]
                 if min_x > min(row_x):
                     min_x = min(row_x)
-                if max(row_y) - 8 <= current_y_max <= max(row_y) + 8 and min(row_y) - 8 <= current_y_min <= min(
-                        row_y) + 8 and min_x < current_x_max:
+                if max(row_y) - 11 <= current_y_max <= max(row_y) + 11 and min_x < current_x_max:
                     temp.append({"text": description, 'pts': contour})
                     start_new_temp = False
                     break
@@ -110,22 +138,26 @@ def extract_texts(image_path, texts):
             # if index == 0 then keep prev counter same, else get it from temp
 
             if start_new_temp:
-                if prev_contour[-1][0] < w and prev_contour[-1][1] < h:
+                # counter 1 value formation
+                if prev_x_max < w and prev_y_max < h:
                     if index == 0:
                         counter1.append([{"text": description, 'pts': contour}])
                     else:
                         counter1.append(temp)
                         temp = [{"text": description, 'pts': contour}]
 
-                elif prev_contour[-1][0] > w and prev_contour[-1][1] < h:
+                # counter 2 value formation
+                elif prev_x_max > w and prev_y_max < h:
                     counter2.append(temp)
                     temp = [{"text": description, 'pts': contour}]
 
-                elif prev_contour[-1][0] < w and prev_contour[-1][1] > h:
+                # switch 1 value formation
+                elif prev_x_max < w and prev_y_max > h:
                     switch1.append(temp)
                     temp = [{"text": description, 'pts': contour}]
 
-                elif prev_contour[-1][0] > w and prev_contour[-1][1] > h:
+                # switch 2 value formation
+                elif prev_x_max > w and prev_y_max > h:
                     switch2.append(temp)
                     temp = [{"text": description, 'pts': contour}]
     result = {'Counter1': counter1, 'Counter2': counter2, "Switch1": switch1, "Switch2": switch2}
