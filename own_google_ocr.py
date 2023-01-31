@@ -71,6 +71,8 @@ def extract_texts(image_path, texts):
                             rows.append({"text": description, 'pts': contour})
                             added = True
                             break
+                if added:
+                    break
 
         elif current_x_max > w and current_y_max < h:
             for rows in counter2:
@@ -87,6 +89,8 @@ def extract_texts(image_path, texts):
                             rows.append({"text": description, 'pts': contour})
                             added = True
                             break
+                if added:
+                    break
 
         elif current_x_max < w and current_y_max > h:
             for rows in switch1:
@@ -103,6 +107,8 @@ def extract_texts(image_path, texts):
                             rows.append({"text": description, 'pts': contour})
                             added = True
                             break
+                if added:
+                    break
 
         elif current_x_max > w and current_x_max > h:
             for rows in switch2:
@@ -119,6 +125,8 @@ def extract_texts(image_path, texts):
                             rows.append({"text": description, 'pts': contour})
                             added = True
                             break
+                if added:
+                    break
 
         # prev_y_min should come from temp, as here I'm deciding if it should go in current temp or not,
         start_new_temp = True
@@ -187,9 +195,10 @@ def get_image_ocr_data(image_path, ocr_output_path):
         })
 
     ocr_opt = extract_texts(image_path, text_data)
-    print(ocr_opt)
-    with open(ocr_output_path, "w") as f:
-        json.dump({'ocr_opt': ocr_opt}, f)
+    print({'ocr_opt': ocr_opt})
+    return ocr_opt
+    # with open(ocr_output_path, "w") as f:
+    #     json.dump({'ocr_opt': ocr_opt}, f)
 
 
 get_image_ocr_data("result.jpg", 'ocr.json')
