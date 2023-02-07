@@ -50,10 +50,6 @@ def get_sticked_value(keyword_value):
 
 def counter_val(counter1_val, ocr_resp, look_for):
     counter_values = ocr_resp[look_for]
-    for index, c in enumerate(counter_values):
-        if not c:
-            counter_values.pop(index)
-    counter_values = sorted(counter_values, key=lambda x: x[0]['pts'][0][1])
     keyword_seen = {}
     for rows in counter_values:
         after_keyword = False
@@ -112,7 +108,7 @@ def form_counter_resp(counter_value, counter_resp):
                                 value1 = int(temp)
                                 type_1_val = True
 
-                            elif temp.isalnum() and len(temp) > 3:
+                            elif not temp.isalpha() and temp.isalnum() and len(temp) > 3:
                                 value1 = get_sticked_value(temp)
                                 type_1_val = True
 
@@ -123,11 +119,9 @@ def form_counter_resp(counter_value, counter_resp):
                             temp = denom_value['text']
                             if temp.isnumeric() and len(temp) >= 3:
                                 value2 = int(temp)
-                                break
 
-                            elif temp.isalnum() and len(temp) > 3:
+                            elif not temp.isalpha() and temp.isalnum() and len(temp) >= 3:
                                 value2 = get_sticked_value(temp)
-                                break
 
                             elif len(temp) < 3 and len(v) >= index + 2:
                                 continue
@@ -152,7 +146,7 @@ def form_counter_resp(counter_value, counter_resp):
                                 value3 = int(temp)
                                 type_3_val = True
 
-                            elif temp.isalnum():
+                            elif not temp.isalpha() and temp.isalnum() and len(temp) >= 3:
                                 value3 = get_sticked_value(temp)
                                 type_3_val = True
 
@@ -163,11 +157,9 @@ def form_counter_resp(counter_value, counter_resp):
                             temp = denom_value['text']
                             if temp.isnumeric() and len(temp) >= 3:
                                 value4 = int(temp)
-                                break
 
-                            elif temp.isalnum():
+                            elif not temp.isalpha() and temp.isalnum() and len(temp) >= 3:
                                 value4 = get_sticked_value(temp)
-                                break
 
                             elif len(temp) < 3 and len(v) >= index + 2:
                                 continue
@@ -196,48 +188,56 @@ def form_counter_resp(counter_value, counter_resp):
 
 
 def form_switch_resp(switch_val, index, switch_resp, look_for):
-    if index + 2 < len(switch_val):
+    if index + 1 < len(switch_val):
         keyword = get_keyword(switch_val[index + 1]['text'], 'is_switch')
         value = 0
         key_co_ords = []
         value_co_ords = []
         if keyword in ['STR', 'INC', 'DEC', 'OUT', 'END']:
-            counter = {}
-            if switch_val[index + 2]['text'].isnumeric():
-                value = int(switch_val[index + 2]['text'])
-                value_co_ords = switch_val[index + 2]['pts']
-                key_co_ords = switch_val[index + 1]['pts']
+            if index + 2 < len(switch_val):
+                temp = switch_val[index + 2]['text']
+                if temp.isnumeric():
+                    value = int(temp)
+                    value_co_ords = switch_val[index + 2]['pts']
+                    key_co_ords = switch_val[index + 1]['pts']
 
-            # handles value that has some alpha character from background
-            elif switch_val[index + 2]['text'].isalnum():
-                value = get_sticked_value(switch_val[index + 2]['text'])
-                value_co_ords = switch_val[index + 2]['pts']
-                key_co_ords = switch_val[index + 1]['pts']
+                # handles value that has some alpha character from background
+                elif not temp.isalpha() and temp.isalnum() and not (len(temp) == 2 and temp[0] == 'C'):
+                    value = get_sticked_value(temp)
+                    value_co_ords = switch_val[index + 2]['pts']
+                    key_co_ords = switch_val[index + 1]['pts']
 
-            # handles space between
-            elif len(switch_val[index + 2]['text'].split(" ")) >= 1:
-                temp_value = switch_val[index + 2]['text'].split(" ")
-                is_number = True
-                for temp in temp_value:
-                    if not temp.isdigit():
-                        is_number = False
-                        break
-                if is_number:
-                    value = int(''.join(switch_val[index + 2]['text'].split(" ")))
-                value_co_ords = switch_val[index + 2]['pts']
-                key_co_ords = switch_val[index + 1]['pts']
-            if look_for == "C1":
-                switch_resp['Counter#0'][keyword] = {"value": value, 'value_co_ord': value_co_ords,
-                                                     'key_co_ords': key_co_ords}
-            elif look_for == "C2":
-                switch_resp['Counter#1'][keyword] = {"value": value, 'value_co_ord': value_co_ords,
-                                                     'key_co_ords': key_co_ords}
-            elif look_for == "C3":
-                switch_resp['Counter#2'][keyword] = {"value": value, 'value_co_ord': value_co_ords,
-                                                     'key_co_ords': key_co_ords}
-            elif look_for in ['C4', "C5"]:
-                switch_resp['Counter#3'][keyword] = {"value": value, 'value_co_ord': value_co_ords,
-                                                     'key_co_ords': key_co_ords}
+                # handles space between
+                elif len(temp.split(" ")) > 1:
+                    temp_value = switch_val[index + 2]['text'].split(" ")
+                    is_number = True
+                    for temp in temp_value:
+                        if not temp.isdigit():
+                            is_number = False
+                            break
+                    if is_number:
+                        value = int(''.join(temp.split(" ")))
+                    value_co_ords = switch_val[index + 2]['pts']
+                    key_co_ords = switch_val[index + 1]['pts']
+                elif value == 0 and len(switch_val) > index+3:
+                    temp = switch_val[index + 3]['text']
+                    if temp.isnumeric():
+                        value = int(temp)
+                        value_co_ords = switch_val[index + 3]['pts']
+                        key_co_ords = switch_val[index + 1]['pts']
+
+                if look_for == "C1":
+                    switch_resp['Counter#0'][keyword] = {"value": value, 'value_co_ord': value_co_ords,
+                                                         'key_co_ords': key_co_ords}
+                elif look_for == "C2":
+                    switch_resp['Counter#1'][keyword] = {"value": value, 'value_co_ord': value_co_ords,
+                                                         'key_co_ords': key_co_ords}
+                elif look_for == "C3":
+                    switch_resp['Counter#2'][keyword] = {"value": value, 'value_co_ord': value_co_ords,
+                                                         'key_co_ords': key_co_ords}
+                elif look_for in ['C4', "C5"]:
+                    switch_resp['Counter#3'][keyword] = {"value": value, 'value_co_ord': value_co_ords,
+                                                         'key_co_ords': key_co_ords}
 
 
 def switch_val(switch_val, ocr_resp, look_for, switch_resp):
@@ -250,6 +250,10 @@ def switch_val(switch_val, ocr_resp, look_for, switch_resp):
                 to_append = True
                 continue
             if to_append:
+                text = val['text']
+                keyword = get_keyword(text, 'is_switch')
+                if not keyword and text.isalpha():
+                    continue
                 switch_val.append(val)
     # form switch response
     for index, row in enumerate(switch_val):
@@ -296,6 +300,15 @@ def extract_fields(ocr_resp):
     switch1_resp = switch_val(switch1_val, ocr_resp, 'Switch1', switch1_resp)
     switch2_resp = switch_val(switch2_val, ocr_resp, 'Switch2', switch2_resp)
 
+    switch1 = switch1_resp.copy()
+    switch2 = switch2_resp.copy()
+    for key, val in switch1.items():
+        if len(val) < 5:
+            switch1_resp.pop(key)
+
+    for key, val in switch2.items():
+        if len(val) < 5:
+            switch2_resp.pop(key)
     # form counter one response
     form_counter_resp(counter1_val, counter1_resp)
     form_counter_resp(counter2_val, counter2_resp)
