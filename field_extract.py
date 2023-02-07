@@ -104,20 +104,33 @@ def form_counter_resp(counter_value, counter_resp):
                 if k in ['CASSETTE', 'REJECTED', 'REMAINING', 'DISPENSED', 'TOTAL']:
                     value1, value2 = 0, 0
                     value_co_ord1, value_co_ord2 = [], []
+                    type_1_val = False
                     for index, denom_value in enumerate(v):
-                        if index == 0:
+                        if not type_1_val:
                             temp = denom_value['text']
-                            if temp.isnumeric():
+                            if temp.isnumeric() and len(temp) >= 3:
                                 value1 = int(temp)
-                            else:
+                                type_1_val = True
+
+                            elif temp.isalnum() and len(temp) > 3:
                                 value1 = get_sticked_value(temp)
+                                type_1_val = True
+
+                            elif len(temp) < 3 and len(v) > index + 2:
+                                continue
                             value_co_ord1 = denom_value['pts']
-                        elif index == 1:
+                        elif type_1_val:
                             temp = denom_value['text']
-                            if temp.isnumeric():
+                            if temp.isnumeric() and len(temp) >= 3:
                                 value2 = int(temp)
-                            else:
+                                break
+
+                            elif temp.isalnum() and len(temp) > 3:
                                 value2 = get_sticked_value(temp)
+                                break
+
+                            elif len(temp) < 3 and len(v) >= index + 2:
+                                continue
                             value_co_ord2 = denom_value['pts']
 
                     type1[k] = {'value': value1, "value_co_ord": value_co_ord1}
@@ -131,20 +144,33 @@ def form_counter_resp(counter_value, counter_resp):
                 if k in ['CASSETTE', 'REJECTED', 'REMAINING', 'DISPENSED', 'TOTAL']:
                     value3, value4 = 0, 0
                     value_co_ord3, value_co_ord4 = [], []
+                    type_3_val = False
                     for index, denom_value in enumerate(v):
-                        if index == 0:
+                        if not type_3_val:
                             temp = denom_value['text']
-                            if temp.isnumeric():
+                            if temp.isnumeric() and len(temp) >= 3:
                                 value3 = int(temp)
-                            else:
+                                type_3_val = True
+
+                            elif temp.isalnum():
                                 value3 = get_sticked_value(temp)
+                                type_3_val = True
+
+                            elif len(temp) < 3 and len(v) > index + 2:
+                                continue
                             value_co_ord3 = denom_value['pts']
-                        elif index == 1:
+                        elif type_3_val:
                             temp = denom_value['text']
-                            if temp.isnumeric():
+                            if temp.isnumeric() and len(temp) >= 3:
                                 value4 = int(temp)
-                            else:
+                                break
+
+                            elif temp.isalnum():
                                 value4 = get_sticked_value(temp)
+                                break
+
+                            elif len(temp) < 3 and len(v) >= index + 2:
+                                continue
                             value_co_ord4 = denom_value['pts']
 
                     type3[k] = {'value': value3, "value_co_ord": value_co_ord3}
