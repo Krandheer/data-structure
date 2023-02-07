@@ -170,13 +170,13 @@ def form_counter_resp(counter_value, counter_resp):
 
 
 def form_switch_resp(switch_val, index, switch_resp, look_for):
-    keyword = get_keyword(switch_val[index + 1]['text'], 'is_switch')
-    value = 0
-    key_co_ords = []
-    value_co_ords = []
-    if keyword in ['STR', 'INC', 'DEC', 'OUT', 'END']:
-        counter = {}
-        if index + 2 < len(switch_val):
+    if index + 2 < len(switch_val):
+        keyword = get_keyword(switch_val[index + 1]['text'], 'is_switch')
+        value = 0
+        key_co_ords = []
+        value_co_ords = []
+        if keyword in ['STR', 'INC', 'DEC', 'OUT', 'END']:
+            counter = {}
             if switch_val[index + 2]['text'].isnumeric():
                 value = int(switch_val[index + 2]['text'])
                 value_co_ords = switch_val[index + 2]['pts']
