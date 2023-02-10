@@ -53,3 +53,11 @@ def create_folder_inside_folder():
 def file_inside_folder():
     hdfc_reports = os.path.join(downloads, 'hdfc_reports')
     os.listdir(hdfc_reports)
+
+# dest = os.path.join(downloads, 'chunk_3_feb9')
+# for i in temp3:
+#     paths = glob(f"{path}/{i}*")
+#     print(paths)
+#     for j in paths:
+#         print(j)
+#         shutil.copy(j, dest)
