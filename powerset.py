@@ -3,8 +3,10 @@ def powerset(temp_p, temp_up):
         print(temp_p)
         return
     elem = temp_up[0]
-    powerset(temp_p+elem, temp_up[1:])
+    powerset(temp_p + elem, temp_up[1:])
     powerset(temp_p, temp_up[1:])
+
+
 #
 #
 # powerset("", 'abc')
@@ -24,3 +26,19 @@ def powerset2(temp_p, temp_up, ans):
 temp_ans = []
 print(powerset2("", 'abc', temp_ans))
 
+
+def powerset3(temp_p, temp_up):
+    if temp_up == "":
+        ans = [temp_p]
+        return ans
+    elem = temp_up[0]
+    left = powerset3(temp_p, temp_up[1:])
+    right = powerset3(temp_p + elem, temp_up[1:])
+
+    for i in right:
+        left.append(i)
+
+    return left
+
+
+print(powerset3('', 'abc'))
