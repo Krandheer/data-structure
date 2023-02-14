@@ -61,3 +61,4 @@ def file_inside_folder():
 #     for j in paths:
 #         print(j)
 #         shutil.copy(j, dest)
+
