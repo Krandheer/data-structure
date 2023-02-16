@@ -10,5 +10,19 @@ def ways_to_climb_stairs(p, target, ans):
     return len(ans)
 
 
-print(ways_to_climb_stairs("", 4, []))
+# print(ways_to_climb_stairs("", 10, []))
 
+
+def way_dp(target, dp):
+    if target == 1 or target == 2:
+        return target
+    elif target == 0:
+        return 1
+    elif dp[target] != -1:
+        return dp[target]
+    else:
+        dp[target] = way_dp(target - 1, dp) + way_dp(target - 2, dp) + way_dp(target - 3, dp)
+        return dp[target]
+
+
+print(way_dp(10, [-1] * 11))
