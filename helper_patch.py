@@ -35,7 +35,7 @@ def fix_counter(counter_type, switch_type, curr_files, atm_id):
         value_changed = False
         if key in ["TYPE1", "TYPE2", "TYPE3", "TYPE4", "TYPE5"] and val['TRIANGULATION'] == "FAIL":
             col_hdr = val['final_col_hdr_']
-            ctr = f'CTR{col_hdr[-1]}'
+            ctr = f'C{col_hdr[-1]}'
             if f"T{col_hdr[-1]}" not in master_d[atm_id]:
                 val['CASSETTE']['value'] = 0
                 val['REJECTED']['value'] = 0
@@ -48,22 +48,49 @@ def fix_counter(counter_type, switch_type, curr_files, atm_id):
             elif f"T{col_hdr[-1]}" in master_d[atm_id]:
                 denom = master_d[atm_id][f"T{col_hdr[-1]}"]  # need to define it
                 temp = {}
-                for s_key, s_val in switch_data.items:
+                for s_key, s_val in switch_data.items():
                     if s_val["CTR"] == ctr:
-                        temp = val
+                        temp = s_val
                         break
                 if counter_type == "_CA":
-                    if val['STR']['value'] != (temp['TOTAL']['value']) * denom or val['END']['value'] != (
-                            temp['REMAINING']['value']) * denom:
+                    if (val['TOTAL']['value']) * denom != temp['STR']['value'] and temp['INC']['value'] == 0:
                         val['TOTAL']['value'] = temp['STR']['value'] // denom
+                        is_modified = True
+                        value_changed = True
+                    elif (val['TOTAL']['value']) * denom != (temp['STR']['value'] + temp['INC']['value']):
+                        temp['TOTAL']['value'] = (temp['STR']['value'] + temp['INC']['value']) // denom
+                        is_modified = True
+                        value_changed = True
+                    if (val['REMAINING']['value']) * denom != temp['END']['value']:
+                        val['REMAINING']['value'] = temp['END']['value'] // denom
+                        if val['REJECTED']['value'] == 0 and val['CASSETTE']['value'] != val['REMAINING']['value']:
+                            val['CASSETTE']['value'] = val['REMAINING']['value']
+                        is_modified = True
+                        value_changed = True
+
+                    if (val['REMAINING']['value']) * denom == temp['END']['value'] and val['REJECTED']['value'] == 0 \
+                            and val['CASSETTE']['value'] != val['REMAINING']['value']:
+                        val['CASSETTE']['value'] = val['REMAINING']['value']
+                        is_modified = True
+                        value_changed = True
+
+                elif counter_type == "_CB":
+                    if (val['DISPENSED']['value']) * denom != temp['OUT']['value']:
+                        val['DISPENSED']['value'] = temp['OUT']['value'] // denom
                         val['REMAINING']['value'] = temp['END']['value'] // denom
                         is_modified = True
                         value_changed = True
-                elif counter_type == "_CB":
-                    if val['OUT']['value'] != (temp['DISPENSED']['value']) * denom or val['END']['value'] != (
-                            temp['REMAINING']['value']) * denom:
-                        val['DISPENSED']['value'] = temp['OUT']['value'] // denom
+
+                    if (val['REMAINING']['value']) * denom != temp['END']['value']:
                         val['REMAINING']['value'] = temp['END']['value'] // denom
+                        if val['REJECTED']['value'] == 0 and val['CASSETTE']['value'] != val['REMAINING']['value']:
+                            val['CASSETTE']['value'] = val['REMAINING']['value']
+                        is_modified = True
+                        value_changed = True
+
+                    if (val['REMAINING']['value']) * denom == temp['END']['value'] and val['REJECTED']['value'] == 0 \
+                            and val['CASSETTE']['value'] != val['REMAINING']['value']:
+                        val['CASSETTE']['value'] = val['REMAINING']['value']
                         is_modified = True
                         value_changed = True
 
@@ -116,12 +143,20 @@ def fix_switch(switch_type, counter_type, curr_files, atm_id):
                 # End, OUT and remaining, dispensed  can always be corrected in before
                 # End, STR and remaining, total can always be corrected in after
                 if switch_type == "_SA":
-                    if val['STR']['value'] != (temp['TOTAL']['value']) * denom or val['END']['value'] != (
-                            temp['REMAINING']['value']) * denom:
+                    if val['STR']['value'] != (temp['TOTAL']['value']) * denom and val['INC']['value'] == 0:
                         val['STR']['value'] = (temp['TOTAL']['value']) * denom
+                        is_modified = True
+                        value_changed = True
+                    elif val['STR']['value'] != (temp['TOTAL']['value']) * denom:
+                        val['STR']['value'] = (temp['TOTAL']['value']) * denom - val['INC']['value']
+                        is_modified = True
+                        value_changed = True
+
+                    if val['END']['value'] != (temp['REMAINING']['value']) * denom:
                         val['END']['value'] = (temp['REMAINING']['value']) * denom
                         is_modified = True
                         value_changed = True
+
                 elif switch_type == "_SB":
                     if val['OUT']['value'] != (temp['DISPENSED']['value']) * denom or val['END']['value'] != (
                             temp['REMAINING']['value']) * denom:
@@ -161,6 +196,7 @@ def process_pass_fail(data, pass_fail, slip_type):
 
 
 def switch_counter_sync(atm_id, INTERMEDIATE_JSON_PATH):
+    print(f'entering in patch2->{atm_id}')
     curr_files = glob(f"{INTERMEDIATE_JSON_PATH}/{atm_id}*")
     pass_fail = {}
 
@@ -190,3 +226,8 @@ def switch_counter_sync(atm_id, INTERMEDIATE_JSON_PATH):
     if "CB" in pass_fail and not "SB" in pass_fail:
         fix_counter("_CB", "_SB", curr_files, atm_id)
 
+
+home = os.path.expanduser("~")
+path = os.path.join(home, 'projects', 'WriterCorp', 'INTERMEDIATE_JSON_PATH')
+
+switch_counter_sync('S1ANBH16', path)
