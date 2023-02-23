@@ -20,7 +20,7 @@ for elem in master_ll:
     master_d[arr[0]] = loc_d
 
 
-def fix_counter(counter_type, switch_type, curr_files, atm_id):
+def fix_counter(counter_type, switch_type, curr_files, atm_id, json_log_path):
     for file in curr_files:
         if switch_type in file:
             with open(file, "r") as f:
@@ -99,6 +99,12 @@ def fix_counter(counter_type, switch_type, curr_files, atm_id):
                 if val['REMAINING']['value'] == val['CASSETTE']['value'] + val['REJECTED']['value'] and \
                         val['REMAINING']['value'] + val['DISPENSED']['value'] == val['TOTAL']['value']:
                     val['TRIANGULATION'] = "PASS"
+                    with open(json_log_path, 'r') as f:
+                        data = json.load(f)
+                    data['pair_matching_patch'] += 1
+                    data[atm_id] = 'pair_matching_patch'
+                    with open(json_log_path, 'w') as f:
+                        json.dump(data, f)
             except:
                 pass
             counter_data[key] = val
@@ -113,7 +119,7 @@ def fix_counter(counter_type, switch_type, curr_files, atm_id):
             json.dump(counter_data, f)
 
 
-def fix_switch(switch_type, counter_type, curr_files, atm_id):
+def fix_switch(switch_type, counter_type, curr_files, atm_id, json_log_path):
     for file in curr_files:
         if switch_type in file:
             with open(file, "r") as f:
@@ -169,6 +175,14 @@ def fix_switch(switch_type, counter_type, curr_files, atm_id):
                 if val['STR']['value'] + val['INC']['value'] - val['DEC']['value'] - val['OUT']['value'] == val['END'][
                     'value']:
                     val['TRIANGULATION'] = "PASS"
+                    with open(json_log_path, 'r') as f:
+                        data = json.load(f)
+                    data['pair_matching_patch'] += 1
+                    data[f"pair_{atm_id}"] = 'pair_matching_patch'
+                    with open(json_log_path, 'w') as f:
+                        json.dump(data, f)
+
+
             except:
                 pass
             switch_data[key] = val
@@ -195,7 +209,7 @@ def process_pass_fail(data, pass_fail, slip_type):
                     pass_fail['SA'] = 'fail'
 
 
-def switch_counter_sync(atm_id, INTERMEDIATE_JSON_PATH):
+def switch_counter_sync(atm_id, INTERMEDIATE_JSON_PATH, json_log_path):
     print(f'entering in patch2->{atm_id}')
     curr_files = glob(f"{INTERMEDIATE_JSON_PATH}/{atm_id}*")
     pass_fail = {}
@@ -215,19 +229,19 @@ def switch_counter_sync(atm_id, INTERMEDIATE_JSON_PATH):
     if not pass_fail:
         return
     if "SA" in pass_fail and not "CA" in pass_fail:
-        fix_switch("_SA", "_CA", curr_files, atm_id)
+        fix_switch("_SA", "_CA", curr_files, atm_id, json_log_path)
 
     if "SB" in pass_fail and not "CB" in pass_fail:
-        fix_switch("_SB", "_CB", curr_files, atm_id)
+        fix_switch("_SB", "_CB", curr_files, atm_id, json_log_path)
 
     if 'CA' in pass_fail and not "SA" in pass_fail:
-        fix_counter("_CA", "_SA", curr_files, atm_id)
+        fix_counter("_CA", "_SA", curr_files, atm_id, json_log_path)
 
     if "CB" in pass_fail and not "SB" in pass_fail:
-        fix_counter("_CB", "_SB", curr_files, atm_id)
+        fix_counter("_CB", "_SB", curr_files, atm_id, json_log_path)
 
 
 home = os.path.expanduser("~")
 path = os.path.join(home, 'projects', 'WriterCorp', 'INTERMEDIATE_JSON_PATH')
-
-switch_counter_sync('S1ANBH16', path)
+json_log_path = 'resp.json'
+switch_counter_sync('S1ANBH16', path, json_log_path)
