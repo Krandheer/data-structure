@@ -7,7 +7,7 @@ def get_wrong_id_json_file(atm_id_to_process):
     json_file = {
         "filesToProcess": []
     }
-    path = "~/Downloads/Writer_Mongo_Data_Report_2023-02-08_2023-02-08T19_30_00.827Z.csv"
+    path = "~/Downloads/Writer_Mongo_Data_Report_2023-02-21_2023-02-21T19_30_00.398Z"
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[(df['ALL_FILE_PASS'] == "False")]['ATMID']
     atm_id = atm_id[atm_id.str[:4] == atm_id_to_process]
