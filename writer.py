@@ -1,3 +1,4 @@
+import json
 from collections import Counter
 
 
@@ -101,7 +102,7 @@ def form_counter_resp(value, key_val, resp, look_for, temp):
             resp[key] = key_val[key]
 
 
-def helper_row_based_extraction(look_for, key_val, ocr_resp):
+def helper_row_based_extraction(look_for, key_val, ocr_resp, atm_id, json_log_path):
     resp = {}
     ocr_resp_row = []
     switch_change_values = {}
@@ -133,13 +134,13 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
                             key_co_ords = row['pts']
 
                         # check alpha_numeric and extract values from end or start
-                        elif rows[index + 1]['text'].isalnum():
+                        elif not rows[index + 1]['text'].isalpha() and rows[index + 1]['text'].isalnum():
                             value = get_value_sticked_with_keyword(rows[index + 1]['text'])
                             value_co_ords = rows[index + 1]['pts']
                             key_co_ords = row['pts']
 
                         # handles space between values
-                        elif len(rows[index + 1]['text'].split(" ")) >= 1:
+                        elif len(rows[index + 1]['text'].split(" ")) > 1:
                             temp_value = rows[index + 1]['text'].split(" ")
                             is_number = True
                             for temp in temp_value:
@@ -207,6 +208,12 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
 
     if is_triangulation_pass(resp, look_for):
         resp['TRIANGULATION'] = 'PASS'
+        with open(json_log_path, 'r') as f:
+            data = json.load(f)
+        data['row_wise_extraction_patch'] += 1
+        data[atm_id] = 'row_wise_extraction_patch'
+        with open(json_log_path, 'w') as f:
+            json.dump(data, f)
         return resp
 
     # for switch: if only one value was changed and then also triangulation is failing try triangulation by making
@@ -217,6 +224,12 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
                 resp[key]['value'] = 0
         if is_triangulation_pass(resp, look_for):
             resp['TRIANGULATION'] = "PASS"
+            with open(json_log_path, 'r') as f:
+                data = json.load(f)
+            data['row_wise_extraction_patch'] += 1
+            data[atm_id] = 'row_wise_extraction_patch'
+            with open(json_log_path, 'w') as f:
+                json.dump(data, f)
             return resp
 
     # one extra or less value check for switch
@@ -258,19 +271,43 @@ def helper_row_based_extraction(look_for, key_val, ocr_resp):
             key_val[key_to_change_val]['value'] = remove_left
             if is_triangulation_pass(key_val, look_for):
                 key_val['TRIANGULATION'] = 'PASS'
+                with open(json_log_path, 'r') as f:
+                    data = json.load(f)
+                data['row_wise_extraction_patch'] += 1
+                data[atm_id] = 'row_wise_extraction_patch'
+                with open(json_log_path, 'w') as f:
+                    json.dump(data, f)
                 return key_val
             key_val[key_to_change_val]['value'] = remove_right
             if is_triangulation_pass(key_val, look_for):
                 key_val['TRIANGULATION'] = 'PASS'
+                with open(json_log_path, 'r') as f:
+                    data = json.load(f)
+                data['row_wise_extraction_patch'] += 1
+                data[atm_id] = 'row_wise_extraction_patch'
+                with open(json_log_path, 'w') as f:
+                    json.dump(data, f)
                 return key_val
 
             key_val[key_to_change_val]['value'] = add_left
             if is_triangulation_pass(key_val, look_for):
                 key_val['TRIANGULATION'] = 'PASS'
+                with open(json_log_path, 'r') as f:
+                    data = json.load(f)
+                data['row_wise_extraction_patch'] += 1
+                data[atm_id] = 'row_wise_extraction_patch'
+                with open(json_log_path, 'w') as f:
+                    json.dump(data, f)
                 return key_val
             key_val[key_to_change_val]['value'] = add_right
             if is_triangulation_pass(key_val, look_for):
                 key_val['TRIANGULATION'] = 'PASS'
+                with open(json_log_path, 'r') as f:
+                    data = json.load(f)
+                data['row_wise_extraction_patch'] += 1
+                data[atm_id] = 'row_wise_extraction_patch'
+                with open(json_log_path, 'w') as f:
+                    json.dump(data, f)
                 return key_val
 
     return None
@@ -311,7 +348,7 @@ def fraud_end_correction(look_for, key_val, ocr_resp):
     return resp
 
 
-def helper_fields_extract(extracted_resp, slip_type, ocr_resp):
+def helper_fields_extract(extracted_resp, slip_type, ocr_resp, atm_id, json_log_path):
     try:
         for key in extracted_resp.keys():
             if slip_type == "SWITCH" and key in ['Counter#0', "Counter#1", "Counter#2", "Counter#3", 'Counter#4',
@@ -326,7 +363,7 @@ def helper_fields_extract(extracted_resp, slip_type, ocr_resp):
                             key_val_1['OUT'] = key_val["OUT2"]
                         else:
                             key_val_1[key1] = key_val[key1]
-                    helper_resp = helper_row_based_extraction(look_for, key_val_1, ocr_resp)
+                    helper_resp = helper_row_based_extraction(look_for, key_val_1, ocr_resp, atm_id, json_log_path)
 
                     if helper_resp is not None:
                         extracted_resp[key] = helper_resp
@@ -341,7 +378,7 @@ def helper_fields_extract(extracted_resp, slip_type, ocr_resp):
                 if key_val['TRIANGULATION'] != 'PASS':
                     print("helper code used")
                     look_for = key_val['final_col_hdr_']
-                    helper_resp = helper_row_based_extraction(look_for, key_val, ocr_resp)
+                    helper_resp = helper_row_based_extraction(look_for, key_val, ocr_resp, atm_id, json_log_path)
 
                     if helper_resp is not None:
                         extracted_resp[key] = helper_resp
