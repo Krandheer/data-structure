@@ -7,7 +7,7 @@ def get_wrong_id_json_file(atm_id_to_process):
     json_file = {
         "filesToProcess": []
     }
-    path = "~/Downloads/Writer_Mongo_Data_Report_2023-02-21_2023-02-21T19_30_00.398Z"
+    path = "~/Downloads/Writer_Mongo_Data_Report_2023-02-22_2023-02-22T19_30_00.943Z.csv"
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[(df['ALL_FILE_PASS'] == "False")]['ATMID']
     atm_id = atm_id[atm_id.str[:4] == atm_id_to_process]
@@ -30,7 +30,20 @@ def get_wrong_id_json_file(atm_id_to_process):
         json.dump(json_file, f)
 
 
-get_wrong_id_json_file('S1AN')
+# get_wrong_id_json_file('S1AN')
+
+
+def get_top_fails():
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-02-22_2023-02-22T19_30_00.943Z.csv'
+    df = pd.read_csv(path, low_memory=False)
+    df['prefix_atmid'] = df['ATMID'].str[:4]
+    grouped = df.groupby(['prefix_atmid', 'ALL_FILE_PASS'])
+    count = grouped.size().sort_values(ascending=False)
+    for item in count.iteritems():
+        if item[0][-1] == 'False':
+            print(item)
+
+get_top_fails()
 # path = "~/Downloads/Writer_Mongo_Data_Report_2023-01-11_2023-01-11T19_30_00.260Z.csv"
 # df = pd.read_csv(path, low_memory=False)
 #
