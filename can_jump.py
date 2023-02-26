@@ -1,20 +1,15 @@
 def canJump(nums):
-    return helper(0, nums, [False] * (len(nums)))
+    return helper(nums)
 
 
-def helper(i, nums, dp):
-    if i == len(nums)-1:
-        return True
-    if dp[i]:
-        return True
-    for j in range(1, nums[i] + 1):
-        if i+j <= len(nums):
-            dp[i+j] = helper(i + j, nums, dp)
+def helper(nums):
+    goal = len(nums) - 1
+    # start from last and see if you can reach the next last or not and that's it.
+    for i in range(len(nums) - 1, -1, -1):
+        if i + nums[i] >= goal:
+            goal = i
 
-    if dp[len(nums)-1]:
-        return True
-    else:
-        return False
+    return goal == 0
 
 
 def helper2(i, nums):
