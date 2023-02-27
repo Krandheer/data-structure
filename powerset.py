@@ -7,8 +7,6 @@ def powerset(temp_p, temp_up):
     powerset(temp_p, temp_up[1:])
 
 
-#
-#
 # powerset("", 'abc')
 
 
@@ -23,8 +21,7 @@ def powerset2(temp_p, temp_up, ans):
     return sorted(sorted(ans), key=lambda x: len(x))
 
 
-temp_ans = []
-print(powerset2("", 'abc', temp_ans))
+print(powerset2("", 'abc', []))
 
 
 def powerset3(temp_p, temp_up):
@@ -41,4 +38,4 @@ def powerset3(temp_p, temp_up):
     return left
 
 
-print(powerset3('', 'abc'))
+# print(powerset3('', 'abc'))
