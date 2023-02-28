@@ -77,7 +77,6 @@ def fix_counter(counter_type, switch_type, curr_files, atm_id, json_log_path):
                 elif counter_type == "_CB":
                     if (val['DISPENSED']['value']) * denom != temp['OUT']['value']:
                         val['DISPENSED']['value'] = temp['OUT']['value'] // denom
-                        val['REMAINING']['value'] = temp['END']['value'] // denom
                         is_modified = True
                         value_changed = True
 
@@ -175,6 +174,7 @@ def fix_switch(switch_type, counter_type, curr_files, atm_id, json_log_path):
                 if val['STR']['value'] + val['INC']['value'] - val['DEC']['value'] - val['OUT']['value'] == val['END'][
                     'value']:
                     val['TRIANGULATION'] = "PASS"
+                    switch_data['FRAUD_END'] = "NO"  #newline added 27feb
                     with open(json_log_path, 'r') as f:
                         data = json.load(f)
                     data['pair_matching_patch'] += 1
