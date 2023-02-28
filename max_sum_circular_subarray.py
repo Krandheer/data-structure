@@ -1,4 +1,11 @@
 def maxSubarraySumCircular(nums) -> int:
+
+    """
+    leetcode question: using kadane algo, and then making negative of all element finding max
+    to find the min subarray from original and then subtracting it from sum of array to get the either side max
+    in case of circular has max
+    """
+
     if len(nums) < 1:
         return 0
     t = 0
@@ -18,7 +25,7 @@ def maxSubarraySumCircular(nums) -> int:
         else:
             result = max(temp, result)
 
-            # initialize array with negative of same values
+    # initialize array with negative of same values
     arr = [0] * (len(nums))
     for i in range(len(nums)):
         arr[i] = -nums[i]
