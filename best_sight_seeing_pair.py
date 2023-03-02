@@ -18,3 +18,6 @@ def maxScoreSightseeingPair(values) -> int:
     #             max_score = num + values[j]+index-j
 
     # return max_score
+
+
+print(maxScoreSightseeingPair([8, 1, 5, 2, 6]))
