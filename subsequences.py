@@ -10,7 +10,7 @@ def sub_seqeunces(temp_p, temp_up, ans):
     return ans
 
 
-# print(sub_array([], [5, 4, -1, ], []))
+print(sub_seqeunces([], [5, 4, -1, ], []))
 
 
 def subsequences(temp_p, temp_up):
@@ -24,7 +24,7 @@ def subsequences(temp_p, temp_up):
     subsequences(temp_p, temp_up[1:])
 
 
-print(subsequences([], [-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+# print(subsequences([], [-2, 1, -3, 4, -1, 2, 1, -5, 4]))
 
 
 def max_subsequence_sum(i, nums, dp):
