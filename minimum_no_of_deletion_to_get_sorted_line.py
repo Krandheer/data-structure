@@ -1,9 +1,8 @@
 def lis(arr, n):
+    # this function basically gives the longest increasing subsequence, and then we will subtract this length
+    # from overall length to get number of elements to be deleted
     result = 0
     lst = [1] * n
-
-    # Compute optimized LIS values
-    # in bottom up manner
     for i in range(1, n):
         for j in range(i):
             if (arr[i] > arr[j] and
@@ -17,8 +16,7 @@ def lis(arr, n):
     return result
 
 
-# Function to calculate minimum
-# number of deletions
+# Function to calculate minimum number of deletions
 def minimum_number_of_deletions(arr, n):
     return n - lis(arr, n)
 
