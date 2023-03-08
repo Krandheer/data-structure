@@ -1,4 +1,12 @@
 def sub_seqeunces(temp_p, temp_up, ans):
+    """
+    we can use this code to check longest increasing subsequence in brute force approach,
+    just before adding in answer check if it is increasing sequence if yes add it and have a variable to store the length
+    and keep modifying the length if any longer length found.
+
+    and since it is recursion we can optimise it using memoization technique
+    """
+
     if len(temp_up) == 0:
         ans.append(temp_p)
         return
