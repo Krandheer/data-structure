@@ -2,16 +2,16 @@ def lis(arr, n):
     # this function basically gives the longest increasing subsequence, and then we will subtract this length
     # from overall length to get number of elements to be deleted
     result = 0
-    lst = [1] * n
+    dp = [1] * n
     for i in range(1, n):
         for j in range(i):
-            if (arr[i] > arr[j] and
-                    lst[i] < lst[j] + 1):
-                lst[i] = lst[j] + 1
+            # todo: dry run this
+            if arr[i] > arr[j] and dp[i] < dp[j] + 1:
+                dp[i] = dp[j] + 1
 
     for i in range(n):
-        if result < lst[i]:
-            result = lst[i]
+        if result < dp[i]:
+            result = dp[i]
 
     return result
 
