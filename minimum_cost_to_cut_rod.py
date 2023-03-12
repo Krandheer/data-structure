@@ -35,3 +35,4 @@ def min_cuts_dp(i, j, cuts, dp):
 
 dp = [[-1 for i in range(len(cuts))] for j in range(len(cuts))]
 print(min_cuts_dp(1, len(cuts) - 2, cuts, dp))
+print(dp)
