@@ -16,6 +16,7 @@ cuts = [1, 3, 4, 5]
 rod_len = 7
 cuts.append(rod_len)
 cuts.insert(0, 0)
+# sorting so that we have independent sub problem after each cut we do
 cuts.sort()
 print(min_cuts_to_cut_rode(1, len(cuts) - 2, cuts))
 

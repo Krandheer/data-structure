@@ -3,6 +3,8 @@ def moveZeroes(nums):
     Do not return anything, modify nums in-place instead.
     """
     m = 0
+    # this will calculate the number of non-zeros
+    # and modify array
     for i, n in enumerate(nums):
         if n != 0:
             nums[m] = n
