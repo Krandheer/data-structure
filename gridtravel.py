@@ -21,8 +21,28 @@ def grid_travel_dp(i, j, dp):
     return dp[i][j]
 
 
+# dp_1 = [[-1 for j in range(3)] for i in range(3)]
+# print(grid_travel_dp(2, 2, dp_1))
+
+
+def grid_travel_bottom_up(i, j, dp):
+    for i in range(i + 1):
+        for j in range(j + 1):
+            if i == 0 and j == 0:
+                dp[i][j] = 1
+            else:
+                left = 0
+                up = 0
+                if i >= 1:
+                    left = dp[i - 1][j]
+                if j >= 1:
+                    up = dp[i][j - 1]
+                dp[i][j] = left + up
+    return dp[i][j]
+
+
 dp_1 = [[-1 for j in range(3)] for i in range(3)]
-print(grid_travel_dp(2, 2, dp_1))
+print(grid_travel_bottom_up(2, 2, dp_1))
 
 
 def grid_travel_path(p, m, n):
