@@ -1,12 +1,28 @@
-def grid_travel(m, n):
-    if m == 1 or n == 1:
+def grid_travel(i, j):
+    if i == 0 or j == 0:
         return 1
-    if m == 0 or n == 0:
+    if i < 0 or j < 0:
         return 0
-    return grid_travel(m - 1, n) + grid_travel(m, n - 1)
+    return grid_travel(i - 1, j) + grid_travel(i, j - 1)
 
 
-# print(grid_travel(3, 3))
+# 3*3 grid
+# print(grid_travel(2, 2))
+
+
+def grid_travel_dp(i, j, dp):
+    if i == 0 or j == 0:
+        return 1
+    if i < 0 or j < 0:
+        return 0
+    if dp[i][j] != -1:
+        return dp[i][j]
+    dp[i][j] = grid_travel_dp(i - 1, j, dp) + grid_travel_dp(i, j - 1, dp)
+    return dp[i][j]
+
+
+dp_1 = [[-1 for j in range(3)] for i in range(3)]
+print(grid_travel_dp(2, 2, dp_1))
 
 
 def grid_travel_path(p, m, n):
@@ -52,5 +68,4 @@ def grid_travel_path_list2(p, m, n):
 
     return result
 
-
-print(grid_travel_path_list2("", 2, 2))
+# print(grid_travel_path_list2("", 2, 2))
