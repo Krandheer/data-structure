@@ -17,7 +17,7 @@ def minimum_coin_to_target(index, target, arr_coin):
 
 
 coin_denom = [1, 2, 3]
-target = 7
+target = 4
 print(minimum_coin_to_target(2, target, coin_denom))
 
 
