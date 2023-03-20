@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 from datetime import datetime
 import json
@@ -11,7 +13,7 @@ def get_wrong_id_json_file():
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[(df['ALL_FILE_PASS'] == "False")]['ATMID']
 
-    with open('canara.json', 'r') as f:
+    with open('KOTAK MAHINDRA.json', 'r') as f:
         canara_id = json.load(f)
 
     canara_ids = canara_id['filesToProcess']
@@ -34,7 +36,7 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('bug_fail.json', 'w') as f:
+    with open('kotak_m_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
@@ -50,6 +52,7 @@ def get_top_fails():
     for item in count.iteritems():
         if item[0][-1] == 'False':
             print(item)
+
 
 # get_top_fails()
 # path = "~/Downloads/Writer_Mongo_Data_Report_2023-02-21_2023-02-21T19_30_00.398Z.csv"
@@ -88,3 +91,22 @@ def get_top_fails():
 #     atm_ids.append(ids)
 #
 # print(len(atm_ids), atm_ids)
+
+
+def get_all_ids_of_bank(bank_name):
+    downloads = os.path.join(os.path.expanduser("~"), "Downloads")
+    map_path = os.path.join(downloads, 'ATMID_BANKNAME_Details.csv')
+    df = pd.read_csv(map_path)
+    bank_ids_list = []
+    bank_id = df[df['BankName'] == bank_name]['ATMID']
+    for i in bank_id:
+        if i not in bank_ids_list:
+            bank_ids_list.append(i)
+    json_file = {
+        "filesToProcess": bank_ids_list
+    }
+    with open(f"{bank_name}.json", 'w') as f:
+        json.dump(json_file, f)
+
+
+# get_all_ids_of_bank("KOTAK MAHINDRA")
