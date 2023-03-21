@@ -5,7 +5,9 @@ def min_cuts_to_cut_rode(i, j, cuts):
     if i > j:
         return 0
     min_cost = math.inf
-    for index in range(i, j + 1):
+    # 1, 5
+    # [0, 1, 3, 4, 5, 7]
+    for index in range(i, j+1):
         cost = cuts[j + 1] - cuts[i - 1] + min_cuts_to_cut_rode(i, index - 1, cuts) + min_cuts_to_cut_rode(index + 1, j,
                                                                                                            cuts)
         min_cost = min(min_cost, cost)
@@ -18,7 +20,8 @@ cuts.append(rod_len)
 cuts.insert(0, 0)
 # sorting so that we have independent sub problem after each cut we do
 cuts.sort()
-print(min_cuts_to_cut_rode(1, len(cuts) - 2, cuts))
+# 1,4
+print(min_cuts_to_cut_rode(1, len(cuts) -2 , cuts))
 
 
 def min_cuts_dp(i, j, cuts, dp):
