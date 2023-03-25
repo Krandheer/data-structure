@@ -18,7 +18,7 @@ def sub_seqeunces(temp_p, temp_up, ans):
     return ans
 
 
-print(sub_seqeunces([], [5, 4, -1, ], []))
+# print(sub_seqeunces([], [5, 4, -1, ], []))
 
 
 def subsequences(temp_p, temp_up):
@@ -48,5 +48,22 @@ def max_subsequence_sum(i, nums, dp):
     return dp[i]
 
 
-nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-print(max_subsequence_sum(len(nums) - 1, nums, [-1] * (len(nums))))
+# nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+# dp_1 = [-1]*len(nums)
+# print(max_subsequence_sum(len(nums) - 1, nums, dp_1))
+# print(dp_1)
+
+def subsequence_sum(i, nums, target):
+    if target == 0:
+        return True
+    elif i < 0:
+        return False
+    pick = subsequence_sum(i - 1, nums, target - nums[i])
+    unpick = subsequence_sum(i - 1, nums, target)
+
+    return pick or unpick
+
+
+nums = [1, 2, 3, 4]
+target = 6
+print(subsequence_sum(len(nums) - 1, nums, target))
