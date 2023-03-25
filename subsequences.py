@@ -58,12 +58,34 @@ def subsequence_sum(i, nums, target):
         return True
     elif i < 0:
         return False
-    pick = subsequence_sum(i - 1, nums, target - nums[i])
+    pick = False
+    if target >= nums[i]:
+        pick = subsequence_sum(i - 1, nums, target - nums[i])
     unpick = subsequence_sum(i - 1, nums, target)
 
     return pick or unpick
 
 
 nums = [1, 2, 3, 4]
-target = 6
+target = 12
 print(subsequence_sum(len(nums) - 1, nums, target))
+
+
+def subsequence_sum_dp(i, nums, target, dp):
+    if target == 0:
+        return True
+    elif i < 0:
+        return False
+    if dp[i][target] != -1:
+        return dp[i][target]
+    pick = False
+    if target >= nums[i]:
+        pick = subsequence_sum_dp(i - 1, nums, target - nums[i], dp)
+    unpick = subsequence_sum_dp(i - 1, nums, target, dp)
+
+    dp[i][target] = pick or unpick
+    return dp[i][target]
+
+
+dp_1 = [[-1 for i in range(target + 1)] for j in range(len(nums))]
+print(subsequence_sum_dp(len(nums) - 1, nums, target, dp_1))
