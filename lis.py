@@ -1,8 +1,10 @@
 def lis_recursion(index, prev_index, arr):
-    # prev index to know if previous value was taken or not, if taken then compare that current value should be
-    # greater than previous value. start with minus one, as initially no value will be taken.
-    # prev index will be updated only when another value is taken that justify the condition of increasing sequence.
-    # and this happens for all values, so all subsequence is considered.
+    """
+    prev index to know if previous value was taken or not, if taken then compare that with current value,
+    current value should be greater than previous value. start with minus one, as initially no value will be taken.
+    prev index will be updated only when another value is taken that justify the condition of increasing sequence.
+    and this happens for all values, so all subsequence is considered.
+    """
     if index == len(arr):
         return 0
     max_length = 0 + lis_recursion(index + 1, prev_index, arr)
@@ -27,4 +29,5 @@ def lis(index, prev_index, arr, dp):
 arr = [30, 2, 5, 7, 45, 8]
 print(lis_recursion(0, -1, arr))
 dp = [[-1] * len(arr) for i in range(len(arr) + 1)]
-# print(lis(0, -1, arr, dp))
+print(lis(0, -1, arr, dp))
+print(dp)
