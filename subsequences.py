@@ -93,6 +93,9 @@ def subsequence_sum_dp(i, nums, target, dp):
 
 
 def subsequence_sum_count(i, nums, target):
+    """
+    find number of subsequence of nums that have sum equal to target.
+    """
     if target == 0:
         return 1
     if i == 0:
