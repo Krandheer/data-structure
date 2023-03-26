@@ -99,7 +99,9 @@ def subsequence_sum_count(i, nums, target):
     if target == 0:
         return 1
     if i == 0:
-        if target == nums[0]:
+        if target == 0 and nums[0] == 0:
+            return 2
+        if target == 0 or target == nums[0]:
             return 1
         else:
             return 0
@@ -112,6 +114,6 @@ def subsequence_sum_count(i, nums, target):
     return pick + unpick
 
 
-nums = [1, 2, 3, 4]
-target = 8
+nums = [1, 2, 3, 4, 0]
+target = 3
 print(subsequence_sum_count(len(nums) - 1, nums, target))
