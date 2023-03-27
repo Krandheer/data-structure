@@ -9,12 +9,13 @@ base_dir = os.path.expanduser('~')
 
 downloads = os.path.join(base_dir, 'Downloads')
 
-path_hdfc = os.path.join(downloads, 'hdfc.csv')
-destination = os.path.join(downloads, 'hdfc')
-df = pd.read_csv(path_hdfc)
-atm_ids = []
-for item in df['ATMID']:
-    atm_ids.append(item)
+
+# path_hdfc = os.path.join(downloads, 'hdfc.csv')
+# destination = os.path.join(downloads, 'hdfc')
+# df = pd.read_csv(path_hdfc)
+# atm_ids = []
+# for item in df['ATMID']:
+#     atm_ids.append(item)
 
 
 def move(src, desti):
@@ -54,11 +55,24 @@ def file_inside_folder():
     hdfc_reports = os.path.join(downloads, 'hdfc_reports')
     os.listdir(hdfc_reports)
 
-# dest = os.path.join(downloads, 'chunk_3_feb9')
-# for i in temp3:
-#     paths = glob(f"{path}/{i}*")
-#     print(paths)
-#     for j in paths:
-#         print(j)
-#         shutil.copy(j, dest)
 
+def copy_from_one_folder_to_another():
+    path = os.path.join(downloads, 's1ac_27th')
+    temp = set()
+    for fil in os.listdir(path):
+        fil = fil.split("_")[0]
+        temp.add(fil)
+    temp = list(temp)
+    print(len(temp))
+    temp1 = temp[:100]
+    temp2 = temp[100:200]
+    temp3 = temp[200:]
+    dest = os.path.join(downloads, 'hehe')
+    for i in temp2:
+        paths = glob(f"{path}/{i}*")
+        print(paths)
+        for j in paths:
+            shutil.copy(j, dest)
+
+
+copy_from_one_folder_to_another()

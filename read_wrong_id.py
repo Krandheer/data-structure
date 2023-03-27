@@ -9,23 +9,26 @@ def get_wrong_id_json_file():
     json_file = {
         "filesToProcess": []
     }
-    path = "~/Downloads/Writer_Mongo_Data_Report_2023-03-08_2023-03-08T19_30_00.393Z.csv"
+    path = "~/Downloads/Writer_Mongo_Data_Report_2023-03-24_2023-03-24T20_15_03.930Z.csv"
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[(df['ALL_FILE_PASS'] == "False")]['ATMID']
 
-    with open('KOTAK MAHINDRA.json', 'r') as f:
-        canara_id = json.load(f)
-
-    canara_ids = canara_id['filesToProcess']
-    for ids in atm_id:
-        if ids in canara_ids:
-            json_file['filesToProcess'].append(ids)
-    # atm_id = atm_id[atm_id.str[:4] == atm_id_to_process]
-
+    # with open('.json', 'r') as f:
+    #     canara_id = json.load(f)
+    #
+    # canara_ids = canara_id['filesToProcess']
     # for ids in atm_id:
-    #     if ids == "dummy":
-    #         continue
-    #     json_file["filesToProcess"].append(ids)
+    #     if ids in canara_ids:
+    #         json_file['filesToProcess'].append(ids)
+    atm_id = atm_id[atm_id.str[:4] == 'S1BW']
+    # with open('india1_icici_atmid.json', 'r') as f:
+    #     data = json.load(f)
+    # data_id = data['atmid']
+    for ids in atm_id:
+        if ids == 'dummy':
+            continue
+
+        json_file["filesToProcess"].append(ids)
 
     paths = path.split("_")
     date_string = paths[4]
@@ -36,7 +39,7 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('kotak_m_fail.json', 'w') as f:
+    with open('s1bw_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
