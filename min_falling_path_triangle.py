@@ -14,7 +14,6 @@ def helper_recursion(i, j, matrix):
         return matrix[i][j]
     if i >= len(matrix):
         return math.inf
-    right = down = math.inf
     right = matrix[i][j] + helper_recursion(i + 1, j + 1, matrix)
     down = matrix[i][j] + helper_recursion(i + 1, j, matrix)
 
