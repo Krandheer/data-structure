@@ -9,7 +9,7 @@ def get_wrong_id_json_file():
     json_file = {
         "filesToProcess": []
     }
-    path = "~/Downloads/Writer_Mongo_Data_Report_2023-03-24_2023-03-24T20_15_03.930Z.csv"
+    path = "~/Downloads/Writer_Mongo_Data_Report_2023-03-27_2023-03-27T19_30_00.981Z.csv"
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[(df['ALL_FILE_PASS'] == "False")]['ATMID']
 
@@ -20,15 +20,18 @@ def get_wrong_id_json_file():
     # for ids in atm_id:
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
-    atm_id = atm_id[atm_id.str[:4] == 'S1BW']
+    atm_id = atm_id[atm_id.str[:4] == 'T1NS']
     # with open('india1_icici_atmid.json', 'r') as f:
     #     data = json.load(f)
     # data_id = data['atmid']
+    temp = 0
     for ids in atm_id:
         if ids == 'dummy':
             continue
-
+        if temp == 35:
+            break
         json_file["filesToProcess"].append(ids)
+        temp = temp+1
 
     paths = path.split("_")
     date_string = paths[4]
@@ -39,7 +42,7 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('s1bw_fail.json', 'w') as f:
+    with open('t1ns_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
@@ -47,7 +50,7 @@ get_wrong_id_json_file()
 
 
 def get_top_fails():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-02-22_2023-02-22T19_30_00.943Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-03-27_2023-03-27T19_30_00.981Z.csv'
     df = pd.read_csv(path, low_memory=False)
     df['prefix_atmid'] = df['ATMID'].str[:4]
     grouped = df.groupby(['prefix_atmid', 'ALL_FILE_PASS'])

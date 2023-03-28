@@ -75,4 +75,4 @@ def copy_from_one_folder_to_another():
             shutil.copy(j, dest)
 
 
-copy_from_one_folder_to_another()
+# copy_from_one_folder_to_another()
