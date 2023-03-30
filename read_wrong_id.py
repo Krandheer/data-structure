@@ -9,9 +9,10 @@ def get_wrong_id_json_file():
     json_file = {
         "filesToProcess": []
     }
-    path = "~/Downloads/Writer_Mongo_Data_Report_2023-03-27_2023-03-27T19_30_00.981Z.csv"
-    df = pd.read_csv(path, low_memory=False)
-    atm_id = df[(df['ALL_FILE_PASS'] == "False")]['ATMID']
+    path = "~/Downloads/Writer_Mongo_Data_Report_2023-03-28_2023-03-28T19_30_00.603Z.csv"
+    path2 = "~/Downloads/OCRReport.csv"
+    df = pd.read_csv(path2, low_memory=False)
+    atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
 
     # with open('.json', 'r') as f:
     #     canara_id = json.load(f)
@@ -20,7 +21,7 @@ def get_wrong_id_json_file():
     # for ids in atm_id:
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
-    atm_id = atm_id[atm_id.str[:4] == 'T1NS']
+    atm_id = atm_id[atm_id.str[:2] == 'MP']
     # with open('india1_icici_atmid.json', 'r') as f:
     #     data = json.load(f)
     # data_id = data['atmid']
@@ -28,8 +29,6 @@ def get_wrong_id_json_file():
     for ids in atm_id:
         if ids == 'dummy':
             continue
-        if temp == 35:
-            break
         json_file["filesToProcess"].append(ids)
         temp = temp+1
 
@@ -42,7 +41,7 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('t1ns_fail.json', 'w') as f:
+    with open('mp_auth_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
