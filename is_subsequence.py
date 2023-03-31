@@ -51,8 +51,22 @@ class Solution_dp:
             return dp[ind1][ind2]
 
 
-t = "ahbgdc"
-s = "axc"
+def is_subsequence(s, t):
+    if len(s) == 0:
+        return True
+    if len(s) > len(t):
+        return False
+    track = 0
+
+    for i in range(len(t)):
+        if track <= len(s) - 1:
+            if s[track] == t[i]:
+                track += 1
+    return track == len(s)
+
+
+t = "c"
+s = "b"
 sol = Solution_dp()
 
-print(sol.isSubsequence(s, t))
+print(is_subsequence(s, t))
