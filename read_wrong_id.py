@@ -22,7 +22,7 @@ def get_wrong_id_json_file():
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
     atm_id = atm_id[atm_id.str[:2] == 'MP']
-    # with open('india1_icici_atmid.json', 'r') as f:
+    # with open('india1_icici.json', 'r') as f:
     #     data = json.load(f)
     # data_id = data['atmid']
     temp = 0
@@ -30,7 +30,7 @@ def get_wrong_id_json_file():
         if ids == 'dummy':
             continue
         json_file["filesToProcess"].append(ids)
-        temp = temp+1
+        temp = temp + 1
 
     paths = path.split("_")
     date_string = paths[4]
@@ -45,7 +45,7 @@ def get_wrong_id_json_file():
         json.dump(json_file, f)
 
 
-get_wrong_id_json_file()
+# get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -110,8 +110,30 @@ def get_all_ids_of_bank(bank_name):
     json_file = {
         "filesToProcess": bank_ids_list
     }
-    with open(f"{bank_name}.json", 'w') as f:
+    with open(f"{bank_name.lower()}.json", 'w') as f:
         json.dump(json_file, f)
 
 
-# get_all_ids_of_bank("KOTAK MAHINDRA")
+# get_all_ids_of_bank("INDICASH-YES")
+
+def get_auth_not_auth(bank_json_name):
+    path = "~/Downloads/24OCRReport.csv"
+    df = pd.read_csv(path)
+    with open(f'atmid/{bank_json_name}.json', 'r') as f:
+        data = json.load(f)
+    data = data['filesToProcess']
+    auth = []
+    not_auth = []
+    for i in df['ATMID']:
+        if i in data and df[(df["ATMID"] == i) & (df["OCRAuthstatus"] == "Auth")]['OCRAuthstatus'].any() \
+                and i not in auth:
+            auth.append(i)
+        elif i in data and not df[(df["ATMID"] == i) & (df["OCRAuthstatus"] == "Auth")]['OCRAuthstatus'].any() \
+                and i not in not_auth:
+            not_auth.append(i)
+    with open(f'atmid/{bank_json_name}_auth_fail.json', 'w') as f:
+        json.dump({'atmid': not_auth}, f)
+    print(len(auth), len(not_auth))
+
+
+get_auth_not_auth('hdfc_ids')
