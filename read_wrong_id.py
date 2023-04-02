@@ -117,7 +117,7 @@ def get_all_ids_of_bank(bank_name):
 # get_all_ids_of_bank("INDICASH-YES")
 
 def get_auth_not_auth(bank_json_name):
-    path = "~/Downloads/24OCRReport.csv"
+    path = "~/Downloads/29OCRReport.csv"
     df = pd.read_csv(path)
     with open(f'atmid/{bank_json_name}.json', 'r') as f:
         data = json.load(f)
@@ -131,9 +131,27 @@ def get_auth_not_auth(bank_json_name):
         elif i in data and not df[(df["ATMID"] == i) & (df["OCRAuthstatus"] == "Auth")]['OCRAuthstatus'].any() \
                 and i not in not_auth:
             not_auth.append(i)
-    with open(f'atmid/{bank_json_name}_auth_fail.json', 'w') as f:
+    with open(f'auth_fail/{bank_json_name}_29th_auth_fail.json', 'w') as f:
         json.dump({'atmid': not_auth}, f)
-    print(len(auth), len(not_auth))
+    print(bank_json_name, len(auth), len(not_auth))
 
 
-get_auth_not_auth('hdfc_ids')
+# bank_name = ['hdfc_ids', 'icici', 'canara', 'axis', 'karur_vyas_bank', 'sbi', 'pnb', 'bob', 'indicash_axis',
+#              'mon_spot_axis', 'indicash_yes', 'citi_atmid', 'india1_icici']
+# for name in bank_name:
+#     get_auth_not_auth(name)
+
+def auth_json():
+    with open('auth_fail/citi_atmid_24th_auth_fail.json', 'r') as f:
+        data = json.load(f)
+    data = data['atmid'][:10]
+    date_string = '2023-03-24'
+    date = datetime.strptime(date_string, '%Y-%m-%d')
+    formatted_date = date.strftime('%m-%d-%Y')
+    timestamp = int(date.timestamp())
+    json_file = {"filesToProcess": data, 'date': formatted_date, 'updatedAt': timestamp}
+    with open('citi_24_authfail.json', 'w') as f:
+        json.dump(json_file, f)
+
+
+auth_json()

@@ -57,7 +57,7 @@ def is_subsequence(s, t):
     if len(s) > len(t):
         return False
     track = 0
-
+    start_index = 0
     for i in range(len(t)):
         if track <= len(s) - 1:
             if s[track] == t[i]:
@@ -65,8 +65,11 @@ def is_subsequence(s, t):
     return track == len(s)
 
 
-t = "c"
-s = "b"
+
+
+s = "toc"
+t = "timetopractice"
 sol = Solution_dp()
 
 print(is_subsequence(s, t))
+
