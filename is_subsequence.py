@@ -67,7 +67,7 @@ def is_subsequence(s, t):
 
 
 
-s = "toc"
+s = "prac"
 t = "timetopractice"
 sol = Solution_dp()
 
