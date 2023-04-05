@@ -55,7 +55,7 @@ class Solution_dp:
 
 sol = Solution_dp()
 sol2 = Solution_recursion()
-grid = [[1, 3, 1, 2, 3], [1, 5, 1, 4, 4], [4, 2, 1, 6, 9], [1, 2, 3, 4, 0], [5,4,3,2,1]]
+grid = [[1, 3, 1, 2, 3], [1, 5, 1, 4, 4], [4, 2, 1, 6, 9], [1, 2, 3, 4, 0], [5, 4, 3, 2, 1]]
 start = time.perf_counter()
 print(sol.minPathSum(grid))
 print(f'dp solution time {time.perf_counter() - start}')
