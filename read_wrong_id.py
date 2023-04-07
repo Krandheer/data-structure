@@ -153,5 +153,5 @@ def auth_json():
     json_file = {"filesToProcess": data, 'date': formatted_date, 'updatedAt': timestamp}
     with open('hdfc_auth_fail.json', 'w') as f:
         json.dump(json_file, f)
-
 # auth_json()
+print("")
