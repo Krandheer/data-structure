@@ -9,19 +9,20 @@ def get_wrong_id_json_file():
     json_file = {
         "filesToProcess": []
     }
-    path = "~/Downloads/Writer_Mongo_Data_Report_2023-03-28_2023-03-28T19_30_00.603Z.csv"
-    path2 = "~/Downloads/OCRReport.csv"
-    df = pd.read_csv(path2, low_memory=False)
-    atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-06_2023-04-06T19_30_00.905Z.csv'
+    # path2 = "~/Downloads/OCRReport.csv"
+    # df = pd.read_csv(path2, low_memory=False)
+    # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
+    df = pd.read_csv(path, low_memory=False)
+    atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
+    with open('atmid/hdfc_ids.json', 'r') as f:
+         data = json.load(f)
 
-    # with open('.json', 'r') as f:
-    #     canara_id = json.load(f)
-    #
-    # canara_ids = canara_id['filesToProcess']
-    # for ids in atm_id:
+    hdfc_ids = data['filesToProcess']
+    # for ids in ids:
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
-    atm_id = atm_id[atm_id.str[:2] == 'MP']
+    # atm_id = atm_id[atm_id.str[:2] == 'MP']
     # with open('india1_icici.json', 'r') as f:
     #     data = json.load(f)
     # data_id = data['atmid']
@@ -29,8 +30,8 @@ def get_wrong_id_json_file():
     for ids in atm_id:
         if ids == 'dummy':
             continue
-        json_file["filesToProcess"].append(ids)
-        temp = temp + 1
+        elif ids in hdfc_ids:
+            json_file["filesToProcess"].append(ids)
 
     paths = path.split("_")
     date_string = paths[4]
@@ -41,15 +42,15 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('mp_auth_fail.json', 'w') as f:
+    with open('hdfc_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
-# get_wrong_id_json_file()
+get_wrong_id_json_file()
 
 
 def get_top_fails():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-03-27_2023-03-27T19_30_00.981Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-06_2023-04-06T19_30_00.905Z'
     df = pd.read_csv(path, low_memory=False)
     df['prefix_atmid'] = df['ATMID'].str[:4]
     grouped = df.groupby(['prefix_atmid', 'ALL_FILE_PASS'])
@@ -117,7 +118,7 @@ def get_all_ids_of_bank(bank_name):
 # get_all_ids_of_bank("INDICASH-YES")
 
 def get_auth_not_auth(bank_json_name):
-    path = "~/Downloads/29OCRReport.csv"
+    path = "~/Downloads/6OCRReport.csv"
     df = pd.read_csv(path)
     with open(f'atmid/{bank_json_name}.json', 'r') as f:
         data = json.load(f)
@@ -139,19 +140,18 @@ def get_auth_not_auth(bank_json_name):
 # bank_name = ['hdfc_ids', 'icici', 'canara', 'axis', 'karur_vyas_bank', 'sbi', 'pnb', 'bob', 'indicash_axis',
 #              'mon_spot_axis', 'indicash_yes', 'citi_atmid', 'india1_icici']
 # for name in bank_name:
-#     get_auth_not_auth(name)
+# get_auth_not_auth('hdfc_ids')
 
 def auth_json():
-    with open('auth_fail/citi_atmid_24th_auth_fail.json', 'r') as f:
+    with open('auth_fail/hdfc_ids_6th_auth_fail.json', 'r') as f:
         data = json.load(f)
-    data = data['atmid'][:10]
-    date_string = '2023-03-24'
+    data = data['atmid']
+    date_string = '2023-04-06'
     date = datetime.strptime(date_string, '%Y-%m-%d')
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
     json_file = {"filesToProcess": data, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('citi_24_authfail.json', 'w') as f:
+    with open('hdfc_auth_fail.json', 'w') as f:
         json.dump(json_file, f)
 
-
-auth_json()
+# auth_json()
