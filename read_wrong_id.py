@@ -15,10 +15,10 @@ def get_wrong_id_json_file():
     # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
-    with open('atmid/hdfc_ids.json', 'r') as f:
+    with open('atmid/icici.json', 'r') as f:
          data = json.load(f)
 
-    hdfc_ids = data['filesToProcess']
+    icici_ids = data['filesToProcess']
     # for ids in ids:
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
@@ -30,7 +30,7 @@ def get_wrong_id_json_file():
     for ids in atm_id:
         if ids == 'dummy':
             continue
-        elif ids in hdfc_ids:
+        elif ids in icici_ids:
             json_file["filesToProcess"].append(ids)
 
     paths = path.split("_")
@@ -42,7 +42,7 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('hdfc_fail.json', 'w') as f:
+    with open('icici_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
@@ -132,7 +132,7 @@ def get_auth_not_auth(bank_json_name):
         elif i in data and not df[(df["ATMID"] == i) & (df["OCRAuthstatus"] == "Auth")]['OCRAuthstatus'].any() \
                 and i not in not_auth:
             not_auth.append(i)
-    with open(f'auth_fail/{bank_json_name}_29th_auth_fail.json', 'w') as f:
+    with open(f'auth_fail/{bank_json_name}_auth_fail.json', 'w') as f:
         json.dump({'atmid': not_auth}, f)
     print(bank_json_name, len(auth), len(not_auth))
 
@@ -140,10 +140,10 @@ def get_auth_not_auth(bank_json_name):
 # bank_name = ['hdfc_ids', 'icici', 'canara', 'axis', 'karur_vyas_bank', 'sbi', 'pnb', 'bob', 'indicash_axis',
 #              'mon_spot_axis', 'indicash_yes', 'citi_atmid', 'india1_icici']
 # for name in bank_name:
-# get_auth_not_auth('hdfc_ids')
+# get_auth_not_auth('icici')
 
 def auth_json():
-    with open('auth_fail/hdfc_ids_6th_auth_fail.json', 'r') as f:
+    with open('auth_fail/icici_auth_fail.json', 'r') as f:
         data = json.load(f)
     data = data['atmid']
     date_string = '2023-04-06'
@@ -151,7 +151,7 @@ def auth_json():
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
     json_file = {"filesToProcess": data, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('hdfc_auth_fail.json', 'w') as f:
+    with open('icici_auth_fail.json', 'w') as f:
         json.dump(json_file, f)
 # auth_json()
-print("")
+# print("")
