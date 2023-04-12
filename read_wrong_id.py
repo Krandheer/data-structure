@@ -9,14 +9,14 @@ def get_wrong_id_json_file():
     json_file = {
         "filesToProcess": []
     }
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-06_2023-04-06T19_30_00.905Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-11_2023-04-11T19_30_00.371Z.csv'
     # path2 = "~/Downloads/OCRReport.csv"
     # df = pd.read_csv(path2, low_memory=False)
     # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
     with open('atmid/icici.json', 'r') as f:
-         data = json.load(f)
+        data = json.load(f)
 
     icici_ids = data['filesToProcess']
     # for ids in ids:
@@ -46,7 +46,7 @@ def get_wrong_id_json_file():
         json.dump(json_file, f)
 
 
-get_wrong_id_json_file()
+# get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -118,19 +118,24 @@ def get_all_ids_of_bank(bank_name):
 # get_all_ids_of_bank("INDICASH-YES")
 
 def get_auth_not_auth(bank_json_name):
-    path = "~/Downloads/6OCRReport.csv"
+    path = "~/Downloads/11OCRReport.csv"
     df = pd.read_csv(path)
     with open(f'atmid/{bank_json_name}.json', 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
     auth = []
     not_auth = []
+    temp = 0
     for i in df['ATMID']:
+        if temp > 20:
+            break
         if i in data and df[(df["ATMID"] == i) & (df["OCRAuthstatus"] == "Auth")]['OCRAuthstatus'].any() \
                 and i not in auth:
             auth.append(i)
         elif i in data and not df[(df["ATMID"] == i) & (df["OCRAuthstatus"] == "Auth")]['OCRAuthstatus'].any() \
                 and i not in not_auth:
+            temp = temp + 1
+            print(i)
             not_auth.append(i)
     with open(f'auth_fail/{bank_json_name}_auth_fail.json', 'w') as f:
         json.dump({'atmid': not_auth}, f)
@@ -139,8 +144,10 @@ def get_auth_not_auth(bank_json_name):
 
 # bank_name = ['hdfc_ids', 'icici', 'canara', 'axis', 'karur_vyas_bank', 'sbi', 'pnb', 'bob', 'indicash_axis',
 #              'mon_spot_axis', 'indicash_yes', 'citi_atmid', 'india1_icici']
+# bank_name = ['hdfc_ids', 'icici']
 # for name in bank_name:
-# get_auth_not_auth('icici')
+get_auth_not_auth('hdfc_ids')
+
 
 def auth_json():
     with open('auth_fail/icici_auth_fail.json', 'r') as f:
@@ -153,5 +160,32 @@ def auth_json():
     json_file = {"filesToProcess": data, 'date': formatted_date, 'updatedAt': timestamp}
     with open('icici_auth_fail.json', 'w') as f:
         json.dump(json_file, f)
+
+
 # auth_json()
 # print("")
+
+def get_fail_pass(bank_name):
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-06_2023-04-06T19_30_00.905Z.csv'
+    # path2 = "~/Downloads/OCRReport.csv"
+    # df = pd.read_csv(path2, low_memory=False)
+    # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
+    df = pd.read_csv(path, low_memory=False)
+    atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
+    atm_id = df["ATMID"]
+    with open(f'atmid/{bank_name}.json', 'r') as f:
+        data = json.load(f)
+
+    temp_ids = data['filesToProcess']
+    fail = []
+    total = []
+    for i in atm_id:
+        if i == 'dummy':
+            continue
+        if i in temp_ids:
+            total.append(i)
+            if df[(df["ATMID"] == i) & (df["ALL_FILE_PASS"] == "False")]['ALL_FILE_PASS'].any():
+                fail.append(i)
+    print(len(total), len(fail))
+
+# get_fail_pass('icici')
