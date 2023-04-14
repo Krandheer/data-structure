@@ -97,6 +97,49 @@ def get_top_fails():
 #     atm_ids.append(ids)
 #
 # print(len(atm_ids), atm_ids)
+def probable_pair_correction_ids():
+    path = "~/Downloads/Writer_Mongo_Data_Report_2023-04-06_2023-04-06T19_30_00.905Z.csv"
+    df = pd.read_csv(path, low_memory=False)
+    df = df[df["ALL_FILE_PASS"] == "False"]
+    df1 = df[
+        (
+                ((df['CA-FILE_PASS'] == "True") & (df['SA-FILE_PASS'] == "True")) |
+                ((df['CA-FILE_PASS'] == "False") & (df['SA-FILE_PASS'] == "True")) |
+                ((df['CA-FILE_PASS'] == "True") & (df['SA-FILE_PASS'] == "False"))
+        ) &
+        (
+                ((df['SB-FILE_PASS'] == "False") & (df['CB-FILE_PASS'] == "True")) |
+                ((df['SB-FILE_PASS'] == "True") & (df['CB-FILE_PASS'] == "False"))
+        )
+        ]
+    df2 = df[
+        (
+                ((df['CB-FILE_PASS'] == "True") & (df['SB-FILE_PASS'] == "True")) |
+                ((df['CB-FILE_PASS'] == "False") & (df['SB-FILE_PASS'] == "True")) |
+                ((df['CB-FILE_PASS'] == "True") & (df['SB-FILE_PASS'] == "False"))
+        ) &
+        (
+                ((df['SA-FILE_PASS'] == "False") & (df['CA-FILE_PASS'] == "True")) |
+                ((df['SA-FILE_PASS'] == "True") & (df['CA-FILE_PASS'] == "False"))
+        )
+        ]
+    with open("atmid/icici.json", 'r') as f:
+        data = json.load(f)
+    data = data['filesToProcess']
+    temp = set()
+    for i in df1['ATMID']:
+        if i in data:
+            temp.add(i)
+    for i in df2['ATMID']:
+        if i in data:
+            temp.add(i)
+
+    temp = list(temp)
+    with open("icici_pair.json", 'w') as f:
+        json.dump({'filesToProcess': temp}, f)
+
+
+probable_pair_correction_ids()
 
 
 def get_all_ids_of_bank(bank_name):
@@ -146,7 +189,7 @@ def get_auth_not_auth(bank_json_name):
 #              'mon_spot_axis', 'indicash_yes', 'citi_atmid', 'india1_icici']
 # bank_name = ['hdfc_ids', 'icici']
 # for name in bank_name:
-get_auth_not_auth('hdfc_ids')
+# get_auth_not_auth('hdfc_ids')
 
 
 def auth_json():
