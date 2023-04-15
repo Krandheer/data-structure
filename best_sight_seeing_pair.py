@@ -1,5 +1,6 @@
 def maxScoreSightseeingPair(values) -> int:
     """
+    given a list find best sight seeing pair
     leetcode solution day7
     """
     # a[i] + i + a[j] - j

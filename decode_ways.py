@@ -31,4 +31,4 @@ class Solution:
 
 
 sol = Solution()
-sol.numDecodings('2101')
+print(sol.numDecodings('2101'))
