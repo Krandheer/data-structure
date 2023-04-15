@@ -5,7 +5,7 @@ import math
 # time complexity n*sqrt(n)
 def get_prime(n):
     primes = []
-    for i in range(n):
+    for i in range(n+1):
         if is_prime(i):
             primes.append(i)
     return primes
@@ -15,10 +15,12 @@ def get_prime(n):
 def is_prime(n):
     if n <= 1:
         return False
+    if n == 2:
+        return True
     for i in range(2, math.floor(math.sqrt(n)) + 1):
         if n % i == 0:
             return False
     return True
 
 
-print(get_prime(40))
+print(get_prime(3))
