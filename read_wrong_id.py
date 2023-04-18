@@ -9,16 +9,16 @@ def get_wrong_id_json_file():
     json_file = {
         "filesToProcess": []
     }
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-11_2023-04-11T19_30_00.371Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-13_2023-04-13T19_30_00.440Z.csv'
     # path2 = "~/Downloads/OCRReport.csv"
     # df = pd.read_csv(path2, low_memory=False)
     # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
-    with open('atmid/icici.json', 'r') as f:
+    with open('atmid/karur_vyas_bank.json', 'r') as f:
         data = json.load(f)
 
-    icici_ids = data['filesToProcess']
+    karur_vyas = data['filesToProcess']
     # for ids in ids:
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
@@ -30,7 +30,7 @@ def get_wrong_id_json_file():
     for ids in atm_id:
         if ids == 'dummy':
             continue
-        elif ids in icici_ids:
+        elif ids in karur_vyas:
             json_file["filesToProcess"].append(ids)
 
     paths = path.split("_")
@@ -42,11 +42,11 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('icici_fail.json', 'w') as f:
+    with open('karur_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
-# get_wrong_id_json_file()
+get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -139,7 +139,7 @@ def probable_pair_correction_ids():
         json.dump({'filesToProcess': temp}, f)
 
 
-probable_pair_correction_ids()
+# probable_pair_correction_ids()
 
 
 def get_all_ids_of_bank(bank_name):
