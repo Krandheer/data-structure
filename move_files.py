@@ -76,3 +76,19 @@ def copy_from_one_folder_to_another():
 
 
 # copy_from_one_folder_to_another()
+def another2():
+    path = os.path.join(downloads, 'hdfc_not_pass')
+    path_csv = os.path.join(downloads, "hdfc_possible_pair_map.csv")
+    df = pd.read_csv(path_csv)
+    temp = []
+    for i in df["ATMID"]:
+        if i not in temp:
+            temp.append(i)
+
+    dest = os.path.join(downloads, 'probable_pair')
+    for i in temp:
+        paths = glob(f"{path}/{i}*")
+        print(paths)
+        for j in paths:
+            shutil.copy(j, dest)
+another2()
