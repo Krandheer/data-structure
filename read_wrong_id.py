@@ -15,10 +15,10 @@ def get_wrong_id_json_file():
     # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
-    with open('atmid/karur_vyas_bank.json', 'r') as f:
+    with open('atmid/hdfc_ids.json', 'r') as f:
         data = json.load(f)
 
-    karur_vyas = data['filesToProcess']
+    hdfc = data['filesToProcess']
     # for ids in ids:
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
@@ -30,7 +30,7 @@ def get_wrong_id_json_file():
     for ids in atm_id:
         if ids == 'dummy':
             continue
-        elif ids in karur_vyas:
+        elif ids in hdfc:
             json_file["filesToProcess"].append(ids)
 
     paths = path.split("_")
