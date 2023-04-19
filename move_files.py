@@ -77,18 +77,28 @@ def copy_from_one_folder_to_another():
 
 # copy_from_one_folder_to_another()
 def another2():
-    path = os.path.join(downloads, 'hdfc_not_pass')
-    path_csv = os.path.join(downloads, "hdfc_possible_pair_map.csv")
+    path = os.path.join(downloads, 'probable_pair')
+    path_csv = os.path.join(downloads, "hdfc probable pair correction - Sheet2.csv")
     df = pd.read_csv(path_csv)
-    temp = []
+    csv_temp = []
     for i in df["ATMID"]:
-        if i not in temp:
-            temp.append(i)
-
-    dest = os.path.join(downloads, 'probable_pair')
-    for i in temp:
-        paths = glob(f"{path}/{i}*")
-        print(paths)
-        for j in paths:
-            shutil.copy(j, dest)
+        if i not in csv_temp:
+            csv_temp.append(i)
+    folder_temp = []
+    for i in os.listdir(path):
+        i = i.split("_")[0]
+        if i not in folder_temp:
+            folder_temp.append(i)
+    for i in folder_temp:
+        if i not in csv_temp:
+            paths = glob(f"{path}/{i}*")
+            for j in paths:
+                os.remove(j)
+    # print(len(csv_temp), len(folder_temp))
+    # dest = os.path.join(downloads, 'probable_pair')
+    # for i in temp:
+    #     paths = glob(f"{path}/{i}*")
+    #     print(paths)
+    #     for j in paths:
+    #         shutil.copy(j, dest)
 another2()
