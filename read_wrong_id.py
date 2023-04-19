@@ -46,7 +46,7 @@ def get_wrong_id_json_file():
         json.dump(json_file, f)
 
 
-get_wrong_id_json_file()
+# get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -231,4 +231,22 @@ def get_fail_pass(bank_name):
                 fail.append(i)
     print(len(total), len(fail))
 
+
 # get_fail_pass('icici')
+
+def total_of_particular_bank_processed_on_given_day():
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-06_2023-04-06T19_30_00.905Z.csv'
+    df = pd.read_csv(path, low_memory=False)
+    atm_id = df['ATMID']
+    with open("atmid/hdfc_ids.json", 'r') as f:
+        data = json.load(f)
+    hdfc = data['filesToProcess']
+
+    temp = 0
+    for i in atm_id:
+        if i in hdfc:
+            temp += 1
+    print(temp)
+
+
+total_of_particular_bank_processed_on_given_day()
