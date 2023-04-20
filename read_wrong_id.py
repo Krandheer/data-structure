@@ -17,7 +17,6 @@ def get_wrong_id_json_file():
     # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
-    atm_id2 = df[df["ALL_FILE_PASS"] == "True"]["ATMID"]
     with open('atmid/sbi.json', 'r') as f:
         data = json.load(f)
 
@@ -36,17 +35,9 @@ def get_wrong_id_json_file():
         elif ids in sbi:
             json_file["filesToProcess"].append(ids)
             temp += 1
-            if temp > 25:
+            if temp > 200:
                 break
-    temp = 0
-    for ids in atm_id2:
-        if ids == 'dummy':
-            continue
-        elif ids in sbi:
-            json_file["filesToProcess"].append(ids)
-            temp += 1
-            if temp > 10:
-                break
+
     # print(temp)
 
     paths = path.split("_")
@@ -62,7 +53,7 @@ def get_wrong_id_json_file():
         json.dump(json_file, f)
 
 
-# get_wrong_id_json_file()
+get_wrong_id_json_file()
 
 
 def get_top_fails():
