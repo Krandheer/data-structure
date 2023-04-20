@@ -6,19 +6,21 @@ import json
 
 
 def get_wrong_id_json_file():
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-13_2023-04-13T19_30_00.440Z.csv'
     json_file = {
         "filesToProcess": []
     }
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-13_2023-04-13T19_30_00.440Z.csv'
+    # path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-13_2023-04-13T19_30_00.440Z.csv'
     # path2 = "~/Downloads/OCRReport.csv"
     # df = pd.read_csv(path2, low_memory=False)
     # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
-    with open('atmid/hdfc_ids.json', 'r') as f:
+    atm_id2 = df[df["ALL_FILE_PASS"] == "True"]["ATMID"]
+    with open('atmid/sbi.json', 'r') as f:
         data = json.load(f)
 
-    hdfc = data['filesToProcess']
+    sbi = data['filesToProcess']
     # for ids in ids:
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
@@ -30,8 +32,21 @@ def get_wrong_id_json_file():
     for ids in atm_id:
         if ids == 'dummy':
             continue
-        elif ids in hdfc:
+        elif ids in sbi:
             json_file["filesToProcess"].append(ids)
+            temp += 1
+            if temp > 25:
+                break
+    temp = 0
+    for ids in atm_id2:
+        if ids == 'dummy':
+            continue
+        elif ids in sbi:
+            json_file["filesToProcess"].append(ids)
+            temp += 1
+            if temp > 10:
+                break
+    # print(temp)
 
     paths = path.split("_")
     date_string = paths[4]
@@ -42,7 +57,7 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('karur_fail.json', 'w') as f:
+    with open('sbi_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
@@ -248,5 +263,4 @@ def total_of_particular_bank_processed_on_given_day():
             temp += 1
     print(temp)
 
-
-total_of_particular_bank_processed_on_given_day()
+# total_of_particular_bank_processed_on_given_day()
