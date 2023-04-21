@@ -64,10 +64,10 @@ def copy_from_one_folder_to_another():
         temp.add(i)
     temp = list(temp)
     print(len(temp))
-    temp1 = temp[:100]
+    temp1 = temp[:10]
     temp2 = temp[100:200]
     # temp3 = temp[200:]
-    dest = os.path.join(downloads, 'sbi_1')
+    dest = os.path.join(downloads, 'sbi_10')
     for i in temp1:
         paths = glob(f"{path}/{i}*")
         print(paths)

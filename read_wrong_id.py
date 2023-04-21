@@ -16,15 +16,15 @@ def get_wrong_id_json_file():
     # df = pd.read_csv(path2, low_memory=False)
     # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
-    atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
-    with open('atmid/sbi.json', 'r') as f:
+    atm_id = df[df["ALL_FILE_PASS"] == "True"]["ATMID"]
+    with open('atmid/citi_atmid.json', 'r') as f:
         data = json.load(f)
 
-    sbi = data['filesToProcess']
+    citi = data['filesToProcess']
     # for ids in ids:
     #     if ids in canara_ids:
     #         json_file['filesToProcess'].append(ids)
-    # atm_id = atm_id[atm_id.str[:2] == 'MP']
+    # atm_id = atm_id[atm_id.str[:2] == 'TA']
     # with open('india1_icici.json', 'r') as f:
     #     data = json.load(f)
     # data_id = data['atmid']
@@ -32,10 +32,10 @@ def get_wrong_id_json_file():
     for ids in atm_id:
         if ids == 'dummy':
             continue
-        elif ids in sbi:
+        elif ids in citi:
             json_file["filesToProcess"].append(ids)
             temp += 1
-            if temp > 200:
+            if temp > 10:
                 break
 
     # print(temp)
@@ -49,7 +49,7 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('sbi_fail.json', 'w') as f:
+    with open('citi_fail.json', 'w') as f:
         json.dump(json_file, f)
 
 
