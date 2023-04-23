@@ -1,23 +1,22 @@
-def int_input(input):
-    if input < 10:
-        return input + 1
-    else:
-        return input // 10 + input + 1
+masterD = {'TARN0380': {'T3': 500, 'C3': 500},
+           'TARS0638': {'T3': 500},
+           'TARS0716': {'T3': 500, 'C3': 500},
+           'TKBE0035': {'T3': 500, 'C3': 500}}
+
+sbi_master_d = {'S1AC0165008': {'T2': 100, 'T3': 500, 'T4': 500, 'C2': 100, 'C3': 500},
+                'S1AC0482703': {'T2': 100, 'T3': 500, 'C2': 100, 'C3': 500},
+                'S1AC0490501': {'T2': 100, 'T3': 500, 'C2': 100, 'C3': 500},
+                'S1ACMU23': {'T1': 100, 'T3': 500, 'C1': 100, 'C3': 500},
+                'S1ANPK14': {'T1': 100, 'T2': 200, 'T3': 500, 'C1': 100, 'C2': 200, 'C3': 500}, }
+
+sbi_atmids = ["S1AC0165008", "S1ACMU23"]
 
 
-print(int_input(29))
+def som_fun(atmid):
+    global masterD
+    if atmid in sbi_master_d:
+        masterD = sbi_master_d
 
-# class Vehicles:
-#     def __init__(self, name):
-#         self.name = name
-#     def drive(self):
-#         print(f"{self.name} is driving")
-#
-#
-# class Car(Vehicles):
-#     def __init__(self, model, color):
-#         super().__init__(model)
-#         self.color = color
-#
-# car = Car("nano", "red")
-# car.drive()
+    print(masterD)
+
+som_fun('TKBE0035')
