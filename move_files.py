@@ -57,17 +57,17 @@ def file_inside_folder():
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, 'sbi')
+    path = os.path.join(downloads, 'hdfc_25thapril')
     temp = set()
     for i in os.listdir(path):
         i = i.split("_")[0]
         temp.add(i)
     temp = list(temp)
     print(len(temp))
-    temp1 = temp[:10]
+    temp1 = ['S1ANGA50', 'S1ANCE54', 'S1ANKP34', ]
     temp2 = temp[100:200]
-    # temp3 = temp[200:]
-    dest = os.path.join(downloads, 'sbi_10')
+    # temp3 = temp[200:]i
+    dest = os.path.join(downloads, 'hdfc_bin')
     for i in temp1:
         paths = glob(f"{path}/{i}*")
         print(paths)

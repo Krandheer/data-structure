@@ -6,39 +6,38 @@ import json
 
 
 def get_wrong_id_json_file():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-13_2023-04-13T19_30_00.440Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-24_2023-04-24T19_30_00.991Z.csv'
     json_file = {
         "filesToProcess": []
     }
 
-    # path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-13_2023-04-13T19_30_00.440Z.csv'
-    # path2 = "~/Downloads/OCRReport.csv"
-    # df = pd.read_csv(path2, low_memory=False)
-    # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
-    atm_id = df[df["ALL_FILE_PASS"] == "True"]["ATMID"]
-    with open('atmid/citi_atmid.json', 'r') as f:
+    # atm_id = df[df["ALL_FILE_PASS"] == "True"]["ATMID"]
+    atm_id = df["ATMID"]
+    with open('atmid/hdfc_ids.json', 'r') as f:
         data = json.load(f)
 
-    citi = data['filesToProcess']
-    # for ids in ids:
-    #     if ids in canara_ids:
-    #         json_file['filesToProcess'].append(ids)
-    # atm_id = atm_id[atm_id.str[:2] == 'TA']
-    # with open('india1_icici.json', 'r') as f:
-    #     data = json.load(f)
-    # data_id = data['atmid']
-    temp = 0
-    for ids in atm_id:
-        if ids == 'dummy':
+    hdfc = data['filesToProcess']
+    temp_ids = []
+    for i in atm_id:
+        if i == 'dummy':
             continue
-        elif ids in citi:
-            json_file["filesToProcess"].append(ids)
-            temp += 1
-            if temp > 10:
-                break
+        elif i in hdfc:
+            temp_ids.append(i)
 
-    # print(temp)
+    print(len(temp_ids))
+    # atm_id = atm_id[atm_id.str[:2] == 'TA']
+    temp1 = temp_ids[:1000]
+    temp2 = temp_ids[1000:2000]
+    temp3 = temp_ids[2000:3000]
+    temp4 = temp_ids[3000:]
+
+    # for ids in atm_id:
+    #     if ids == 'dummy':
+    #         continue
+    #     elif ids in hdfc:
+    #         json_file["filesToProcess"].append(ids)
+    #
 
     paths = path.split("_")
     date_string = paths[4]
@@ -49,8 +48,18 @@ def get_wrong_id_json_file():
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
 
-    with open('citi_fail.json', 'w') as f:
-        json.dump(json_file, f)
+    for i in range(1, 5):
+        if i == 1:
+            json_file['filesToProcess'] = temp1
+        elif i == 2:
+            json_file['filesToProcess'] = temp2
+        elif i == 3:
+            json_file['filesToProcess'] = temp3
+        elif i == 4:
+            json_file['filesToProcess'] = temp4
+
+        with open(f'writercorp_{i}.json', 'w') as f:
+            json.dump(json_file, f)
 
 
 get_wrong_id_json_file()
@@ -222,6 +231,7 @@ def get_fail_pass(bank_name):
     # atm_id = df[(df['OCRAuthstatus'] == "Not Auth")]['ATMID']
     df = pd.read_csv(path, low_memory=False)
     atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
+    atm_id2 = df[df["ALL_FILE_PASS"] == "True"]["ATMID"]
     atm_id = df["ATMID"]
     with open(f'atmid/{bank_name}.json', 'r') as f:
         data = json.load(f)
