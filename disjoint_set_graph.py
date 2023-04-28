@@ -23,12 +23,12 @@ def union(graph, u, v):
             graph[a] = b
 
 
-n = 7
-graph = {}
-for i in range(7):
-    graph[i] = -1
+n = 6
+# # graph = {}
+# for i in range(7):
+#     graph[i] = -1
+graph = [-1]*n
 ipt = [[0, 1], [1, 2], [2, 3], [4, 5], [1, 3]]
-
 for u, v in ipt:
     union(graph, u, v)
 
