@@ -15,7 +15,7 @@ def union(graph, u, v, answer):
     if a == b:
         pass
     else:
-        answer.append([u,v])
+        answer.append([u, v])
         if graph[a] == graph[b]:
             graph[b] = graph[a] + graph[b]
             graph[a] = b
