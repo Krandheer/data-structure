@@ -12,10 +12,12 @@ def union(graph, u, v, answer):
     a = find(graph, u)
     b = find(graph, v)
 
-    if a == b:
-        pass
-    else:
+    # this check helps to avoid the formation of cycle
+    if a != b:
+        # answer storing the mst
         answer.append([u, v])
+
+        # making the disjoint set form of graph to avoid the formation of cycle
         if graph[a] == graph[b]:
             graph[b] = graph[a] + graph[b]
             graph[a] = b
@@ -26,11 +28,12 @@ def union(graph, u, v, answer):
             graph[b] = graph[a] + graph[b]
             graph[a] = b
 
-
+# sorting on basis of weight to get mst
 ipt = sorted(ipt, key=lambda x: x[2])
 n = 7
 answer = []
 graph = [-1] * (n + 1)
 for u, v, _, in ipt:
     union(graph, u, v, answer)
+print(graph)
 print(answer)
