@@ -62,7 +62,7 @@ def get_wrong_id_json_file():
             json.dump(json_file, f)
 
 
-get_wrong_id_json_file()
+# get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -209,19 +209,28 @@ def get_auth_not_auth(bank_json_name):
 
 
 def auth_json():
-    with open('auth_fail/icici_auth_fail.json', 'r') as f:
+    path = "~/Downloads/21OCRReport.csv"
+    with open('atmid/hdfc_ids.json', 'r') as f:
         data = json.load(f)
-    data = data['atmid']
-    date_string = '2023-04-06'
+    data = data['filesToProcess']
+    temp = []
+    df = pd.read_csv(path, low_memory=False)
+    atmids = df[df['OCRAuthstatus'] == 'Not Auth']['ATMID']
+    for i in atmids:
+        if i in data and i not in temp:
+            temp.append(i)
+    date_string = '2023-04-21'
     date = datetime.strptime(date_string, '%Y-%m-%d')
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
-    json_file = {"filesToProcess": data, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('icici_auth_fail.json', 'w') as f:
+    json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
+    with open('hdfc_auth_fail_21.json', 'w') as f:
         json.dump(json_file, f)
 
 
 # auth_json()
+
+
 # print("")
 
 def get_fail_pass(bank_name):
@@ -265,4 +274,33 @@ def total_of_particular_bank_processed_on_given_day():
             temp += 1
     print(temp)
 
+
 # total_of_particular_bank_processed_on_given_day()
+
+def hdfc24th():
+    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-04-27_2023-04-28T04_58_58.527Z.csv'
+    df = pd.read_csv(path, low_memory=False)
+    atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
+    atmid2 = df['ATMID']
+    with open('atmid/hdfc_ids.json', 'r') as f:
+        data = json.load(f)
+
+    data = data['filesToProcess']
+
+    temp = []
+    for i in atmid:
+        if i == "dummy":
+            continue
+        elif i in data and i not in temp:
+            temp.append(i)
+    temp2 = []
+    for i in atmid2:
+        if i == 'dummy':
+            continue
+        elif i in data and i not in temp2:
+            temp2.append(i)
+
+    print(len(temp), len(temp2))
+
+
+hdfc24th()
