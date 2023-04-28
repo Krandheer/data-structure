@@ -28,6 +28,7 @@ def union(graph, u, v, answer):
             graph[b] = graph[a] + graph[b]
             graph[a] = b
 
+
 # sorting on basis of weight to get mst
 ipt = sorted(ipt, key=lambda x: x[2])
 n = 7
