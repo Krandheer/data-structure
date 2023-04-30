@@ -11,10 +11,10 @@ def dfs(graph, start_node, intime, lowtime, par):
             if intime[start_node] < lowtime[child]:
                 print('bridge ', start_node, "-", child)
             else:
-                lowtime[start_node] = min(intime[child], lowtime[child])
+                lowtime[start_node] = min(lowtime[start_node], lowtime[child])
         else:
             if child != par:
-                lowtime[start_node] = min(intime[child], lowtime[child])
+                lowtime[start_node] = min(intime[child], lowtime[start_node])
 
 
 ipt = [[1, 2], [1, 3], [2, 4], [3, 4], [3, 5], [5, 6], [5, 7], [6, 7]]
