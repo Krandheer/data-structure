@@ -1,6 +1,9 @@
 """
 This is used to find the connected component in directed graph. for undirected graph we use disjoint set or
 directed dfs as well.
+lowtime variable keeps info that if the current node has connection in deeper level if yes then update the
+lowtime of it's parent as well while backtracking. and in that way same family get same lowtime which helps
+us to determine the number of family. lst makes sure that the node counted once in a family is not counted again.
 """
 
 
