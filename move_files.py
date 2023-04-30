@@ -57,27 +57,34 @@ def file_inside_folder():
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, 'hdfc_25thapril')
+    path = os.path.join(downloads, 'hdfc_auth_29th_april')
     temp = set()
     for i in os.listdir(path):
         i = i.split("_")[0]
         temp.add(i)
     temp = list(temp)
     print(len(temp))
-    temp1 = ['S1ANGA50', 'S1ANCE54', 'S1ANKP34', ]
-    temp2 = temp[100:200]
+
+    temp1 = temp[:100]
+    temp2 = temp[100:]
     # temp3 = temp[200:]i
-    dest = os.path.join(downloads, 'hdfc_bin')
+    dest1 = os.path.join(downloads, '29th_1')
+    dest2 = os.path.join(downloads, '29th_2')
     for i in temp1:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
-            shutil.copy(j, dest)
+            shutil.copy(j, dest1)
+    for i in temp2:
+        paths = glob(f"{path}/{i}*")
+        print(paths)
+        for j in paths:
+            shutil.copy(j, dest2)
 
 
 copy_from_one_folder_to_another()
 def another2():
-    path = os.path.join(downloads, 'probable_pair')
+    path = os.path.join(downloads, 'hdfc_auth_29th_april')
     path_csv = os.path.join(downloads, "hdfc probable pair correction - Sheet2.csv")
     df = pd.read_csv(path_csv)
     csv_temp = []

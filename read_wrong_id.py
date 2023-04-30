@@ -278,9 +278,11 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th():
-    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-04-27_2023-04-28T04_58_58.527Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-29_2023-04-29T21_15_01.432Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
+    atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
+                & (df["SA-FILE_PASS"] != "True") & (df["SB-FILE_PASS"] != "True")]['ATMID']
     atmid2 = df['ATMID']
     with open('atmid/hdfc_ids.json', 'r') as f:
         data = json.load(f)
@@ -299,8 +301,25 @@ def hdfc24th():
             continue
         elif i in data and i not in temp2:
             temp2.append(i)
-
-    print(len(temp), len(temp2))
+    temp3 = []
+    for i in atmid3:
+        if i in data and i not in temp3:
+            temp3.append(i)
+    print(len(temp), len(temp2), len(temp3))
+    # json_file = {
+    #     "filesToProcess": temp3
+    # }
+    # paths = path.split("_")
+    # date_string = paths[4]
+    # date = datetime.strptime(date_string, '%Y-%m-%d')
+    # formatted_date = date.strftime('%m-%d-%Y')
+    # timestamp = int(date.timestamp())
+    #
+    # json_file['date'] = formatted_date
+    # json_file['updatedAt'] = timestamp
+    #
+    # with open("hdfc_29th_auth_fail.json", 'w') as f:
+    #     json.dump(json_file, f)
 
 
 hdfc24th()
