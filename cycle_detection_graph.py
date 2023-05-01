@@ -35,4 +35,15 @@ def bfs_cycle(graph, node, visited, par):
     return False
 
 
+def dfs_cycle(graph, node, visited, par):
+    visited[node] = True
+    for child in graph[node]:
+        if not visited[child]:
+            dfs_cycle(graph, child, visited, node)
+        elif child != par:
+            return True
+    return False
+
+
+print(dfs_cycle(graph, 1, visited, -1))
 print(bfs_cycle(graph, 1, visited, -1))
