@@ -278,7 +278,7 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-29_2023-04-29T21_15_01.432Z.csv'
+    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-05-02_2023-05-03T07_09_24.492Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
     atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
@@ -305,7 +305,11 @@ def hdfc24th():
     for i in atmid3:
         if i in data and i not in temp3:
             temp3.append(i)
+    print(temp3)
     print(len(temp), len(temp2), len(temp3))
+    pas = df[df['ALL_FILE_PASS'] == 'True']["ATMID"]
+    fai = df[df['ALL_FILE_PASS'] == 'False']["ATMID"]
+    print(len(pas), len(fai))
     # json_file = {
     #     "filesToProcess": temp3
     # }
@@ -320,6 +324,7 @@ def hdfc24th():
     #
     # with open("hdfc_29th_auth_fail.json", 'w') as f:
     #     json.dump(json_file, f)
+    # 63.13 pass
 
 
 hdfc24th()
