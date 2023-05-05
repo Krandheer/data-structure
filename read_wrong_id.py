@@ -209,7 +209,7 @@ def get_auth_not_auth(bank_json_name):
 
 
 def auth_json():
-    path = "~/Downloads/21OCRReport.csv"
+    path = "~/Downloads/4thmay_OCRReport.csv"
     with open('atmid/hdfc_ids.json', 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
@@ -219,16 +219,17 @@ def auth_json():
     for i in atmids:
         if i in data and i not in temp:
             temp.append(i)
-    date_string = '2023-04-21'
+    print(len(temp))
+    date_string = '2023-05-04'
     date = datetime.strptime(date_string, '%Y-%m-%d')
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
     json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('hdfc_auth_fail_21.json', 'w') as f:
+    with open('hdfc_auth_fail_4th_may.json', 'w') as f:
         json.dump(json_file, f)
 
 
-# auth_json()
+auth_json()
 
 
 # print("")
@@ -278,7 +279,7 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th():
-    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-05-02_2023-05-03T07_09_24.492Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-05-04_2023-05-04T19_30_00.448Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
     atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
@@ -327,4 +328,4 @@ def hdfc24th():
     # 63.13 pass
 
 
-hdfc24th()
+# hdfc24th()
