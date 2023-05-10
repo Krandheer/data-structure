@@ -57,7 +57,7 @@ def file_inside_folder():
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, 'hdfc_auth_29th_april')
+    path = os.path.join(downloads, 'hdfc_auth_21')
     temp = set()
     for i in os.listdir(path):
         i = i.split("_")[0]
@@ -65,21 +65,22 @@ def copy_from_one_folder_to_another():
     temp = list(temp)
     print(len(temp))
 
-    temp1 = temp[:100]
-    temp2 = temp[100:]
-    # temp3 = temp[200:]i
-    dest1 = os.path.join(downloads, '29th_1')
-    dest2 = os.path.join(downloads, '29th_2')
+    # temp1 = temp[:100]
+    # temp2 = temp[100:]
+    # temp3 = temp[200:]
+    temp1 = ["P3ENVI06", "S1ANCH17", "S1ANJH37", "S1ANNK50"]
+    dest1 = os.path.join(downloads, '21st_hdfc_extraction_2')
+    # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
     for i in temp1:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
             shutil.copy(j, dest1)
-    for i in temp2:
-        paths = glob(f"{path}/{i}*")
-        print(paths)
-        for j in paths:
-            shutil.copy(j, dest2)
+    # for i in temp2:
+    #     paths = glob(f"{path}/{i}*")
+    #     print(paths)
+    #     for j in paths:
+    #         shutil.copy(j, dest2)
 
 
 copy_from_one_folder_to_another()
