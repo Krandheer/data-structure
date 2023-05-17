@@ -209,8 +209,8 @@ def get_auth_not_auth(bank_json_name):
 
 
 def auth_json():
-    path = "~/Downloads/4thmay_OCRReport.csv"
-    with open('atmid/hdfc_ids.json', 'r') as f:
+    path = "~/Downloads/11thmay_auth.csv"
+    with open('atmid/sbi.json', 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
     temp = []
@@ -220,12 +220,12 @@ def auth_json():
         if i in data and i not in temp:
             temp.append(i)
     print(len(temp))
-    date_string = '2023-05-04'
+    date_string = '2023-05-11'
     date = datetime.strptime(date_string, '%Y-%m-%d')
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
     json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('hdfc_auth_fail_4th_may.json', 'w') as f:
+    with open('sbi_auth_fail_11th_may.json', 'w') as f:
         json.dump(json_file, f)
 
 
@@ -329,3 +329,16 @@ def hdfc24th():
 
 
 # hdfc24th()
+
+def check_in():
+    with open('atmid/hdfc_ids.json', 'r') as f:
+        data = json.load(f)
+    hdfc_ids = data['filesToProcess']
+
+    with open('ids_358.json', 'r') as f:
+        data = json.load(f)
+
+    in_hdfc = 0
+    for i in data:
+        if i not in hdfc_ids:
+            in_hdfc += 1
