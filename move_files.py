@@ -57,7 +57,7 @@ def file_inside_folder():
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, 'hdfc_auth_21')
+    path = os.path.join(downloads, 'sbi_11th_may_chunk')
     temp = set()
     for i in os.listdir(path):
         i = i.split("_")[0]
@@ -68,8 +68,13 @@ def copy_from_one_folder_to_another():
     # temp1 = temp[:100]
     # temp2 = temp[100:]
     # temp3 = temp[200:]
-    temp1 = ["P3ENVI06", "S1ANCH17", "S1ANJH37", "S1ANNK50"]
-    dest1 = os.path.join(downloads, '21st_hdfc_extraction_2')
+    temp1 = ["S1BW000074016", "S1BW000074028", "S1BW000074086", "S1BW000093098", "S1BW000178007", "S1BW000178009",
+             "S1BW000178012", "S1BW000178013", "S1BW000178072", "S1BW000178152", "S1BW000181017", "S1BW000181022",
+             "S1BW000181036", "S1BW000181040", "S1BW000181047", "S1BW000181049", "S1BW000181140", "S1BW000181142",
+             "S1BW000300037", "S1BW000300159", "S1BW000334010", "S1BW000432192", "S1BW000463005", "S1BW000835059",
+             "S1BW000938005", "S1BW001490059", "S1NW001355015", "CFBA020018005", "CFBA020018015", "DBBK000196111",
+             "DBBK000196115", "DFBK001171044", ]
+    dest1 = os.path.join(downloads, 'sbi_11th_1')
     # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
     for i in temp1:
         paths = glob(f"{path}/{i}*")
