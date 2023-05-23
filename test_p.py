@@ -1,22 +1,20 @@
-masterD = {'TARN0380': {'T3': 500, 'C3': 500},
-           'TARS0638': {'T3': 500},
-           'TARS0716': {'T3': 500, 'C3': 500},
-           'TKBE0035': {'T3': 500, 'C3': 500}}
+import collections
 
-sbi_master_d = {'S1AC0165008': {'T2': 100, 'T3': 500, 'T4': 500, 'C2': 100, 'C3': 500},
-                'S1AC0482703': {'T2': 100, 'T3': 500, 'C2': 100, 'C3': 500},
-                'S1AC0490501': {'T2': 100, 'T3': 500, 'C2': 100, 'C3': 500},
-                'S1ACMU23': {'T1': 100, 'T3': 500, 'C1': 100, 'C3': 500},
-                'S1ANPK14': {'T1': 100, 'T2': 200, 'T3': 500, 'C1': 100, 'C2': 200, 'C3': 500}, }
-
-sbi_atmids = ["S1AC0165008", "S1ACMU23"]
+Card = collections.namedtuple('Card', ['rank', 'suit'])
 
 
-def som_fun(atmid):
-    global masterD
-    if atmid in sbi_master_d:
-        masterD = sbi_master_d
+class FrenchDeck:
+    ranks = [str(n) for n in range(2, 11)] + list('JQKA')
+    suits = 'spades diamonds clubs hearts'.split()
 
-    print(masterD)
+    def __init__(self):
+        self._cards = [Card(rank, suit) for suit in self.suits for rank in self.ranks]
 
-som_fun('TKBE0035')
+    def __len__(self):
+        return len(self._cards)
+
+    def __getitem__(self, position): return self._cards[position]
+
+
+a = FrenchDeck()
+print(len(a))
