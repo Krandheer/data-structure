@@ -6,15 +6,15 @@ import json
 
 
 def get_wrong_id_json_file():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-24_2023-04-24T19_30_00.991Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-05-11_2023-05-11T19_30_00.792Z.csv'
     json_file = {
         "filesToProcess": []
     }
 
     df = pd.read_csv(path, low_memory=False)
-    # atm_id = df[df["ALL_FILE_PASS"] == "True"]["ATMID"]
-    atm_id = df["ATMID"]
-    with open('atmid/hdfc_ids.json', 'r') as f:
+    atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
+    # atm_id = df["ATMID"]
+    with open('atmid/sbi.json', 'r') as f:
         data = json.load(f)
 
     hdfc = data['filesToProcess']
@@ -27,17 +27,6 @@ def get_wrong_id_json_file():
 
     print(len(temp_ids))
     # atm_id = atm_id[atm_id.str[:2] == 'TA']
-    temp1 = temp_ids[:1000]
-    temp2 = temp_ids[1000:2000]
-    temp3 = temp_ids[2000:3000]
-    temp4 = temp_ids[3000:]
-
-    # for ids in atm_id:
-    #     if ids == 'dummy':
-    #         continue
-    #     elif ids in hdfc:
-    #         json_file["filesToProcess"].append(ids)
-    #
 
     paths = path.split("_")
     date_string = paths[4]
@@ -47,22 +36,22 @@ def get_wrong_id_json_file():
 
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
+    json_file['filesToProcess'] = temp_ids
+    # for i in range(1, 5):
+    #     if i == 1:
+    #         json_file['filesToProcess'] = temp1
+    #     elif i == 2:
+    #         json_file['filesToProcess'] = temp2
+    #     elif i == 3:
+    #         json_file['filesToProcess'] = temp3
+    #     elif i == 4:
+    #         json_file['filesToProcess'] = temp4
 
-    for i in range(1, 5):
-        if i == 1:
-            json_file['filesToProcess'] = temp1
-        elif i == 2:
-            json_file['filesToProcess'] = temp2
-        elif i == 3:
-            json_file['filesToProcess'] = temp3
-        elif i == 4:
-            json_file['filesToProcess'] = temp4
-
-        with open(f'writercorp_{i}.json', 'w') as f:
-            json.dump(json_file, f)
+    with open(f'sbi_fail_11th_may.json', 'w') as f:
+        json.dump(json_file, f)
 
 
-# get_wrong_id_json_file()
+get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -229,7 +218,7 @@ def auth_json():
         json.dump(json_file, f)
 
 
-auth_json()
+# auth_json()
 
 
 # print("")
