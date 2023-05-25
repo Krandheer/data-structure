@@ -1,3 +1,4 @@
+import csv
 import os
 from glob import glob
 
@@ -65,27 +66,31 @@ def copy_from_one_folder_to_another():
     temp = list(temp)
     print(len(temp))
 
-    # temp1 = temp[:100]
-    # temp2 = temp[100:]
-    # temp3 = temp[200:]
-    temp1 = ["S1BW000074016", "S1BW000074028", "S1BW000074086", "S1BW000093098", "S1BW000178007", "S1BW000178009",
-             "S1BW000178012", "S1BW000178013", "S1BW000178072", "S1BW000178152", "S1BW000181017", "S1BW000181022",
-             "S1BW000181036", "S1BW000181040", "S1BW000181047", "S1BW000181049", "S1BW000181140", "S1BW000181142",
-             "S1BW000300037", "S1BW000300159", "S1BW000334010", "S1BW000432192", "S1BW000463005", "S1BW000835059",
-             "S1BW000938005", "S1BW001490059", "S1NW001355015", "CFBA020018005", "CFBA020018015", "DBBK000196111",
-             "DBBK000196115", "DFBK001171044", ]
-    dest1 = os.path.join(downloads, 'sbi_11th_1')
+    temp = ["GFBV000227010", "T1NF000093113", "S1NB000048039", "S1NB000004116", "T1NY000048169", "GFBV000227008",
+             "S1NB010283261", "T1NY000048155", "T1NF000093110", "T1NF000827195", "GFBV000081034", ]
+    temp1 = temp[:30]
+    temp2 = temp[30:130]
+    temp3 = temp[130:]
+    dest1 = os.path.join(downloads, 'sbi_11th_30')
+    dest2 = os.path.join(downloads, 'sbi_temp2')
+    dest3 = os.path.join(downloads, 'sbi_temp3')
     # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
     for i in temp1:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
             shutil.copy(j, dest1)
-    # for i in temp2:
-    #     paths = glob(f"{path}/{i}*")
-    #     print(paths)
-    #     for j in paths:
-    #         shutil.copy(j, dest2)
+    for i in temp2:
+        paths = glob(f"{path}/{i}*")
+        # print(paths)
+        for j in paths:
+            shutil.copy(j, dest2)
+
+    for i in temp3:
+        paths = glob(f"{path}/{i}*")
+        # print(paths)
+        for j in paths:
+            shutil.copy(j, dest3)
 
 
 copy_from_one_folder_to_another()
@@ -116,4 +121,5 @@ def another2():
     #     print(paths)
     #     for j in paths:
     #         shutil.copy(j, dest)
+
 # another2()

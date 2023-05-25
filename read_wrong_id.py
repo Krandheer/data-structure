@@ -51,7 +51,7 @@ def get_wrong_id_json_file():
         json.dump(json_file, f)
 
 
-get_wrong_id_json_file()
+# get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -199,7 +199,7 @@ def get_auth_not_auth(bank_json_name):
 
 def auth_json():
     path = "~/Downloads/11thmay_auth.csv"
-    with open('atmid/axis.json', 'r') as f:
+    with open('atmid/sbi.json', 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
     temp = []
@@ -209,16 +209,16 @@ def auth_json():
         if i in data and i not in temp:
             temp.append(i)
     print(len(temp))
-    date_string = '2023-05-11'
-    date = datetime.strptime(date_string, '%Y-%m-%d')
-    formatted_date = date.strftime('%m-%d-%Y')
-    timestamp = int(date.timestamp())
-    json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('axis_auth_fail_11th_may.json', 'w') as f:
-        json.dump(json_file, f)
+    # date_string = '2023-05-11'
+    # date = datetime.strptime(date_string, '%Y-%m-%d')
+    # formatted_date = date.strftime('%m-%d-%Y')
+    # timestamp = int(date.timestamp())
+    # json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
+    # with open('axis_auth_fail_11th_may.json', 'w') as f:
+    #     json.dump(json_file, f)
 
 
-# auth_json()
+auth_json()
 
 
 # print("")
