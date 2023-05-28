@@ -20,12 +20,11 @@
 # print(len(a))
 
 
-def factorial(n, a=1):
-    if n <= 1:
-        return a
+def fun(x, y):
+    if x == 0:
+        return y
     else:
-        return factorial(n - 1, a * n)
+        return fun(x - 1, x + y)
 
 
-
-print(factorial(5))
+print(fun(5, 2))
