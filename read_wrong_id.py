@@ -6,30 +6,39 @@ import json
 
 
 def get_wrong_id_json_file():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-05-11_2023-05-11T19_30_00.792Z.csv'
+    # path = '~/Downloads/Writer_Mongo_Data_Report_2023-05-11_2023-05-11T19_30_00.792Z.csv'
+    path = "~/Downloads/hdfc_400.csv"
     json_file = {
         "filesToProcess": []
     }
 
     df = pd.read_csv(path, low_memory=False)
-    atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
+    # atm_id = df[df["ALL_FILE_PASS"] == "False"]["ATMID"]
+    atm_id = df["ATMID"]
     # atm_id = df["ATMID"]
-    with open('atmid/sbi.json', 'r') as f:
-        data = json.load(f)
+    # with open('atmid/sbi.json', 'r') as f:
+    #     data = json.load(f)
+    #
+    # hdfc = data['filesToProcess']
+    # temp_ids = []
+    # for i in atm_id:
+    #     if i == 'dummy':
+    #         continue
+    #     elif i in hdfc:
+    #         temp_ids.append(i)
 
-    hdfc = data['filesToProcess']
     temp_ids = []
     for i in atm_id:
-        if i == 'dummy':
+        if i == "dummy":
             continue
-        elif i in hdfc:
-            temp_ids.append(i)
+        temp_ids.append(i)
 
     print(len(temp_ids))
     # atm_id = atm_id[atm_id.str[:2] == 'TA']
 
-    paths = path.split("_")
-    date_string = paths[4]
+    # paths = path.split("_")
+    # date_string = paths[4]
+    date_string = '2023-05-01'
     date = datetime.strptime(date_string, '%Y-%m-%d')
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
@@ -47,11 +56,11 @@ def get_wrong_id_json_file():
     #     elif i == 4:
     #         json_file['filesToProcess'] = temp4
 
-    with open(f'sbi_fail_11th_may.json', 'w') as f:
+    with open(f'hdfc_400.json', 'w') as f:
         json.dump(json_file, f)
 
 
-# get_wrong_id_json_file()
+get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -218,7 +227,7 @@ def auth_json():
     #     json.dump(json_file, f)
 
 
-auth_json()
+# auth_json()
 
 
 # print("")
