@@ -66,31 +66,43 @@ def copy_from_one_folder_to_another():
     temp = list(temp)
     print(len(temp))
 
-    temp = ["GFBV000227010", "T1NF000093113", "S1NB000048039", "S1NB000004116", "T1NY000048169", "GFBV000227008",
-             "S1NB010283261", "T1NY000048155", "T1NF000093110", "T1NF000827195", "GFBV000081034", ]
-    temp1 = temp[:30]
-    temp2 = temp[30:130]
-    temp3 = temp[130:]
-    dest1 = os.path.join(downloads, 'sbi_11th_30')
-    dest2 = os.path.join(downloads, 'sbi_temp2')
-    dest3 = os.path.join(downloads, 'sbi_temp3')
+    temp = ["S1BW000074016", "S1BW000074028", "S1BW000074086", "S1BW000093098", "S1BW000178007", "S1BW000178012",
+            "S1BW000178013", "S1BW000178072", "S1NW001355015", "T1NF004789178", "T1BY000399096", "T1NF000935124",
+            "S1BW000178152", "S1BW000181017", "S1BW000181036", "S1BW000181040", "S1BW000181047", "S1BW000181140",
+            "S1BW000181142", "S1BW000334010", "S1BW000835059", "S1BW001490059", "S1NW004789044", "S1BW000130006",
+            "S1NB000181183", "S1BW060289094", "S1BW004789112", "S1BW000300037", "S1BW000300159", "DBBK000196111",
+            "DBBK000196115", "CFBA020018015", "S1NB014821290", "CFBA020018005", "T1NF000093111", "DFBK001171044",
+            "T1BF000048173", "GFBV000227006", "S1BB000463008", "T1NF000048117", "S1NH006240112", "S1BW000178009",
+            "GFBH000257023", "T1NF000093112", "S1NG000395035", "S1BB000300174", "T1NF014821156", "T1NF000093116",
+            "SYN2000432072", "T1NY014821170", "GFBH070094019", "T1NF000935118", "T1NF004789155", "S1NW014821278",
+            "GFBH070155017", "T1NF001522118", "S1BB000083045", "T1NY000074191", "DFNK002068016", "S1BG007249018",
+            "T1NS000048142", "S1BB000181166", "GFNV000081013", "T1NF000935116", "S1NW000048041", "GFNV000227007",
+            "T1NF000048133", "S1BW014821111", "T1NF014821231", "S1NB000071145", "S1BW000004083", "T1NF014821155",
+            "T1BH000432242", "S1BW005922084", "S1NW000181081", "T1NS000106021", "S1NB000300265", "S1NW014821296",
+            "S1BH001469028", "S1BW000048018", "SYN2014821072", "S1BW000029023", "T1NH000925018", "T1NS000837072",
+            "T1NF004789165", "S1BW014894139", "T1NS000048125", "S1NW000300323", "S1BW000181027", "T1NF001522111",
+            "S1BB000181157", "T1NF004789195", "S1BW000048031", "T1NS004789169", "S1NF000432193", "S1NB016112042",
+            "T1NH000300361", "S1BW000048019", "T1NF000048149", "T1NY014821238"]
+
+    dest1 = os.path.join(downloads, 'sbi_11th_temp1')
+
     # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
-    for i in temp1:
+    for i in temp:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
             shutil.copy(j, dest1)
-    for i in temp2:
-        paths = glob(f"{path}/{i}*")
-        # print(paths)
-        for j in paths:
-            shutil.copy(j, dest2)
-
-    for i in temp3:
-        paths = glob(f"{path}/{i}*")
-        # print(paths)
-        for j in paths:
-            shutil.copy(j, dest3)
+    # for i in temp2:
+    #     paths = glob(f"{path}/{i}*")
+    #     # print(paths)
+    #     for j in paths:
+    #         shutil.copy(j, dest2)
+    #
+    # for i in temp3:
+    #     paths = glob(f"{path}/{i}*")
+    #     # print(paths)
+    #     for j in paths:
+    #         shutil.copy(j, dest3)
 
 
 copy_from_one_folder_to_another()
