@@ -58,7 +58,7 @@ def file_inside_folder():
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, 'axis_11th_may_auth')
+    path = os.path.join(downloads, '11th_axis_triangulation')
     temp = set()
     for i in os.listdir(path):
         i = i.split("_")[0]
@@ -66,19 +66,15 @@ def copy_from_one_folder_to_another():
     temp = list(temp)
     print(len(temp))
 
-    temp = ["AECN02313", "AECN42813", "APCN09714", "APCN19226", "APCN29019", "APCN38817",
-            "BECN115602", "BECN122406", "BECN137211", "BECN176601", "BECN210210", "BECN210211",
-            "BECN310101", "BPCN133702", "BPCN169405", "BPCN171021", "BPCN192205",
-            "BPCN196318", "BPCN196322", "BPCN201202", "BPCN201205", "BPCN213305", "BPCN255503", "BPCN280902",
-            "BPCN286109", "BPCN317302", "CECN11125", "CECN42822", "CECN42824", "CECN48608", "CECN60528",
-            "CPCN02114", "CPCN11122", "CPCN16117", "CPCN25939", "CPCN44907", "CPCN45908", "CPCN78925", "DECN105326",
-            "DECN118124", "DECN219613", "DECN220131", "DECN249417", "DECN333102", "DECN348401",
-            "DECN351902", "DECN373801", "DECN388101", "DECN394001", "DECN404901", "DECN414001", "DPCN104424",
-            "DPCN144015", "DPCN191108", "DPCN204603", "DPCN255504", "DPCN289102", "SPAN28719", "SPAN28730",
-            "SPCN28905", "TPCN122903", "TPCN13644", "TPCN13884", "TPCN155005", "TPCN155006", "TPCN16061",
-            "TPCN169104", "TPCN270205", "TPCN300804", "TPCN10531", "SPCN8486", "BECN118222"]
+    temp = ["CECN19236", "CECN19234", "CECN19240", "DECN438806", "DECN433301", "CECN19238", "CECN1923", "DECN105031",
+            "BECN176615", "DECN111215", "APCN23108", "DECN300604", "DECN149835", "CECN43318", "DECN167419",
+            "CECN19237", "BPCN141103", "DECN149831", "DECN171036", "CECN26532", "DECN149833", "DECN149834",
+            "DECN396401", "DPCN192602", "DECN149832", "DECN477701", "DECN324006", "DECN165823", "CECN11133",
+            "DECN372502", "DECN130441", "CECN11131", "SPCN29509", "DECN273817", "APCN59007", "DECN104439",
+            "DECN201107", "DECN299406", "DECN367102", "DECN443701", "CECN57527", "AECN12510", "DECN273819",
+            "DECN111936", "DECN273816", "APCN59008", "BECN146916", "DECN324112", "DECN314505", "DECN280803", ]
 
-    dest1 = os.path.join(downloads, 'axis_auth')
+    dest1 = os.path.join(downloads, 'axis_triang')
 
     # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
     for i in temp:
