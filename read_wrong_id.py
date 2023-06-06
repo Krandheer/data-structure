@@ -60,7 +60,7 @@ def get_wrong_id_json_file():
         json.dump(json_file, f)
 
 
-get_wrong_id_json_file()
+# get_wrong_id_json_file()
 
 
 def get_top_fails():
@@ -207,27 +207,32 @@ def get_auth_not_auth(bank_json_name):
 
 
 def auth_json():
-    path = "~/Downloads/11thmay_auth.csv"
-    with open('atmid/sbi.json', 'r') as f:
-        data = json.load(f)
-    data = data['filesToProcess']
-    temp = []
-    df = pd.read_csv(path, low_memory=False)
-    atmids = df[df['OCRAuthstatus'] == 'Not Auth']['ATMID']
-    for i in atmids:
-        if i in data and i not in temp:
-            temp.append(i)
+    # path = "~/Downloads/11thmay_auth.csv"
+    # with open('atmid/sbi.json', 'r') as f:
+    #     data = json.load(f)
+    # data = data['filesToProcess']
+    # temp = []
+    # df = pd.read_csv(path, low_memory=False)
+    # atmids = df[df['OCRAuthstatus'] == 'Not Auth']['ATMID']
+    # for i in atmids:
+    #     if i in data and i not in temp:
+    #         temp.append(i)
+    temp = ["40536601", "40523002", "40107108", "40208010", "40223102", "40240503", "40267907", "40267907", "40290404",
+            "40326601", "40346302", "40351202", "40426802", "40444202", "40455901", "40464901", "40517802", "40524405",
+            "40535401", "40535402", "40545001", "40545101", "40553001", "40553201", "40553202", "40556501", "40577301",
+            "40579501", "40580803", "40581603", "40595402", "40643601", "40655902", "40683001", "60117102", "60271801",
+            "60310402", "60338803", "60465902", "60570301", "62616101", "70170701", "70208003", ]
     print(len(temp))
-    # date_string = '2023-05-11'
-    # date = datetime.strptime(date_string, '%Y-%m-%d')
-    # formatted_date = date.strftime('%m-%d-%Y')
-    # timestamp = int(date.timestamp())
-    # json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
-    # with open('axis_auth_fail_11th_may.json', 'w') as f:
-    #     json.dump(json_file, f)
+    date_string = '2023-06-06'
+    date = datetime.strptime(date_string, '%Y-%m-%d')
+    formatted_date = date.strftime('%m-%d-%Y')
+    timestamp = int(date.timestamp())
+    json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
+    with open('india1_icici_6th_june.json', 'w') as f:
+        json.dump(json_file, f)
 
 
-# auth_json()
+auth_json()
 
 
 # print("")
