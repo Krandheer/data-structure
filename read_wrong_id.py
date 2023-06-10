@@ -231,7 +231,7 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th(bank_name):
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-06_2023-06-06T19_30_01.008Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-09_2023-06-09T19_30_00.993Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
     atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
@@ -252,17 +252,17 @@ def hdfc24th(bank_name):
         if i in data and i not in temp2:
             temp2.append(i)
     # print(temp2)
-    # print(f"{bank_name}, failed: {len(temp)}, all 4 failed {len(temp2)}")
-    paths = path.split("_")
-    date_string = paths[4]
-    # date_string = '2023-05-01'
-    date = datetime.strptime(date_string, '%Y-%m-%d')
-    formatted_date = date.strftime('%m-%d-%Y')
-    timestamp = int(date.timestamp())
-
-    json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
-    with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
-        json.dump(json_file, f)
+    print(f"{bank_name}, failed: {len(temp)}, all 4 failed {len(temp2)}")
+    # paths = path.split("_")
+    # date_string = paths[4]
+    # # date_string = '2023-05-01'
+    # date = datetime.strptime(date_string, '%Y-%m-%d')
+    # formatted_date = date.strftime('%m-%d-%Y')
+    # timestamp = int(date.timestamp())
+    #
+    # json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
+    # with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
+    #     json.dump(json_file, f)
 
 
 bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', "IDBI", 'india1_icici',
@@ -274,7 +274,7 @@ for bank_name in bank_names:
 
 
 def get_top_fails():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-07_2023-06-07T19_30_00.221Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-09_2023-06-09T19_30_00.993Z.csv'
     path2 = '~/Downloads/ATMID_BANKNAME_Details.csv'
     df1 = pd.read_csv(path, low_memory=False)
     df2 = pd.read_csv(path2, low_memory=False)
