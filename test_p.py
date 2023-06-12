@@ -18,17 +18,6 @@
 #
 # a = FrenchDeck()
 # print(len(a))
-z = 1
-
-
-def check():
-    global z
-    a = z + 1
-    print(a)
-
-
-check()
-print(z)
 
 """
 a variable defined outside the scope of function can be accessed inside the function but can't be modified without
@@ -43,3 +32,19 @@ def fun(x, y):
         return fun(x - 1, x + y)
 
 # print(fun(5, 2))
+
+
+import asyncio
+
+
+async def your_coroutine(delay_in_seconds):
+    print(f'This coroutine will pause for {delay_in_seconds} seconds')
+    await asyncio.sleep(delay_in_seconds)
+    print(f'Finished awaiting {delay_in_seconds} seconds')
+
+
+async def main():
+    await asyncio.gather(*[your_coroutine(i) for i in range(5)])
+
+
+asyncio.run(main())
