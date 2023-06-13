@@ -31,20 +31,42 @@ def fun(x, y):
     else:
         return fun(x - 1, x + y)
 
+
 # print(fun(5, 2))
 
 
-import asyncio
+# import asyncio
+#
+#
+# async def your_coroutine(delay_in_seconds):
+#     print(f'This coroutine will pause for {delay_in_seconds} seconds')
+#     await asyncio.sleep(delay_in_seconds)
+#     print(f'Finished awaiting {delay_in_seconds} seconds')
+#
+#
+# async def main():
+#     await asyncio.gather(*[your_coroutine(i) for i in range(5)])
+#
+#
+# asyncio.run(main())
+
+def isValid(s):
+    # code here
+    ipv4 = s.split(".")
+    is_ok = True
+    temp = 0
+
+    if len(ipv4) == 4:
+        for i in ipv4:
+            if int(i) == 0:
+                temp = temp + 1
+            if temp == 4:
+                is_ok = False
+            if not is_ok:
+                return 0
+            if not (0 <= int(i) <= 255):
+                return 0
+    return 1
 
 
-async def your_coroutine(delay_in_seconds):
-    print(f'This coroutine will pause for {delay_in_seconds} seconds')
-    await asyncio.sleep(delay_in_seconds)
-    print(f'Finished awaiting {delay_in_seconds} seconds')
-
-
-async def main():
-    await asyncio.gather(*[your_coroutine(i) for i in range(5)])
-
-
-asyncio.run(main())
+print(isValid("0.0.0.0"))
