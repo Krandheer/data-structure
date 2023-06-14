@@ -231,7 +231,7 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th(bank_name):
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-13_2023-06-13T19_30_00.765Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-08_2023-06-08T19_30_00.468Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
     atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
@@ -253,25 +253,26 @@ def hdfc24th(bank_name):
             temp2.append(i)
     # print(temp2)
     print(f"{bank_name}, failed: {len(temp)}, all 4 failed {len(temp2)}")
-    # paths = path.split("_")
-    # date_string = paths[4]
-    # # date_string = '2023-05-01'
-    # date = datetime.strptime(date_string, '%Y-%m-%d')
-    # formatted_date = date.strftime('%m-%d-%Y')
-    # timestamp = int(date.timestamp())
-    #
-    # json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
-    # with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
-    #     json.dump(json_file, f)
+    paths = path.split("_")
+    date_string = paths[4]
+    # date_string = '2023-05-01'
+    date = datetime.strptime(date_string, '%Y-%m-%d')
+    formatted_date = date.strftime('%m-%d-%Y')
+    # formatted date = month-date-year
+    timestamp = int(date.timestamp())
+
+    json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
+    with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
+        json.dump(json_file, f)
 
 
-bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', "IDBI", 'india1_icici',
+bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'pnb', 'cub', "IDBI", 'india1_icici',
 'mon-spot-icici']
 # bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', 'india1_icici',
 # 'mon-spot-icici', 'pnb']
-for bank_name in bank_names:
-    hdfc24th(bank_name)
-
+# for bank_name in bank_names:
+#     hdfc24th(bank_name)
+hdfc24th('sbi')
 
 def get_top_fails():
     path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-12_2023-06-12T19_30_00.440Z.csv'
