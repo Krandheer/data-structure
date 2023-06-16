@@ -6,8 +6,8 @@ import json
 
 
 def get_wrong_id_json_file():
-    # path = '~/Downloads/Writer_Mongo_Data_Report_2023-05-11_2023-05-11T19_30_00.792Z.csv'
-    path = "~/Downloads/hdfc_400.csv"
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-14_2023-06-15T03_12_33.171Z.csv'
+    # path = "~/Downloads/hdfc_400.csv"
     json_file = {
         "filesToProcess": []
     }
@@ -35,6 +35,17 @@ def get_wrong_id_json_file():
 
     print(len(temp_ids))
     # atm_id = atm_id[atm_id.str[:2] == 'TA']
+    temp1 = temp_ids[:1000]
+    temp2 = temp_ids[1000:2000]
+    temp3 = temp_ids[2000:3000]
+    temp4 = temp_ids[3000:4000]
+    temp5 = temp_ids[4000:5000]
+    temp6 = temp_ids[5000:6000]
+    temp7 = temp_ids[6000:7000]
+    temp8 = temp_ids[7000:8000]
+    temp9 = temp_ids[8000:9000]
+    temp10 = temp_ids[9000:10000]
+    temp11 = temp_ids[10000:]
 
     paths = path.split("_")
     date_string = paths[4]
@@ -45,19 +56,33 @@ def get_wrong_id_json_file():
 
     json_file['date'] = formatted_date
     json_file['updatedAt'] = timestamp
-    json_file['filesToProcess'] = temp_ids
-    # for i in range(1, 5):
-    #     if i == 1:
-    #         json_file['filesToProcess'] = temp1
-    #     elif i == 2:
-    #         json_file['filesToProcess'] = temp2
-    #     elif i == 3:
-    #         json_file['filesToProcess'] = temp3
-    #     elif i == 4:
-    #         json_file['filesToProcess'] = temp4
+    # json_file['filesToProcess'] = temp_ids
+    for i in range(1, 12):
+        if i == 1:
+            json_file['filesToProcess'] = temp1
+        elif i == 2:
+            json_file['filesToProcess'] = temp2
+        elif i == 3:
+            json_file['filesToProcess'] = temp3
+        elif i == 4:
+            json_file['filesToProcess'] = temp4
+        elif i == 5:
+            json_file['filesToProcess'] = temp5
+        elif i == 6:
+            json_file['filesToProcess'] = temp6
+        elif i == 7:
+            json_file['filesToProcess'] = temp7
+        elif i == 8:
+            json_file['filesToProcess'] = temp8
+        elif i == 9:
+            json_file['filesToProcess'] = temp9
+        elif i == 10:
+            json_file['filesToProcess'] = temp10
+        elif i == 11:
+            json_file['filesToProcess'] = temp11
 
-    with open(f'hdfc_400.json', 'w') as f:
-        json.dump(json_file, f)
+        with open(f'writercopr_data{i}.json', 'w') as f:
+            json.dump(json_file, f)
 
 
 # get_wrong_id_json_file()
@@ -242,6 +267,10 @@ def hdfc24th(bank_name):
     data = data['filesToProcess']
 
     temp = []
+    temp1 = []
+    for i in df['ATMID']:
+        if i in data:
+            temp1.append(i)
     for i in atmid:
         if i == "dummy":
             continue
@@ -252,30 +281,33 @@ def hdfc24th(bank_name):
         if i in data and i not in temp2:
             temp2.append(i)
     # print(temp2)
-    print(f"{bank_name}, failed: {len(temp)}, all 4 failed {len(temp2)}")
-    paths = path.split("_")
-    date_string = paths[4]
-    # date_string = '2023-05-01'
-    date = datetime.strptime(date_string, '%Y-%m-%d')
-    formatted_date = date.strftime('%m-%d-%Y')
-    # formatted date = month-date-year
-    timestamp = int(date.timestamp())
-
-    json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
-    with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
-        json.dump(json_file, f)
+    print(f"{bank_name}, total: {len(temp1)}, failed: {len(temp)}, all 4 failed {len(temp2)}")
+    # paths = path.split("_")
+    # date_string = paths[4]
+    # # date_string = '2023-05-01'
+    # date = datetime.strptime(date_string, '%Y-%m-%d')
+    # formatted_date = date.strftime('%m-%d-%Y')
+    # # formatted date = month-date-year
+    # timestamp = int(date.timestamp())
+    #
+    # json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
+    # with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
+    #     json.dump(json_file, f)
 
 
 bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'pnb', 'cub', "IDBI", 'india1_icici',
-'mon-spot-icici']
+              'mon-spot-icici']
+
+
 # bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', 'india1_icici',
 # 'mon-spot-icici', 'pnb']
-# for bank_name in bank_names:
-#     hdfc24th(bank_name)
-hdfc24th('sbi')
+for bank_name in bank_names:
+    hdfc24th(bank_name)
+# hdfc24th('sbi')
+
 
 def get_top_fails():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-12_2023-06-12T19_30_00.440Z.csv'
+    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-06-16_2023-06-16T07_05_38.337Z.csv'
     path2 = '~/Downloads/ATMID_BANKNAME_Details.csv'
     df1 = pd.read_csv(path, low_memory=False)
     df2 = pd.read_csv(path2, low_memory=False)
