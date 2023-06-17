@@ -21,7 +21,8 @@
 
 """
 a variable defined outside the scope of function can be accessed inside the function but can't be modified without
- declaring it as global inside the function you trying to modifying it.
+ declaring it as global inside the function, if you try to modify without declaring it as global as actually python
+ creates new variable with same name inside the function instead of actually modifying the variable..
 """
 
 
@@ -69,4 +70,19 @@ def isValid(s):
     return 1
 
 
-print(isValid("0.0.0.0"))
+# print(isValid("0.0.0.0"))
+
+a = {
+    "name": 'randheer'
+}
+b = {"name": "poonam"}
+
+
+def change():
+    # global a
+    a = b
+    print(a['name'])
+
+
+change()
+print(a)
