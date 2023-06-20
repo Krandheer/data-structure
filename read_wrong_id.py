@@ -114,7 +114,7 @@ def probable_pair_correction_ids():
                 ((df['SA-FILE_PASS'] == "True") & (df['CA-FILE_PASS'] == "False"))
         )
         ]
-    with open("atmid/icici.json", 'r') as f:
+    with open("icici.json", 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
     temp = set()
@@ -133,8 +133,8 @@ def probable_pair_correction_ids():
 # probable_pair_correction_ids()
 
 def get_all_ids_of_bank(bank_name):
-    downloads = os.path.join(os.path.expanduser("~"), "Downloads")
-    map_path = os.path.join(downloads, 'ATMID_BANKNAME_Details.csv')
+    amygb_data = os.path.join(os.path.expanduser("~"), "Downloads", "amygb_data")
+    map_path = os.path.join(amygb_data, 'updated_master_bank_list.csv')
     df = pd.read_csv(map_path)
     bank_ids_list = []
     bank_id = df[df['BankName'] == bank_name]['ATMID']
@@ -144,11 +144,12 @@ def get_all_ids_of_bank(bank_name):
     json_file = {
         "filesToProcess": bank_ids_list
     }
-    with open(f"{bank_name.lower()}.json", 'w') as f:
+    with open(f"atmid/{bank_name.lower()}.json", 'w') as f:
         json.dump(json_file, f)
 
 
-# get_all_ids_of_bank("MON-SPOT-ICICI")
+# get_all_ids_of_bank("SBI")
+
 
 def get_auth_not_auth(bank_json_name):
     path = "~/Downloads/11OCRReport.csv"
@@ -242,7 +243,7 @@ def total_of_particular_bank_processed_on_given_day():
     path = '~/Downloads/Writer_Mongo_Data_Report_2023-04-06_2023-04-06T19_30_00.905Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atm_id = df['ATMID']
-    with open("atmid/hdfc_ids.json", 'r') as f:
+    with open("hdfc_ids.json", 'r') as f:
         data = json.load(f)
     hdfc = data['filesToProcess']
 
@@ -256,7 +257,7 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th(bank_name):
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-08_2023-06-08T19_30_00.468Z.csv'
+    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-06-17_2023-06-17T03_44_10.687Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
     atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
@@ -281,21 +282,26 @@ def hdfc24th(bank_name):
         if i in data and i not in temp2:
             temp2.append(i)
     # print(temp2)
+    # temp_ids = []
+    # for ids in atmid3:
+    #     if ids not in temp_ids:
+    #         temp_ids.append(ids)
+    # temp3 = temp_ids[:1000]
+    # temp4 = temp_ids[1000:]
     print(f"{bank_name}, total: {len(temp1)}, failed: {len(temp)}, all 4 failed {len(temp2)}")
     # paths = path.split("_")
     # date_string = paths[4]
-    # # date_string = '2023-05-01'
-    # date = datetime.strptime(date_string, '%Y-%m-%d')
-    # formatted_date = date.strftime('%m-%d-%Y')
-    # # formatted date = month-date-year
-    # timestamp = int(date.timestamp())
-    #
-    # json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
-    # with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
-    #     json.dump(json_file, f)
+    date_string = '2023-06-14'
+    date = datetime.strptime(date_string, '%Y-%m-%d')
+    formatted_date = date.strftime('%m-%d-%Y')
+    # formatted date = month-date-year
+    timestamp = int(date.timestamp())
+    json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
+    with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
+        json.dump(json_file, f)
 
 
-bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'pnb', 'cub', "IDBI", 'india1_icici',
+bank_names = ['sbi', 'hdfc', 'canara', 'icici', 'karur_vysya_bank', 'axis', 'pnb', 'cub', "idbi", 'india1-icici',
               'mon-spot-icici']
 
 
@@ -303,6 +309,8 @@ bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', '
 # 'mon-spot-icici', 'pnb']
 for bank_name in bank_names:
     hdfc24th(bank_name)
+
+# hdfc24th()
 # hdfc24th('sbi')
 
 

@@ -58,26 +58,28 @@ def file_inside_folder():
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, '11th_axis_triangulation')
+    path = os.path.join(downloads, 'hdfc_chunk_14_june')
+    atmid_path = os.path.join(downloads, 'writercorp_129.json')
     temp = set()
     for i in os.listdir(path):
         i = i.split("_")[0]
         temp.add(i)
     temp = list(temp)
     print(len(temp))
+    with open(atmid_path, 'r') as f:
+        data = json.load(f)
+    data = data['filesToProcess']
+    temp2 = []
+    for i in data:
+        if i not in temp2 and len(temp2) < 100:
+            temp2.append(i)
+        else:
+            break
 
-    temp = ["CECN19236", "CECN19234", "CECN19240", "DECN438806", "DECN433301", "CECN19238", "CECN1923", "DECN105031",
-            "BECN176615", "DECN111215", "APCN23108", "DECN300604", "DECN149835", "CECN43318", "DECN167419",
-            "CECN19237", "BPCN141103", "DECN149831", "DECN171036", "CECN26532", "DECN149833", "DECN149834",
-            "DECN396401", "DPCN192602", "DECN149832", "DECN477701", "DECN324006", "DECN165823", "CECN11133",
-            "DECN372502", "DECN130441", "CECN11131", "SPCN29509", "DECN273817", "APCN59007", "DECN104439",
-            "DECN201107", "DECN299406", "DECN367102", "DECN443701", "CECN57527", "AECN12510", "DECN273819",
-            "DECN111936", "DECN273816", "APCN59008", "BECN146916", "DECN324112", "DECN314505", "DECN280803", ]
-
-    dest1 = os.path.join(downloads, 'axis_triang')
+    dest1 = os.path.join(downloads, 'hdfc_14th_june2')
 
     # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
-    for i in temp:
+    for i in temp2:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
