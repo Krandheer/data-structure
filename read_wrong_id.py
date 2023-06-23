@@ -85,7 +85,7 @@ def get_wrong_id_json_file():
             json.dump(json_file, f)
 
 
-get_wrong_id_json_file()
+# get_wrong_id_json_file()
 
 
 def probable_pair_correction_ids():
@@ -257,7 +257,7 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th(bank_name):
-    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-06-17_2023-06-17T03_44_10.687Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-22_2023-06-22T19_30_00.477Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
     atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
@@ -326,4 +326,33 @@ def get_top_fails():
         if item[0][-1] == 'False':
             print(item)
 
+
 # get_top_fails()
+def all_4_fail():
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-22_2023-06-22T19_30_00.477Z.csv'
+    df = pd.read_csv(path, low_memory=False)
+    atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
+    atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
+                & (df["SA-FILE_PASS"] != "True") & (df["SB-FILE_PASS"] != "True")]['ATMID']
+
+    temp = []
+    count = 0
+    for i in atmid3:
+        count += 1
+        if count > 100:
+            break
+        temp.append(i)
+
+    paths = path.split("_")
+    date_string = paths[4]
+    # date_string = '2023-06-14'
+    date = datetime.strptime(date_string, '%Y-%m-%d')
+    formatted_date = date.strftime('%m-%d-%Y')
+    # formatted date = month-date-year
+    timestamp = int(date.timestamp())
+    json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp}
+    with open(f"writercorp_{date}.json", 'w') as f:
+        json.dump(json_file, f)
+
+
+all_4_fail()
