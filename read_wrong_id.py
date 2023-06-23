@@ -6,7 +6,7 @@ import json
 
 
 def get_wrong_id_json_file():
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-14_2023-06-15T03_12_33.171Z.csv'
+    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-22_2023-06-22T19_30_00.477Z.csv'
     # path = "~/Downloads/hdfc_400.csv"
     json_file = {
         "filesToProcess": []
@@ -85,7 +85,7 @@ def get_wrong_id_json_file():
             json.dump(json_file, f)
 
 
-# get_wrong_id_json_file()
+get_wrong_id_json_file()
 
 
 def probable_pair_correction_ids():
@@ -133,8 +133,8 @@ def probable_pair_correction_ids():
 # probable_pair_correction_ids()
 
 def get_all_ids_of_bank(bank_name):
-    amygb_data = os.path.join(os.path.expanduser("~"), "Downloads", "amygb_data")
-    map_path = os.path.join(amygb_data, 'updated_master_bank_list.csv')
+    amygb_data = os.path.join(os.path.expanduser("~"), "Downloads")
+    map_path = os.path.join(amygb_data, 'ATMID_BANKNAME_Details.csv')
     df = pd.read_csv(map_path)
     bank_ids_list = []
     bank_id = df[df['BankName'] == bank_name]['ATMID']
@@ -144,11 +144,11 @@ def get_all_ids_of_bank(bank_name):
     json_file = {
         "filesToProcess": bank_ids_list
     }
-    with open(f"atmid/{bank_name.lower()}.json", 'w') as f:
+    with open(f"{bank_name.lower()}.json", 'w') as f:
         json.dump(json_file, f)
 
 
-# get_all_ids_of_bank("SBI")
+# get_all_ids_of_bank("PNB")
 
 
 def get_auth_not_auth(bank_json_name):
@@ -307,8 +307,8 @@ bank_names = ['sbi', 'hdfc', 'canara', 'icici', 'karur_vysya_bank', 'axis', 'pnb
 
 # bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', 'india1_icici',
 # 'mon-spot-icici', 'pnb']
-for bank_name in bank_names:
-    hdfc24th(bank_name)
+# for bank_name in bank_names:
+#     hdfc24th(bank_name)
 
 # hdfc24th()
 # hdfc24th('sbi')
