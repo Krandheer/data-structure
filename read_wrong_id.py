@@ -257,7 +257,7 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th(bank_name):
-    path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-22_2023-06-22T19_30_00.477Z.csv'
+    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-06-26_2023-06-26T02_37_13.355Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
     atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
@@ -291,14 +291,14 @@ def hdfc24th(bank_name):
     print(f"{bank_name}, total: {len(temp1)}, failed: {len(temp)}, all 4 failed {len(temp2)}")
     # paths = path.split("_")
     # date_string = paths[4]
-    date_string = '2023-06-14'
-    date = datetime.strptime(date_string, '%Y-%m-%d')
-    formatted_date = date.strftime('%m-%d-%Y')
-    # formatted date = month-date-year
-    timestamp = int(date.timestamp())
-    json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
-    with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
-        json.dump(json_file, f)
+    # # date_string = '2023-06-14'
+    # date = datetime.strptime(date_string, '%Y-%m-%d')
+    # formatted_date = date.strftime('%m-%d-%Y')
+    # # formatted date = month-date-year
+    # timestamp = int(date.timestamp())
+    # json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
+    # with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
+    #     json.dump(json_file, f)
 
 
 bank_names = ['sbi', 'hdfc', 'canara', 'icici', 'karur_vysya_bank', 'axis', 'pnb', 'cub', "idbi", 'india1-icici',
@@ -307,8 +307,8 @@ bank_names = ['sbi', 'hdfc', 'canara', 'icici', 'karur_vysya_bank', 'axis', 'pnb
 
 # bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', 'india1_icici',
 # 'mon-spot-icici', 'pnb']
-# for bank_name in bank_names:
-#     hdfc24th(bank_name)
+for bank_name in bank_names:
+    hdfc24th(bank_name)
 
 # hdfc24th()
 # hdfc24th('sbi')
@@ -355,4 +355,4 @@ def all_4_fail():
         json.dump(json_file, f)
 
 
-all_4_fail()
+# all_4_fail()
