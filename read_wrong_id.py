@@ -184,33 +184,28 @@ def get_auth_not_auth(bank_json_name):
 
 
 def auth_json():
-    # path = "~/Downloads/11thmay_auth.csv"
-    # with open('atmid/sbi.json', 'r') as f:
-    #     data = json.load(f)
-    # data = data['filesToProcess']
-    # temp = []
-    # df = pd.read_csv(path, low_memory=False)
-    # atmids = df[df['OCRAuthstatus'] == 'Not Auth']['ATMID']
-    # for i in atmids:
-    #     if i in data and i not in temp:
-    #         temp.append(i)
-    temp = ["40228503", "40266002", "40351202", "40440502", "40447901", "40450101", "40527901", "40531913", "40551001",
-            "40556401", "40565401", "40644903", "40690501", "40690601", "60108609", "60219407", "60246006", "60273901",
-            "10346402", "40208010", "40269802", "40309502", "40309503", "40337704", "40337706", "40346401", "40349402",
-            "40417501", "40483202", "40521001", "40521202", "40536801", "40546102", "40549201", "40550402", "40566001",
-            "40566601", "40581603", "40589002", "40637201", "40637601", "40639802", "40677201", "40679001", "40693301",
-            "60246004", "60246005", "60272201", "60456402", "70208003", ]
+    path = "~/Downloads/23rd-june-ocr.csv"
+    with open('atmid/icici.json', 'r') as f:
+        data = json.load(f)
+    data = data['filesToProcess']
+    temp = []
+    df = pd.read_csv(path, low_memory=False)
+    atmids = df[df['OCRAuthstatus'] == 'Not Auth']['ATMID']
+    for i in atmids:
+        if i in data and i not in temp:
+            temp.append(i)
     print(len(temp))
-    date_string = '2023-06-06'
+    date_string = '2023-06-23'
     date = datetime.strptime(date_string, '%Y-%m-%d')
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
     json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('india1_icici_5th_june.json', 'w') as f:
+    with open('writercorp_144.json', 'w') as f:
         json.dump(json_file, f)
 
 
-# auth_json()
+auth_json()
+
 
 def get_fail_pass(bank_name):
     path = '~/Downloads/Writer_Mongo_Data_Report_2023-06-07_2023-06-07T19_30_00.221Z.csv'
@@ -257,7 +252,7 @@ def total_of_particular_bank_processed_on_given_day():
 # total_of_particular_bank_processed_on_given_day()
 
 def hdfc24th(bank_name):
-    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-06-26_2023-06-26T02_37_13.355Z.csv'
+    path = '~/Downloads/Writer_Mongo_DataExtended_Report_2023-06-26_2023-06-26T19_21_44.667Z.csv'
     df = pd.read_csv(path, low_memory=False)
     atmid = df[df['ALL_FILE_PASS'] == 'False']['ATMID']
     atmid3 = df[(df['ALL_FILE_PASS'] == 'False') & (df["CA-FILE_PASS"] != "True") & (df["CB-FILE_PASS"] != "True")
@@ -307,8 +302,8 @@ bank_names = ['sbi', 'hdfc', 'canara', 'icici', 'karur_vysya_bank', 'axis', 'pnb
 
 # bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', 'india1_icici',
 # 'mon-spot-icici', 'pnb']
-for bank_name in bank_names:
-    hdfc24th(bank_name)
+# for bank_name in bank_names:
+#     hdfc24th(bank_name)
 
 # hdfc24th()
 # hdfc24th('sbi')
@@ -353,6 +348,5 @@ def all_4_fail():
     json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp}
     with open(f"writercorp_{date}.json", 'w') as f:
         json.dump(json_file, f)
-
 
 # all_4_fail()
