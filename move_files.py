@@ -58,7 +58,7 @@ def file_inside_folder():
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, 'hdfc_chunk_14_june')
+    path = os.path.join(downloads, '23rd_june_icici_auth')
     atmid_path = os.path.join(downloads, 'writercorp_129.json')
     temp = set()
     for i in os.listdir(path):
@@ -66,17 +66,20 @@ def copy_from_one_folder_to_another():
         temp.add(i)
     temp = list(temp)
     print(len(temp))
-    with open(atmid_path, 'r') as f:
-        data = json.load(f)
-    data = data['filesToProcess']
-    temp2 = []
-    for i in data:
-        if i not in temp2 and len(temp2) < 100:
-            temp2.append(i)
-        else:
-            break
-
-    dest1 = os.path.join(downloads, 'hdfc_14th_june2')
+    # with open(atmid_path, 'r') as f:
+    #     data = json.load(f)
+    # data = data['filesToProcess']
+    # temp2 = []
+    # for i in data:
+    #     if i not in temp2 and len(temp2) < 100:
+    #         temp2.append(i)
+    #     else:
+    #         break
+    temp2 = ["S1CNE491", "S1CNI880", "S1CNP359", "S1CNP859", "S1CNQ513", "S1CNR673", "S1CNR866", "S1CNS628", "S1CPN183",
+             "S1CPN197", "S1CPN391", "S1CPS131", "S1CPS277", "S1CWI481", "S1CWI520", "SECNG158", "SECNG262", "SECNH494",
+             "SECNJ040", "SECNR132", "SFCNM393", "SFCNM492", "SFCNM524", "SFCNM655", "SFCNM953", "SFCNQ843", "SFCNR363",
+             "SFCPS952", "SFCPS981", "SPCNF201", "SPCNR082", ]
+    dest1 = os.path.join(downloads, '23rd_june_icici_debug')
 
     # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
     for i in temp2:
