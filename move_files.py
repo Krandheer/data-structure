@@ -11,14 +11,6 @@ base_dir = os.path.expanduser('~')
 downloads = os.path.join(base_dir, 'Downloads')
 
 
-# path_hdfc = os.path.join(downloads, 'hdfc.csv')
-# destination = os.path.join(downloads, 'hdfc')
-# df = pd.read_csv(path_hdfc)
-# atm_ids = []
-# for item in df['ATMID']:
-#     atm_ids.append(item)
-
-
 def move(src, desti):
     files_to_move = glob(f'{src}/{id}*')
     for temp in files_to_move:
