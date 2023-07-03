@@ -52,11 +52,18 @@ def file_inside_folder():
 def copy_from_one_folder_to_another():
     path = os.path.join(downloads, '23rd_june_icici_auth')
     atmid_path = os.path.join(downloads, 'writercorp_129.json')
+    temp2 = ["S1CNE491", "S1CNI880", "S1CNP359", "S1CNP859", "S1CNQ513", "S1CNR673", "S1CNR866", "S1CNS628", "S1CPN183",
+             "S1CPN197", "S1CPN391", "S1CPS131", "S1CPS277", "S1CWI481", "S1CWI520", "SECNG158", "SECNG262", "SECNH494",
+             "SECNJ040", "SECNR132", "SFCNM393", "SFCNM492", "SFCNM524", "SFCNM655", "SFCNM953", "SFCNQ843", "SFCNR363",
+             "SFCPS952", "SFCPS981", "SPCNF201", "SPCNR082", ]
     temp = set()
     for i in os.listdir(path):
         i = i.split("_")[0]
-        temp.add(i)
+        if i not in temp2:
+            temp.add(i)
     temp = list(temp)
+    temp3 = temp[:60]
+    temp4 = temp[60:]
     print(len(temp))
     # with open(atmid_path, 'r') as f:
     #     data = json.load(f)
@@ -67,23 +74,21 @@ def copy_from_one_folder_to_another():
     #         temp2.append(i)
     #     else:
     #         break
-    temp2 = ["S1CNE491", "S1CNI880", "S1CNP359", "S1CNP859", "S1CNQ513", "S1CNR673", "S1CNR866", "S1CNS628", "S1CPN183",
-             "S1CPN197", "S1CPN391", "S1CPS131", "S1CPS277", "S1CWI481", "S1CWI520", "SECNG158", "SECNG262", "SECNH494",
-             "SECNJ040", "SECNR132", "SFCNM393", "SFCNM492", "SFCNM524", "SFCNM655", "SFCNM953", "SFCNQ843", "SFCNR363",
-             "SFCPS952", "SFCPS981", "SPCNF201", "SPCNR082", ]
-    dest1 = os.path.join(downloads, '23rd_june_icici_debug')
+
+    dest3 = os.path.join(downloads, '23rd_june_icici_debug2')
+    dest4 = os.path.join(downloads, '23rd_june_icici_debug3')
 
     # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
-    for i in temp2:
+    for i in temp3:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
-            shutil.copy(j, dest1)
-    # for i in temp2:
-    #     paths = glob(f"{path}/{i}*")
-    #     # print(paths)
-    #     for j in paths:
-    #         shutil.copy(j, dest2)
+            shutil.copy(j, dest3)
+    for i in temp4:
+        paths = glob(f"{path}/{i}*")
+        # print(paths)
+        for j in paths:
+            shutil.copy(j, dest4)
     #
     # for i in temp3:
     #     paths = glob(f"{path}/{i}*")
