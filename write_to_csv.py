@@ -4,9 +4,9 @@ import csv
 
 home = os.path.expanduser("~")
 downloads = os.path.join(home, "Downloads")
-path = os.path.join(downloads, 'writercorp_144.json')
+# path = os.path.join(downloads, 'writercorp_145.json')
 
-with open(path, 'r') as f:
+with open('writercorp_145.json', 'r') as f:
     data = json.load(f)
 
 data = data['filesToProcess']
