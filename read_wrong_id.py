@@ -185,7 +185,7 @@ def get_auth_not_auth(bank_json_name):
 
 def auth_json():
     path = "~/Downloads/23rd-june-ocr.csv"
-    with open('atmid/icici.json', 'r') as f:
+    with open('atmid/axis.json', 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
     temp = []
@@ -200,11 +200,11 @@ def auth_json():
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
     json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('writercorp_144.json', 'w') as f:
+    with open('writercorp_145.json', 'w') as f:
         json.dump(json_file, f)
 
 
-# auth_json()
+auth_json()
 
 
 def get_fail_pass(bank_name):
@@ -302,8 +302,8 @@ bank_names = ['sbi', 'hdfc', 'canara', 'icici', 'karur_vysya_bank', 'axis', 'pnb
 
 # bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', 'india1_icici',
 # 'mon-spot-icici', 'pnb']
-for bank_name in bank_names:
-    hdfc24th(bank_name)
+# for bank_name in bank_names:
+#     hdfc24th(bank_name)
 
 # hdfc24th()
 # hdfc24th('sbi')
