@@ -51,8 +51,6 @@ def file_inside_folder():
 
 def copy_from_one_folder_to_another():
     path = os.path.join(downloads, '23_june_axis_auth')
-    project = os.path.join(base_dir, "projects")
-    atmid_path = os.path.join(project, 'writercorp_148.json')
 
     temp = set()
     for ids in os.listdir(path):
@@ -72,20 +70,20 @@ def copy_from_one_folder_to_another():
     #     else:
     #         break
 
+    dest1 = os.path.join(downloads, '23rd_june_axis_debug1')
     dest2 = os.path.join(downloads, '23rd_june_axis_debug2')
-    dest3 = os.path.join(downloads, '23rd_june_axis_debug3')
 
     # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
     for i in temp2:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
-            shutil.copy(j, dest2)
+            shutil.copy(j, dest1)
     for i in temp3:
         paths = glob(f"{path}/{i}*")
         # print(paths)
         for j in paths:
-            shutil.copy(j, dest3)
+            shutil.copy(j, dest2)
     #
     # for i in temp3:
     #     paths = glob(f"{path}/{i}*")
