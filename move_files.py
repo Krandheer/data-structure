@@ -60,20 +60,10 @@ def copy_from_one_folder_to_another():
     temp2 = temp[:100]
     temp3 = temp[100:]
     print(len(temp))
-    # with open(atmid_path, 'r') as f:
-    #     data = json.load(f)
-    # data = data['filesToProcess']
-    # temp2 = []
-    # for i in data:
-    #     if i not in temp2 and len(temp2) < 100:
-    #         temp2.append(i)
-    #     else:
-    #         break
 
     dest1 = os.path.join(downloads, '23rd_june_axis_debug1')
     dest2 = os.path.join(downloads, '23rd_june_axis_debug2')
 
-    # dest2 = os.path.join(downloads, '19th_hdfc_extraction')
     for i in temp2:
         paths = glob(f"{path}/{i}*")
         print(paths)
@@ -84,12 +74,6 @@ def copy_from_one_folder_to_another():
         # print(paths)
         for j in paths:
             shutil.copy(j, dest2)
-    #
-    # for i in temp3:
-    #     paths = glob(f"{path}/{i}*")
-    #     # print(paths)
-    #     for j in paths:
-    #         shutil.copy(j, dest3)
 
 
 copy_from_one_folder_to_another()
