@@ -97,12 +97,6 @@ def another2():
             paths = glob(f"{path}/{i}*")
             for j in paths:
                 os.remove(j)
-    # print(len(csv_temp), len(folder_temp))
-    # dest = os.path.join(downloads, 'probable_pair')
-    # for i in temp:
-    #     paths = glob(f"{path}/{i}*")
-    #     print(paths)
-    #     for j in paths:
-    #         shutil.copy(j, dest)
+
 
 # another2()
