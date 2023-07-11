@@ -40,12 +40,7 @@ def get_wrong_id_json_file():
     temp3 = temp_ids[2000:3000]
     temp4 = temp_ids[3000:4000]
     temp5 = temp_ids[4000:5000]
-    temp6 = temp_ids[5000:6000]
-    temp7 = temp_ids[6000:7000]
-    temp8 = temp_ids[7000:8000]
-    temp9 = temp_ids[8000:9000]
-    temp10 = temp_ids[9000:10000]
-    temp11 = temp_ids[10000:]
+
 
     paths = path.split("_")
     date_string = paths[4]
@@ -68,18 +63,6 @@ def get_wrong_id_json_file():
             json_file['filesToProcess'] = temp4
         elif i == 5:
             json_file['filesToProcess'] = temp5
-        elif i == 6:
-            json_file['filesToProcess'] = temp6
-        elif i == 7:
-            json_file['filesToProcess'] = temp7
-        elif i == 8:
-            json_file['filesToProcess'] = temp8
-        elif i == 9:
-            json_file['filesToProcess'] = temp9
-        elif i == 10:
-            json_file['filesToProcess'] = temp10
-        elif i == 11:
-            json_file['filesToProcess'] = temp11
 
         with open(f'writercopr_data{i}.json', 'w') as f:
             json.dump(json_file, f)
@@ -299,9 +282,6 @@ def hdfc24th(bank_name):
 bank_names = ['sbi', 'hdfc', 'canara', 'icici', 'karur_vysya_bank', 'axis', 'pnb', 'cub', "idbi", 'india1-icici',
               'mon-spot-icici']
 
-
-# bank_names = ['sbi', 'hdfc_ids', 'canara', 'icici', 'karur_vyas_bank', 'axis', 'cub', 'india1_icici',
-# 'mon-spot-icici', 'pnb']
 # for bank_name in bank_names:
 #     hdfc24th(bank_name)
 
