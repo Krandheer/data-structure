@@ -168,7 +168,7 @@ def get_auth_not_auth(bank_json_name):
 
 def auth_json():
     path = "~/Downloads/23rd-june-ocr.csv"
-    with open('atmid/axis.json', 'r') as f:
+    with open('atmid/hdfc.json', 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
     temp = []
@@ -183,7 +183,7 @@ def auth_json():
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
     json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('writercorp_145.json', 'w') as f:
+    with open('writercorp_146.json', 'w') as f:
         json.dump(json_file, f)
 
 
