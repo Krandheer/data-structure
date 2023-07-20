@@ -5,6 +5,7 @@ def print_n(n):
     print_n(n - 1)
     print(n)
 
+
 def factorial(n):
     if n == 1:
         return n
