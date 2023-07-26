@@ -50,7 +50,7 @@ def file_inside_folder():
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, '23rd_june_hdfc_auth')
+    path = os.path.join(downloads, '3rd-july-axis-auth')
 
     temp = set()
     for ids in os.listdir(path):
@@ -58,15 +58,11 @@ def copy_from_one_folder_to_another():
         temp.add(ids)
     temp = list(temp)
     temp1 = temp[:100]
-    temp2 = temp[100:200]
-    temp3 = temp[200:300]
-    temp4 = temp[300:]
+    temp2 = temp[100:]
     print(len(temp))
 
-    dest1 = os.path.join(downloads, '23rd_june_hdfc_debug1')
-    dest2 = os.path.join(downloads, '23rd_june_hdfc_debug2')
-    dest3 = os.path.join(downloads, '23rd_june_hdfc_debug3')
-    dest4 = os.path.join(downloads, '23rd_june_hdfc_debug4')
+    dest1 = os.path.join(downloads, '3rd-july-axis-debug1')
+    dest2 = os.path.join(downloads, '3rd-july-axis-debug2')
 
     for i in temp1:
         paths = glob(f"{path}/{i}*")
@@ -78,17 +74,6 @@ def copy_from_one_folder_to_another():
         # print(paths)
         for j in paths:
             shutil.copy(j, dest2)
-    for i in temp3:
-        paths = glob(f"{path}/{i}*")
-        # print(paths)
-        for j in paths:
-            shutil.copy(j, dest3)
-    for i in temp4:
-        paths = glob(f"{path}/{i}*")
-        # print(paths)
-        for j in paths:
-            shutil.copy(j, dest4)
-
 
 copy_from_one_folder_to_another()
 
