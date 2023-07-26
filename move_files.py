@@ -45,35 +45,49 @@ def create_folder_inside_folder():
 
 
 def file_inside_folder():
-    hdfc_reports = os.path.join(downloads, 'hdfc_reports')
+    hdfc_reports = os.path.join(downloads, '23rd_june_hdfc_auth')
     os.listdir(hdfc_reports)
 
 
 def copy_from_one_folder_to_another():
-    path = os.path.join(downloads, '23_june_axis_auth')
+    path = os.path.join(downloads, '23rd_june_hdfc_auth')
 
     temp = set()
     for ids in os.listdir(path):
         ids = ids.split("_")[0]
         temp.add(ids)
     temp = list(temp)
-    temp2 = temp[:100]
-    temp3 = temp[100:]
+    temp1 = temp[:100]
+    temp2 = temp[100:200]
+    temp3 = temp[200:300]
+    temp4 = temp[300:]
     print(len(temp))
 
-    dest1 = os.path.join(downloads, '23rd_june_axis_debug1')
-    dest2 = os.path.join(downloads, '23rd_june_axis_debug2')
+    dest1 = os.path.join(downloads, '23rd_june_hdfc_debug1')
+    dest2 = os.path.join(downloads, '23rd_june_hdfc_debug2')
+    dest3 = os.path.join(downloads, '23rd_june_hdfc_debug3')
+    dest4 = os.path.join(downloads, '23rd_june_hdfc_debug4')
 
-    for i in temp2:
+    for i in temp1:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
             shutil.copy(j, dest1)
-    for i in temp3:
+    for i in temp2:
         paths = glob(f"{path}/{i}*")
         # print(paths)
         for j in paths:
             shutil.copy(j, dest2)
+    for i in temp3:
+        paths = glob(f"{path}/{i}*")
+        # print(paths)
+        for j in paths:
+            shutil.copy(j, dest3)
+    for i in temp4:
+        paths = glob(f"{path}/{i}*")
+        # print(paths)
+        for j in paths:
+            shutil.copy(j, dest4)
 
 
 copy_from_one_folder_to_another()
@@ -81,7 +95,8 @@ copy_from_one_folder_to_another()
 
 def another2():
     path = os.path.join(downloads, 'hdfc_auth_29th_april')
-    path_csv = os.path.join(downloads, "hdfc probable pair correction - Sheet2.csv")
+    path_csv = os.path.join(
+        downloads, "hdfc probable pair correction - Sheet2.csv")
     df = pd.read_csv(path_csv)
     csv_temp = []
     for i in df["ATMID"]:

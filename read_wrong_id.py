@@ -41,7 +41,6 @@ def get_wrong_id_json_file():
     temp4 = temp_ids[3000:4000]
     temp5 = temp_ids[4000:5000]
 
-
     paths = path.split("_")
     date_string = paths[4]
     # date_string = '2023-05-01'
@@ -77,26 +76,30 @@ def probable_pair_correction_ids():
     df = df[df["ALL_FILE_PASS"] == "False"]
     df1 = df[
         (
-                ((df['CA-FILE_PASS'] == "True") & (df['SA-FILE_PASS'] == "True")) |
-                ((df['CA-FILE_PASS'] == "False") & (df['SA-FILE_PASS'] == "True")) |
-                ((df['CA-FILE_PASS'] == "True") & (df['SA-FILE_PASS'] == "False"))
+            ((df['CA-FILE_PASS'] == "True") & (df['SA-FILE_PASS'] == "True")) |
+            ((df['CA-FILE_PASS'] == "False") & (df['SA-FILE_PASS'] == "True")) |
+            ((df['CA-FILE_PASS'] == "True") &
+             (df['SA-FILE_PASS'] == "False"))
         ) &
         (
-                ((df['SB-FILE_PASS'] == "False") & (df['CB-FILE_PASS'] == "True")) |
-                ((df['SB-FILE_PASS'] == "True") & (df['CB-FILE_PASS'] == "False"))
+            ((df['SB-FILE_PASS'] == "False") & (df['CB-FILE_PASS'] == "True")) |
+            ((df['SB-FILE_PASS'] == "True") &
+             (df['CB-FILE_PASS'] == "False"))
         )
-        ]
+    ]
     df2 = df[
         (
-                ((df['CB-FILE_PASS'] == "True") & (df['SB-FILE_PASS'] == "True")) |
-                ((df['CB-FILE_PASS'] == "False") & (df['SB-FILE_PASS'] == "True")) |
-                ((df['CB-FILE_PASS'] == "True") & (df['SB-FILE_PASS'] == "False"))
+            ((df['CB-FILE_PASS'] == "True") & (df['SB-FILE_PASS'] == "True")) |
+            ((df['CB-FILE_PASS'] == "False") & (df['SB-FILE_PASS'] == "True")) |
+            ((df['CB-FILE_PASS'] == "True") &
+             (df['SB-FILE_PASS'] == "False"))
         ) &
         (
-                ((df['SA-FILE_PASS'] == "False") & (df['CA-FILE_PASS'] == "True")) |
-                ((df['SA-FILE_PASS'] == "True") & (df['CA-FILE_PASS'] == "False"))
+            ((df['SA-FILE_PASS'] == "False") & (df['CA-FILE_PASS'] == "True")) |
+            ((df['SA-FILE_PASS'] == "True") &
+             (df['CA-FILE_PASS'] == "False"))
         )
-        ]
+    ]
     with open("icici.json", 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
@@ -167,8 +170,8 @@ def get_auth_not_auth(bank_json_name):
 
 
 def auth_json():
-    path = "~/Downloads/23rd-june-ocr.csv"
-    with open('atmid/hdfc.json', 'r') as f:
+    path = "~/Downloads/3rd-july-ocr-auth.csv"
+    with open('atmid/axis.json', 'r') as f:
         data = json.load(f)
     data = data['filesToProcess']
     temp = []
@@ -178,12 +181,13 @@ def auth_json():
         if i in data and i not in temp:
             temp.append(i)
     print(len(temp))
-    date_string = '2023-06-23'
+    date_string = '2023-07-03'
     date = datetime.strptime(date_string, '%Y-%m-%d')
     formatted_date = date.strftime('%m-%d-%Y')
     timestamp = int(date.timestamp())
-    json_file = {"filesToProcess": temp, 'date': formatted_date, 'updatedAt': timestamp}
-    with open('writercorp_146.json', 'w') as f:
+    json_file = {"filesToProcess": temp,
+                 'date': formatted_date, 'updatedAt': timestamp}
+    with open('writercorp_147.json', 'w') as f:
         json.dump(json_file, f)
 
 
@@ -274,7 +278,8 @@ def hdfc24th(bank_name):
     formatted_date = date.strftime('%m-%d-%Y')
     # formatted date = month-date-year
     timestamp = int(date.timestamp())
-    json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp2}
+    json_file = {'date': formatted_date,
+                 'updatedAt': timestamp, 'filesToProcess': temp2}
     with open(f"writercorp_{bank_name}_{date}.json", 'w') as f:
         json.dump(json_file, f)
 
@@ -325,7 +330,8 @@ def all_4_fail():
     formatted_date = date.strftime('%m-%d-%Y')
     # formatted date = month-date-year
     timestamp = int(date.timestamp())
-    json_file = {'date': formatted_date, 'updatedAt': timestamp, 'filesToProcess': temp}
+    json_file = {'date': formatted_date,
+                 'updatedAt': timestamp, 'filesToProcess': temp}
     with open(f"writercorp_{date}.json", 'w') as f:
         json.dump(json_file, f)
 
