@@ -52,47 +52,20 @@ def file_inside_folder():
 def copy_from_one_folder_to_another():
     path = os.path.join(downloads, "3rd-july-axis-auth")
 
-    # temp = set()
-    # for ids in os.listdir(path):
-    #     ids = ids.split("_")[0]
-    #     temp.add(ids)
+    temp = set()
+    for ids in os.listdir(path):
+        ids = ids.split("_")[0]
+        temp.add(ids)
 
-    temp = [
-        "AECN45412",
-        "AECN45436",
-        "APCN01018",
-        "APCN02118",
-        "APCN03109",
-        "APCN19225",
-        "APCN24014",
-        "APCN45449",
-        "APCN50903",
-        "APCN59151",
-        "APCN84905",
-        "APCN85619",
-        "BECN115310",
-        "BECN134205",
-        "BECN216903",
-        "BPCN105320",
-        "BPCN113202",
-        "BPCN129116",
-        "BPCN129603",
-        "BPCN130407",
-        "BPCN138208",
-        "BPCN148106",
-        "BPCN149816",
-        "BPCN153104",
-        "BPCN164202",
-    ]
-    # temp = list(temp)
-    # temp1 = temp[:100]
-    # temp2 = temp[100:]
+    temp = list(temp)
+    temp1 = temp[:100]
+    temp2 = temp[100:]
     print(len(temp))
 
     dest1 = os.path.join(downloads, "3rd_july_axis_debug")
     # dest2 = os.path.join(downloads, "3rd_july_axis_debug")
 
-    for i in temp:
+    for i in temp1:
         paths = glob(f"{path}/{i}*")
         print(paths)
         for j in paths:
