@@ -37,10 +37,7 @@ def get_wrong_id_json_file():
     # atm_id = atm_id[atm_id.str[:2] == 'TA']
     temp1 = temp_ids[:1000]
     temp2 = temp_ids[1000:2000]
-    temp3 = temp_ids[2000:3000]
-    temp4 = temp_ids[3000:4000]
-    temp5 = temp_ids[4000:5000]
-
+    
     paths = path.split("_")
     date_string = paths[4]
     # date_string = '2023-05-01'
@@ -56,12 +53,6 @@ def get_wrong_id_json_file():
             json_file['filesToProcess'] = temp1
         elif i == 2:
             json_file['filesToProcess'] = temp2
-        elif i == 3:
-            json_file['filesToProcess'] = temp3
-        elif i == 4:
-            json_file['filesToProcess'] = temp4
-        elif i == 5:
-            json_file['filesToProcess'] = temp5
 
         with open(f'writercopr_data{i}.json', 'w') as f:
             json.dump(json_file, f)
