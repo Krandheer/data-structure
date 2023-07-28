@@ -59,7 +59,6 @@ def copy_from_one_folder_to_another():
 
     temp = list(temp)
     temp1 = temp[:100]
-    temp2 = temp[100:]
     print(len(temp))
 
     dest1 = os.path.join(downloads, "3rd_july_axis_debug")
