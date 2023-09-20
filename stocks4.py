@@ -12,9 +12,13 @@ def helper(prices, index, buy, dp, fee):
     if dp[index][buy] != -1:
         return dp[index][buy]
     if not buy:
-        dp[index][buy] = max(-prices[index] + helper(prices, index + 1, 1, dp, fee),
-                             helper(prices, index + 1, 0, dp, fee))
+        dp[index][buy] = max(
+            -prices[index] + helper(prices, index + 1, 1, dp, fee),
+            helper(prices, index + 1, 0, dp, fee),
+        )
     elif buy:
-        dp[index][buy] = max(prices[index] - fee + helper(prices, index + 2, 0, dp, fee),
-                             helper(prices, index + 1, 1, dp, fee))
+        dp[index][buy] = max(
+            prices[index] - fee + helper(prices, index + 2, 0, dp, fee),
+            helper(prices, index + 1, 1, dp, fee),
+        )
     return dp[index][buy]
