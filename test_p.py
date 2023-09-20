@@ -40,7 +40,26 @@ def isValid(s):
 #
 # change()
 # print(a)
+import requests
 
-with open("writer_app_log", 'a') as f:
-    atm_id = '1234'
-    f.write(f"{atm_id}, data from ocr",)
+url = "https://wsguat.writercorporation.com/AtmCassetteMapping/api/GetAtmCasseteMapping"
+api_key = "123456"
+api_value = "ACM@123"
+
+headers = {
+    "Authorization": f"{api_key} {api_value}"
+}
+
+
+response = requests.get(url, headers=headers)
+
+print(response)
+# # Check if the request was successful (HTTP status code 200-299 typically indicates success)
+# if response.status_code >= 200 and response.status_code < 300:
+#     print("Request successful!")
+#     print(response.json())  # If the API returns JSON data
+# else:
+#     print(f"Request failed with status code: {response.status_code}")
+#     print(response.text)  # Print the response content for debugging purposes
+
+
