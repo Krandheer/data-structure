@@ -26,5 +26,18 @@ def reverse_array(i, arr):
 
 
 arr = [1, 2, 4, 3, 5]
-reverse_array(0, arr)
-print(arr)
+# reverse_array(0, arr)
+# print(arr)
+
+
+def left_rotate_1(arr):
+    temp = arr[0]
+    for i in range(1, len(arr)):
+        arr[i - 1] = arr[i]
+
+    arr[len(arr) - 1] = temp
+    return arr
+
+
+arr = [1, 2, 4, 3, 5]
+print(left_rotate_1(arr))
