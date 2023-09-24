@@ -45,12 +45,14 @@ def left_rotate_1(arr):
 
 def shift_zero_to_end(arr):
     j = -1
+    # find the first zero element index
     for i in range(len(arr)):
         if arr[i] == 0:
             j = i
             break
     if j == -1:
         return arr
+    # using two pointer method iterate and swap if non zero element and move forward zero index
     for i in range(j + 1, len(arr)):
         if i > j and arr[i] != 0:
             arr[i], arr[j] = arr[j], arr[i]
