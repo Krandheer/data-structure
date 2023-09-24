@@ -39,5 +39,24 @@ def left_rotate_1(arr):
     return arr
 
 
-arr = [1, 2, 4, 3, 5]
-print(left_rotate_1(arr))
+# arr = [1, 2, 4, 3, 5]
+# print(left_rotate_1(arr))
+
+
+def shift_zero_to_end(arr):
+    j = -1
+    for i in range(len(arr)):
+        if arr[i] == 0:
+            j = i
+            break
+    if j == -1:
+        return arr
+    for i in range(j + 1, len(arr)):
+        if i > j and arr[i] != 0:
+            arr[i], arr[j] = arr[j], arr[i]
+            j += 1
+    return arr
+
+
+temp = [1, 0, 2, 3, 2, 0, 0, 4, 5, 1]
+print(shift_zero_to_end(temp))
