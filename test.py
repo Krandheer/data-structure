@@ -64,4 +64,4 @@ temp = [1, 0, 2, 3, 2, 0, 0, 4, 5, 1]
 print(shift_zero_to_end(temp))
 
 # two pointers method can be used for union and intersection of two sorted array as well.
-# prefix sum
+# prefix sum, two pointer method can be used for k-sum as well.
