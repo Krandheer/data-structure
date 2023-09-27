@@ -57,3 +57,7 @@ for column in vertical_order:
 
 # you use this same code for upper view of tree just take the first element of
 # all column, and for bottom view just take the last elemnt from each column.
+
+# for left and right view use level order traversal and store the element at each list in a
+# dictionary with key as level and value of node in list. then first elemnt of each node will
+# give left side view and last element will give right side view
