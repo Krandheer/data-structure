@@ -22,7 +22,7 @@ def delete_and_earn(nums):
 
 def rob2(i, nums, dp):
     if i == 0:
-        return nums[i]
+        return nums[0]
     elif i < 0:
         return 0
     if dp[i] != -1:

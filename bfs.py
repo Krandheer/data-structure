@@ -8,10 +8,15 @@ def bfs(graph, start):
 
     while queue:
         vertex = queue.popleft()
-        print(vertex, end=' ')
+        print(vertex, end=" ")
 
         # visit all adjacent vertices that haven't been visited yet
         for neighbor in graph[vertex]:
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append(neighbor)
+
+
+graph_1 = {"A": ["B", "C"], "B": ["D", "E"], "C": ["F"], "D": [], "E": ["F"], "F": []}
+
+bfs(graph_1, "A")
