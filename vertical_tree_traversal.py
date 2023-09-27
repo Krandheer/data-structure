@@ -1,4 +1,3 @@
-# Function to perform vertical order traversal of a binary tree
 from collections import defaultdict
 from collections import deque
 
@@ -43,8 +42,6 @@ def vertical_order_traversal(root):
     return result
 
 
-# Example usage:
-# Construct a binary tree
 root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
@@ -57,3 +54,6 @@ root.right.right = TreeNode(7)
 vertical_order = vertical_order_traversal(root)
 for column in vertical_order:
     print(column)
+
+# you use this same code for upper view of tree just take the first element of
+# all column, and for bottom view just take the last elemnt from each column.
