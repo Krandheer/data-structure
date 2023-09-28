@@ -27,6 +27,15 @@ def level_order(root):
     return result
 
 
+def inorder_traversal(root, result):
+    if not root:
+        return
+    inorder_traversal(root.left, result)
+    result.append(root.value)
+    inorder_traversal(root.right, result)
+    return result
+
+
 root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
@@ -34,4 +43,6 @@ root.left.left = TreeNode(4)
 root.left.right = TreeNode(5)
 
 print("Level order traversal:")
-print(level_order(root))
+# print(level_order(root))
+
+print(inorder_traversal(root, []))
