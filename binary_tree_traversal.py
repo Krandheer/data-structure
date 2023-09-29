@@ -45,6 +45,15 @@ def preorder_traversal(root, result):
     return result
 
 
+def postorder_traversal(root, result):
+    if not root:
+        return
+    postorder_traversal(root.left, result)
+    postorder_traversal(root.right, result)
+    result.append(root.value)
+    return result
+
+
 root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
@@ -54,4 +63,4 @@ root.left.right = TreeNode(5)
 print("Level order traversal:")
 # print(level_order(root))
 
-print(preorder_traversal(root, []))
+print(postorder_traversal(root, []))
