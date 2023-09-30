@@ -65,4 +65,4 @@ print("Level order traversal:")
 
 print(inorder_traversal(root, []))
 
-# lca ( least common ancestor) need to write code for this for bst and bt
+# TODO: lca ( least common ancestor) need to write code for this for bst and bt
