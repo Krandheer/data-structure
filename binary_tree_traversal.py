@@ -64,3 +64,5 @@ print("Level order traversal:")
 # print(level_order(root))
 
 print(inorder_traversal(root, []))
+
+# lca ( least common ancestor) need to write code for this for bst and bt
