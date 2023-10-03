@@ -19,6 +19,7 @@ def adjancy_list_rep(graph, node):
 
     for u, v in graph:
         g[u].append(v)
+        g[v].append(u)
 
     return g
 
