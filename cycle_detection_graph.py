@@ -49,7 +49,7 @@ def dfs_cycle(graph, node, par, visited=None):
     visited.add(node)
 
     for child in graph[node]:
-        if child in visited:
+        if child not in visited:
             return dfs_cycle(graph, child, node, visited)
         elif child != par:
             return True
