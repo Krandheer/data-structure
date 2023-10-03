@@ -1,9 +1,10 @@
 from collections import deque
 
 
-def bfs(graph, start):
+def bfs(graph, start, visited=None):
+    if not visited:
+        visited = set()
     distance = {}
-    visited = set()
     queue = deque([start])
     visited.add(start)
     distance[start] = 0
