@@ -4,9 +4,9 @@ from collections import deque
 def bfs(graph, start, visited=None):
     if not visited:
         visited = set()
-    distance = {}
-    queue = deque([start])
     visited.add(start)
+    queue = deque([start])
+    distance = {}
     distance[start] = 0
 
     while queue:
