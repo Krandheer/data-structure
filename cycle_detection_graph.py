@@ -1,6 +1,6 @@
 """
 cycle detection in undirected graph, this same can be done using dfs as well.
-the concept is that when you fall on visited not then it should not parent and if so then there is cycle.
+the concept is that when you fall on visited node then it should not be parent and if so then there is cycle.
 """
 
 from collections import deque
