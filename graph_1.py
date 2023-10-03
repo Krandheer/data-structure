@@ -1,17 +1,22 @@
-n = 6
-g = []
-g2 = {}
-# for i in range(6):
-#     temp = []
-#     for j in range(6):
-#         temp.append(0)
-#     g.append(temp)
-#
-# for i in g:
-#     print(i)
-for i in range(6):
-    g2[i] = []
+def adjancy_matrix_rep(graph, node):
+    g = []
+    for i in range(6):
+        temp = []
+        for j in range(6):
+            temp.append(0)
+        g.append(temp)
 
-print(g2)
-for item in g2.items():
-    print(item)
+    for u, v in graph:
+        g[u][v] = 1
+        g[v][u] = 1
+    return g
+
+
+def adjancy_list_rep(graph, node):
+    g = {}
+
+
+graph = [[0, 1], [0, 2], [0, 3], [0, 4], [1, 3], [2, 3], [2, 4], [2, 5], [3, 5]]
+graph_1 = adjancy_matrix_rep(graph, 6)
+for i in graph_1:
+    print(i)
