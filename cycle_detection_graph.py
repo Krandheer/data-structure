@@ -7,44 +7,55 @@ from collections import deque
 
 ipt = [[1, 2], [1, 3], [2, 3], [2, 4], [4, 5], [5, 1]]
 n = 5
-graph = {}
-visited = {}
-
-for i in range(1, n + 1):
-    graph[i] = []
-    visited[i] = False
-for u, v in ipt:
-    graph[u].append(v)
-    graph[v].append(u)
 
 
-def bfs_cycle(graph, node, visited, par):
+def adjancy_list_rep(graph, node):
+    g = {}
+    for i in range(node):
+        g[i] = []
+
+    for u, v in graph:
+        g[u].append(v)
+        g[v].append(u)
+
+    return g
+
+
+graph = adjancy_list_rep(ipt, n + 1)
+
+
+def bfs_cycle(graph, node, par, visited=None):
     queue = deque()
     queue.append((node, par))
-    visited[node] = True
+    if not visited:
+        visited = set()
+    visited.add(node)
 
     while queue:
         node, par = queue.popleft()
         for child in graph[node]:
-            if not visited[child]:
+            if child not in visited:
                 queue.append((child, node))  # Append a tuple (child, node)
-                visited[child] = True
+                visited.add(child)
             else:
                 if child != par:
                     return True
     return False
 
 
-def dfs_cycle(graph, node, visited, par):
-    visited[node] = True
+def dfs_cycle(graph, node, par, visited=None):
+    if not visited:
+        visited = set()
+    visited.add(node)
+
     for child in graph[node]:
-        if not visited[child]:
-            if dfs_cycle(graph, child, visited, node):
+        if child not in visited:
+            if dfs_cycle(graph, child, node, visited):
                 return True
         elif child != par:
             return True
     return False
 
 
-print(dfs_cycle(graph, 1, visited, -1))
-print(bfs_cycle(graph, 1, visited, -1))
+print(dfs_cycle(graph, 1, -1))
+print(bfs_cycle(graph, 1, -1))
