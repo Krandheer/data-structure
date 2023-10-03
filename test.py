@@ -6,7 +6,7 @@ def print_sum(i, sum_n):
     return print_sum(i - 1, sum_n)
 
 
-# print(print_sum(5, 0))
+# print(print_sum(25, 0))
 
 
 def print_sum2(i):
