@@ -41,6 +41,10 @@ def adjancy_list_rep(graph, node):
 
 
 graph_2 = adjancy_list_rep(graph_2, 7)
-dfs(graph_2, 1)
+# dfs(graph_2, 1)
 # for key, value in graph_2.items():
 #     print(key, "->", value)
+
+# ipt = [[0, 1], [0, 2], [0, 3], [0, 4], [1, 3], [2, 3], [2, 4], [2, 5], [3, 5]]
+# graph = adjancy_list_rep(ipt, 6)
+# dfs(graph, 0)
