@@ -15,17 +15,20 @@ def adjancy_list_rep(graph, node):
 def dfs(graph, node, intime, outtime, visited=None):
     if not visited:
         visited = set()
-    sm = 0
-    print(node)
+    global timer
+    # print(node)
     visited.add(node)
-    intime[node] = sm
+    intime[node] = timer
+    timer += 1
     for child in graph[node]:
         if child not in visited:
-            sm = sm + dfs(graph, child, intime, outtime, visited)
-    sm = sm + 1
-    outtime[node] = sm
+            dfs(graph, child, intime, outtime, visited)
+    outtime[node] = timer
+    timer += 1
     return intime, outtime
 
 
+timer = 1
 graph = adjancy_list_rep(ipt, 6)
+print("graph", graph)
 print(dfs(graph, 0, {}, {}))
