@@ -26,6 +26,8 @@ ipt = [[1, 2], [2, 4], [2, 5], [2, 6], [1, 3], [3, 7], [1, 8], [6, 10], [1, 9]]
 graph = adjancy_list_rep(ipt, 11)
 # reuslt = dfs(graph_1, 3, {})
 # print(reuslt)
+
+# find the diameter by iterating on all node.
 max_r = 0
 for i in range(1, 11):
     result = dfs(graph, i, {})
