@@ -11,7 +11,7 @@ def bfs(graph, start, visited=None):
 
     while queue:
         node = queue.popleft()
-        print(node)
+        # print(node)
         for child in graph[node]:
             if child not in visited:
                 visited.add(child)
@@ -49,4 +49,4 @@ ipt = [
 
 
 graph = adjancy_list_rep(ipt, 10)
-bfs(graph, 1)
+bfs(graph, 9)
