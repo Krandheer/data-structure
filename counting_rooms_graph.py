@@ -1,4 +1,4 @@
-def isvisited(grid, visited, node):
+def is_valid(grid, visited, node):
     x, y = node
     row = len(grid)
     col = len(grid[0])
@@ -13,7 +13,7 @@ def dfs(grid, visited, start):
     visited[i][j] = 1
     sm = 0
     for a, b in [[1, 0], [0, 1], [-1, 0], [0, -1]]:
-        if isvisited(grid, visited, (i + a, j + b)):
+        if is_valid(grid, visited, (i + a, j + b)):
             sm += dfs(grid, visited, (i + a, j + b))
     return sm + 1
 
