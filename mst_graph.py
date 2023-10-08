@@ -1,3 +1,4 @@
+# krushkal algorithm for minimum spanning tree using disjoint set concept
 ipt = [
     [1, 2, 1],
     [3, 6, 2],
@@ -51,7 +52,7 @@ for (
     _,
 ) in ipt:
     union(graph, u, v, answer)
-print(graph)
+# print(graph)
 print(answer)
 
 
