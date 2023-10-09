@@ -6,7 +6,6 @@ from heapq import heappop, heappush
 def primes(graph, start, visited, distance, parent):
     bag = []
     heappush(bag, [0, start])
-    visited[start] = 1
     distance[start] = 0
     parent[start] = -1
     while bag:
