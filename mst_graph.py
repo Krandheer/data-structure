@@ -52,31 +52,4 @@ for (
     _,
 ) in ipt:
     union(graph, u, v, answer)
-# print(graph)
 print(answer)
-
-
-# ipt2 = [
-#     [1, 2, 3],
-#     [1, 3, 2],
-#     [2, 3, 2],
-#     [2, 5, 1],
-#     [3, 4, 4],
-#     [4, 5, 8],
-#     [3, 7, 4],
-#     [4, 7, 5],
-#     [5, 6, 6],
-#     [7, 6, 2],
-#     [7, 8, 1],
-#     [7, 9, 2],
-#     [6, 9, 1],
-# ]
-
-# graph2 = {}
-# for i in range(1, 10):
-#     graph2[i] = []
-# for u, v, w in ipt2:
-#     graph2[u].append([w, v])
-#     graph2[v].append([w, u])
-
-# print(graph2)
