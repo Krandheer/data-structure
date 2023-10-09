@@ -1,4 +1,6 @@
-from heapq import *
+from heapq import heappop, heappush
+
+# primes algorithm for finding minimum spanning tree from graph
 
 
 def primes(graph, start, visited, distance, parent):
