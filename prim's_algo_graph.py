@@ -13,7 +13,7 @@ def primes(graph, start, visited, distance, parent):
         if not visited[n]:
             visited[n] = 1
         for cd, cn in graph[n]:
-            if distance[cn] > cd:
+            if distance[cn] > cd and not visited[cn]:
                 parent[cn] = n
                 distance[cn] = cd
                 heappush(bag, [cd, cn])
