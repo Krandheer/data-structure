@@ -25,14 +25,16 @@ for u, v, d in ipt:
     graph[u][v] = d
 
 # reaching a node through another node, if that minimise the distance then update the distance, and that's it.
-for k in range(1, n+1):
+for k in range(1, n + 1):
     for i in range(1, row):
         for j in range(1, col):
             if i == j or i == k or j == k:
                 pass
             elif graph[i][k] + graph[k][j] < graph[i][j]:
-                graph[i][j] = graph[i][k]+graph[k][j]
+                graph[i][j] = graph[i][k] + graph[k][j]
 
-
+# drop first row and and first column from the graph
+graph.pop(0)
+graph[0].pop(0)
 for item in graph:
     print(item)
