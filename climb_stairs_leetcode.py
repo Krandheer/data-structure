@@ -1,3 +1,10 @@
+"""
+this is similar to fibonacci, so to reduce the space complexity
+we can use pre and prev2 here and current variable and remove the dp
+array from the code below
+"""
+
+
 def climb_stair(n):
     if n == 1 or n == 2:
         return n
