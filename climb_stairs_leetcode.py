@@ -18,3 +18,6 @@ def climbstairs_leetcode(self, n, dp):
         dp[n] = self.climbstairs_leetcode(n - 1, dp)
         +self.climbstairs_leetcode(n - 2, dp)
         return dp[n]
+
+
+print(climb_stair(5))
