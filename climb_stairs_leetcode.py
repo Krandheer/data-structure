@@ -27,3 +27,4 @@ def climbstairs_leetcode(n, dp):
 
 
 print(climb_stair(5))
+print(climbstairs_leetcode(5, [-1] * 6))
