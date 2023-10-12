@@ -12,7 +12,7 @@ def climb_stair(n):
         return climb_stair(n - 1) + climb_stair(n - 2)
 
 
-def climbstairs_leetcode(self, n, dp):
+def climbstairs_leetcode(n, dp):
     """
     leetcode dp day 2 question
     """
@@ -22,8 +22,7 @@ def climbstairs_leetcode(self, n, dp):
     elif dp[n] != -1:
         return dp[n]
     else:
-        dp[n] = self.climbstairs_leetcode(n - 1, dp)
-        +self.climbstairs_leetcode(n - 2, dp)
+        dp[n] = climbstairs_leetcode(n - 1, dp) + climbstairs_leetcode(n - 2, dp)
         return dp[n]
 
 
