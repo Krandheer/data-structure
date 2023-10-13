@@ -2,13 +2,6 @@ import math
 import time
 
 
-def minimumTotal(triangle):
-    # return helper_recursion(0, 0, matrix)
-
-    dp_1 = [[-1 for j in range(len(triangle))] for i in range(len(triangle))]
-    return helper_dp(0, 0, triangle, dp_1)
-
-
 def helper_recursion(i, j, matrix):
     if i == len(matrix) - 1:
         return matrix[i][j]
@@ -18,6 +11,8 @@ def helper_recursion(i, j, matrix):
     down = matrix[i][j] + helper_recursion(i + 1, j, matrix)
 
     return min(right, down)
+
+    return helper_dp(0, 0, triangle, dp_1)
 
 
 def helper_dp(i, j, matrix, dp):
@@ -33,7 +28,7 @@ def helper_dp(i, j, matrix, dp):
     return dp[i][j]
 
 
-start = time.perf_counter()
 matrix = [[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]
-print(minimumTotal(matrix))
-print(time.perf_counter() - start)
+dp_1 = [[-1 for j in range(len(matrix))] for i in range(len(matrix))]
+print(helper_dp(0, 0, matrix, dp_1))
+print(helper_recursion(0, 0, matrix))
