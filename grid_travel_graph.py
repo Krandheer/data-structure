@@ -3,6 +3,7 @@ finding unique paths for given grid using graph traversal algorithm.
 """
 
 
+# Find unique paths for grid using dfs traversal algorithm
 def grid_travel(m, n, i, j, visited):
     if i == m - 1 or j == n - 1:
         return 1
