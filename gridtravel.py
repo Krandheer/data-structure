@@ -50,9 +50,9 @@ def grid_travel_path(p, m, n):
         print(p)
         return
     if m > 1:
-        grid_travel_path(p + 'D', m - 1, n)
+        grid_travel_path(p + "U", m - 1, n)
     if n > 1:
-        grid_travel_path(p + 'R', m, n - 1)
+        grid_travel_path(p + "L", m, n - 1)
     return p
 
 
@@ -66,14 +66,15 @@ def grid_travel_path_list(p, m, n, ans):
         ans.append(p)
         return
     if m > 1:
-        grid_travel_path_list(p + 'D', m - 1, n, ans)
+        grid_travel_path_list(p + "U", m - 1, n, ans)
     if n > 1:
-        grid_travel_path_list(p + 'R', m, n - 1, ans)
+        grid_travel_path_list(p + "L", m, n - 1, ans)
 
     return ans
 
 
 # print(grid_travel_path_list("", 2, 2, []))
+
 
 def grid_travel_path_list2(p, m, n):
     # last line return statement is what makes value to be returned after all execution,
@@ -82,10 +83,11 @@ def grid_travel_path_list2(p, m, n):
         return [p]
     result = []
     if m > 1:
-        result = result + grid_travel_path_list2(p + 'D', m - 1, n)
+        result = result + grid_travel_path_list2(p + "U", m - 1, n)
     if n > 1:
-        result = result + grid_travel_path_list2(p + 'R', m, n - 1)
+        result = result + grid_travel_path_list2(p + "L", m, n - 1)
 
     return result
+
 
 # print(grid_travel_path_list2("", 2, 2))
