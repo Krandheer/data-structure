@@ -10,7 +10,7 @@ def min_falling_recursion(i, j, matrix):
     right = matrix[i][j] + min_falling_recursion(i + 1, j + 1, matrix)
     down = matrix[i][j] + min_falling_recursion(i + 1, j, matrix)
 
-    return min(right, down)
+    return max(right, down)
 
 
 def min_falling_sum_dp(i, j, matrix, dp):
