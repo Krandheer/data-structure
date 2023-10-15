@@ -1,5 +1,5 @@
 s1 = "adcbc"
-s2 = "dcadb"
+s2 = "adadb"
 
 """
 to get the longest common string convert the solution to bottom up, and start tracking from right bottom in table
