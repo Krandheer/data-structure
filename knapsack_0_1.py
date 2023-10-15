@@ -4,17 +4,13 @@
 
 import math
 
-wt = [3, 2, 5]
-val = [30, 40, 60]
-bag_weight = 6
-
 
 def knapsack(index, wt, val, bag_weight):
     if index == 0 and bag_weight < wt[0]:
         return 0
     elif index == 0:
         return val[0]
-    not_picked = 0 + knapsack(index - 1, wt, val, bag_weight)
+    not_picked = knapsack(index - 1, wt, val, bag_weight)
     picked = -math.inf
 
     if wt[index] <= bag_weight:
@@ -22,4 +18,7 @@ def knapsack(index, wt, val, bag_weight):
     return max(not_picked, picked)
 
 
+wt = [3, 2, 5]
+val = [30, 40, 60]
+bag_weight = 6
 print(knapsack(len(wt) - 1, wt, val, bag_weight))
