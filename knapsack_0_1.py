@@ -5,6 +5,7 @@
 import math
 
 
+# 0/1 knapsack: can pick one element only once
 def knapsack(index, wt, val, bag_weight):
     if index == 0 and bag_weight < wt[0]:
         return 0
@@ -18,6 +19,7 @@ def knapsack(index, wt, val, bag_weight):
     return max(not_picked, picked)
 
 
+# knapsack where picking one element many times is allowed
 def unbounded_knapsack(index, wt, val, bag_weight):
     if index == 0 and bag_weight < wt[0]:
         return 0
