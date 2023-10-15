@@ -1,5 +1,6 @@
 import math
 import sys
+
 cost = [2, 5, 7, 8, 10]
 
 """
@@ -14,6 +15,7 @@ def max_cost(index, rod, cost_arr):
 
     not_take = 0 + max_cost(index - 1, rod, cost_arr)
     take = -math.inf
+    # below if condition makes sure that we pick valid length.
     rod_length = index + 1
     if rod_length <= rod:
         take = cost_arr[index] + max_cost(index, rod - rod_length, cost_arr)
