@@ -1,5 +1,9 @@
 import math
 
+"""
+largest divisible subset, returns the largest set that is divisble by some element in the subset
+"""
+
 
 def largest_divisible_subset(ipt, index, prev):
     if index == len(ipt):
