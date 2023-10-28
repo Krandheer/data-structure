@@ -51,7 +51,7 @@ print(matrix_chain_mul_dp(1, len(arr) - 1, arr, dp_1))
 def matrix_chain_bottom_up(i, j, arr):
     dp = [[0 for j in range(len(arr))] for i in range(len(arr) - 1)]
     min_steps = math.inf
-    for k in range(i, len(arr) - 1):
+    for k in range(i, j):
         steps = arr[i - 1] * arr[k] * arr[j] + dp[i][k] + dp[k + 1][j]
         if steps < min_steps:
             dp[i][k] = steps
