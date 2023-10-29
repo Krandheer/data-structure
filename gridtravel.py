@@ -7,7 +7,7 @@ def grid_travel(i, j):
 
 
 # 3*3 grid
-# print(grid_travel(2, 2))
+# print(grid_travel(1, 1))
 
 
 def grid_travel_dp(i, j, dp):
@@ -42,7 +42,7 @@ def grid_travel_bottom_up(i, j, dp):
 
 
 dp_1 = [[-1 for j in range(3)] for i in range(3)]
-print(grid_travel_bottom_up(2, 2, dp_1))
+# print(grid_travel_bottom_up(2, 2, dp_1))
 
 
 def grid_travel_path(p, m, n):
