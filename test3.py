@@ -34,8 +34,8 @@ def find_triplet(arr, target, triplet=[], index=0):
 
 
 # Example usage
-arr = [1, 2, 3, 4, 5, 6, 7]
-target = 10
+arr = [1, 2, 3, 4, 5]
+target = 9
 result = find_triplet(arr, target)
 
 if result:
