@@ -22,7 +22,7 @@ class LinkedList:
             current = current.next
         return count
 
-    def new_add(self, data):
+    def insert_at_start(self, data):
         """
         adds new node containing data at head of linked list
         takes O(1) time
@@ -56,7 +56,7 @@ class LinkedList:
 
     def insert(self, data, index):
         if index == 0:
-            self.new_add(data)
+            self.insert_at_start(data)
 
         if index > 0:
             position = index
