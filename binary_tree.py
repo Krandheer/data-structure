@@ -12,7 +12,7 @@ class BinarySearchTree:
     # add element to binary search tree
     # assuming the values are integer
     def insert(self, value):
-        if self.root:
+        if not self.root:
             self.root = Node(value)
 
         else:
@@ -43,7 +43,7 @@ class BinarySearchTree:
             return curr_height
         left_height = self._height(curr_node.left_child, curr_height + 1)
         right_height = self._height(curr_node.right_child, curr_height + 1)
-        return max(left_child, right_height)
+        return max(left_height, right_height)
 
     def search(self, value):
         if self.root is not None:
