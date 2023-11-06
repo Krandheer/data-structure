@@ -72,16 +72,6 @@ class LinkedList:
                         break
                     temp = temp.next
 
-    def __repr__(self):
-        current = self.head
-        nodes = []
-
-        while current:
-            nodes.append(f"{current.data}")
-            current = current.next
-
-        return "->".join(nodes)
-
     def search(self, key):
         """
         return: True if the key is found otherwise False
@@ -113,9 +103,20 @@ class LinkedList:
             prev_node.next = new
             new.next = next_node
 
+    def __repr__(self):
+        current = self.head
+        nodes = []
+
+        while current:
+            nodes.append(f"{current.data}")
+            current = current.next
+
+        return "->".join(nodes)
+
 
 mylist = LinkedList()
 mylist.insert_at_start(20)
 mylist.insert_at_start(10)
 mylist.insert_at_end(30)
+mylist.delete_data(20)
 print(mylist)
