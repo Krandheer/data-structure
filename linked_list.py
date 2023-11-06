@@ -31,19 +31,19 @@ class LinkedList:
         new_node.next = self.head
         self.head = new_node
 
-    def delete_at_start(self):
-        if self.head is not None:
-            self.head = self.head.next
-
     def insert_at_end(self, data):
         new_node = Node(data)
         if self.head is None:
             self.head = new_node
         else:
             temp = self.head
-            while temp:
+            while temp.next is not None:
                 temp = temp.next
             temp.next = new_node
+
+    def delete_at_start(self):
+        if self.head is not None:
+            self.head = self.head.next
 
     def delete_at_end(self):
         if self.head is None:
@@ -55,6 +55,22 @@ class LinkedList:
             while temp.next.next is not None:
                 temp = temp.next
             temp.next = None
+
+    def delete_data(self, data):
+        if self.head is None:
+            pass
+        elif self.head.next is None and self.head.data == data:
+            self.head = None
+        else:
+            temp = self.head
+            if temp.data == data:
+                self.head = temp.next
+            else:
+                while temp.next is not None:
+                    if temp.next.data == data:
+                        temp.next == temp.next.next
+                        break
+                    temp = temp.next
 
     def __repr__(self):
         current = self.head
@@ -96,3 +112,10 @@ class LinkedList:
             next_node = current.next
             prev_node.next = new
             new.next = next_node
+
+
+mylist = LinkedList()
+mylist.insert_at_start(20)
+mylist.insert_at_start(10)
+mylist.insert_at_end(30)
+print(mylist)
