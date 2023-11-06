@@ -56,19 +56,19 @@ class LinkedList:
                 temp = temp.next
             temp.next = None
 
-    def delete_data(self, data):
+    def delete_data(self, value):
         if self.head is None:
             pass
-        elif self.head.next is None and self.head.data == data:
+        elif self.head.next is None and self.head.data == value:
             self.head = None
         else:
             temp = self.head
-            if temp.data == data:
+            if temp.data == value:
                 self.head = temp.next
             else:
                 while temp.next is not None:
-                    if temp.next.data == data:
-                        temp.next == temp.next.next
+                    if temp.next.data == value:
+                        temp.next = temp.next.next
                         break
                     temp = temp.next
 
@@ -118,5 +118,6 @@ mylist = LinkedList()
 mylist.insert_at_start(20)
 mylist.insert_at_start(10)
 mylist.insert_at_end(30)
+print(mylist)
 mylist.delete_data(20)
 print(mylist)
