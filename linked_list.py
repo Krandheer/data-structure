@@ -31,6 +31,16 @@ class LinkedList:
         new_node.next = self.head
         self.head = new_node
 
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            curr = self.head
+            while curr:
+                curr = curr.next
+            curr.next = new_node
+
     def __repr__(self):
         current = self.head
         nodes = []
