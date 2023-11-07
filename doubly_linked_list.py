@@ -74,6 +74,20 @@ class dll:
                     break
                 temp = temp.next
 
+    def search(self, data):
+        if self.head is None:
+            pass
+        else:
+            temp = self.head
+            if temp.data == data:
+                return True
+            else:
+                while temp.next:
+                    if temp.data == data:
+                        return True
+                    temp = temp.next
+        return False
+
     def __repr__(self) -> str:
         current = self.head
         nodes = []
@@ -93,5 +107,6 @@ dll.insert_at_end(50)
 print(dll)
 # dll.delete_at_start()
 # dll.delete_at_end()
-dll.delete_data(30)
+# dll.delete_data(30)
+print(dll.search(50))
 print(dll)
