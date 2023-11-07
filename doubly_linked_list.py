@@ -36,6 +36,17 @@ class dll:
             temp.next = new_node
             new_node.prev = temp
 
+    def delete_at_start(self):
+        if self.head is None:
+            pass
+        elif self.head.next is None:
+            self.head = None
+        else:
+            temp = self.head
+            temp.next.prev = None
+            self.head = temp.next
+            temp.next = None
+
     def __repr__(self) -> str:
         current = self.head
         nodes = []
@@ -47,8 +58,11 @@ class dll:
 
 
 dll = dll()
+dll.insert_at_start(30)
 dll.insert_at_start(20)
 dll.insert_at_start(10)
-dll.insert_at_start(30)
 dll.insert_at_end(40)
+dll.insert_at_end(50)
+print(dll)
+dll.delete_at_start()
 print(dll)
