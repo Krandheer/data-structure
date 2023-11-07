@@ -66,11 +66,22 @@ class dll:
             self.head = None
         else:
             temp = self.head
-            while temp.next.next:
-                if temp.next.data == data:
-                    temp.next.prev = None
-                    temp.next.next.prev = temp
-                    temp.next = temp.next.next
+
+            # if first node itself need to be deleted
+            if temp.data == data:
+                temp.next.prev = None
+                self.head = temp.next
+            while temp:
+                if temp.data == data:
+                    # if middle node needs to be deleted
+                    if temp.next and temp.prev:
+                        temp.next.prev = temp.prev
+                        temp.prev.next = temp.next
+
+                        # if last node need to be deleted
+                    elif not temp.next:
+                        temp.prev.next = None
+                        temp.prev = None
                     break
                 temp = temp.next
 
@@ -82,7 +93,7 @@ class dll:
             if temp.data == data:
                 return True
             else:
-                while temp.next:
+                while temp:
                     if temp.data == data:
                         return True
                     temp = temp.next
@@ -104,9 +115,9 @@ dll.insert_at_start(20)
 dll.insert_at_start(10)
 dll.insert_at_end(40)
 dll.insert_at_end(50)
-print(dll)
+# print(dll)
 # dll.delete_at_start()
 # dll.delete_at_end()
-# dll.delete_data(30)
-print(dll.search(50))
+dll.delete_data(50)
+# print(dll.search(50))
 print(dll)
