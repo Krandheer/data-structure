@@ -68,6 +68,24 @@ class Cll:
                 temp.next = self.tail.next
                 self.tail = temp
 
+    def delete_data(self, data):
+        if self.is_empty():
+            pass
+        if self.tail.next == self.tail and self.tail.data == data:
+            self.tail = None
+        else:
+            temp = self.tail.next
+            if temp.data == data:
+                self.tail.next = temp.next
+            else:
+                while temp != self.tail:
+                    if temp.next.data == data and temp.next != self.tail:
+                        temp.next = temp.next.next
+                    elif temp.next.data == data and temp.next == self.tail:
+                        temp.next = temp.next.next
+                        self.tail = temp
+                    temp = temp.next
+
     def __repr__(self) -> str:
         node = []
         if self.is_empty():
@@ -92,4 +110,6 @@ print(mylist)
 
 # mylist.delete_at_start()
 # mylist.delete_at_end()
-print(mylist.search(60))
+mylist.delete_data(10)
+# print(mylist.search(60))
+print(mylist)
