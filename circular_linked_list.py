@@ -30,6 +30,21 @@ class Cll:
             self.tail.next = new_node
             self.tail = new_node
 
+    def search(self, data):
+        if self.is_empty():
+            return False
+        elif self.tail.next == self.tail and self.tail.data == data:
+            return True
+        else:
+            temp = self.tail.next
+            while temp != self.tail:
+                if temp.data == data:
+                    return True
+                temp = temp.next
+            if self.tail.data == data:
+                return True
+        return False
+
     def delete_at_start(self):
         if self.is_empty():
             pass
@@ -76,5 +91,5 @@ mylist.insert_at_end(50)
 print(mylist)
 
 # mylist.delete_at_start()
-mylist.delete_at_end()
-print(mylist)
+# mylist.delete_at_end()
+print(mylist.search(60))
