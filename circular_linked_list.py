@@ -30,12 +30,35 @@ class Cll:
             self.tail.next = new_node
             self.tail = new_node
 
+    def delete_at_start(self):
+        if self.is_empty():
+            pass
+        else:
+            if self.tail.next == self.tail:
+                self.tail = None
+            else:
+                self.tail.next = self.tail.next.next
+
+    def delete_at_end(self):
+        # find one before the tail
+        if self.is_empty():
+            pass
+        else:
+            if self.tail.next == self.tail:
+                self.tail = None
+            else:
+                temp = self.tail.next
+                while temp.next != self.tail:
+                    temp = temp.next
+                temp.next = self.tail.next
+                self.tail = temp
+
     def __repr__(self) -> str:
+        node = []
         if self.is_empty():
             pass
         else:
             head = self.tail.next
-            node = []
             while head != self.tail:
                 node.append(f"{head.data}")
                 head = head.next
@@ -49,4 +72,9 @@ mylist.insert_at_start(20)
 mylist.insert_at_start(10)
 mylist.insert_at_end(40)
 mylist.insert_at_end(50)
+
+print(mylist)
+
+# mylist.delete_at_start()
+mylist.delete_at_end()
 print(mylist)
