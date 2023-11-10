@@ -26,7 +26,9 @@ class Stack:
         if not self.is_empty():
             data = self.head.data
             self.head = self.head.next
+            self.item_count -= 1
             return data
+
         else:
             raise IndexError("Empty stack")
 
@@ -37,11 +39,17 @@ class Stack:
         else:
             raise IndexError("empty stack")
 
+    def size(self):
+        if not self.is_empty():
+            return self.item_count
+        else:
+            return 0
+
 
 s = Stack()
 s.push(30)
 s.push(20)
 s.push(10)
 print("pop: ", s.pop())
-print("pop: ", s.pop())
 print("peek: ", s.peek())
+print("size: ", s.size())
