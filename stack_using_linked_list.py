@@ -40,10 +40,7 @@ class Stack:
             raise IndexError("empty stack")
 
     def size(self):
-        if not self.is_empty():
-            return self.item_count
-        else:
-            return 0
+        return self.item_count
 
 
 s = Stack()
