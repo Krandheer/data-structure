@@ -61,7 +61,7 @@ root.left.left = TreeNode(4)
 root.left.right = TreeNode(5)
 
 print("Level order traversal:")
-# print(level_order(root))
+# print(inorder_traversal(root))
 
 print(inorder_traversal(root, []))
 
