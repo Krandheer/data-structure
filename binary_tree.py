@@ -1,6 +1,6 @@
 class Node:
     def __init__(self, value=None):
-        self.value = None
+        self.value = value
         self.left_child = None
         self.right_child = None
 
@@ -14,12 +14,14 @@ class BinarySearchTree:
     def insert(self, value):
         if not self.root:
             self.root = Node(value)
-
+            print("this is root", self.root)
         else:
+            print("this is root", self.root.value)
+            print("going in furter insertion")
             self._insert(value, self.root)
 
     def _insert(self, value, curr_node):
-        if value < curr_node.value:
+        if curr_node is not None and value < curr_node.value:
             if curr_node.left_child is None:
                 curr_node.left_child = Node(value)
             else:
@@ -73,3 +75,11 @@ class BinarySearchTree:
             self._print_tree(curr_node.left_child)
             print(str(curr_node.value))
             self._print_tree(curr_node.right_child)
+
+
+bst = BinarySearchTree()
+bst.insert(40)
+bst.insert(35)
+bst.insert(45)
+bst.insert(30)
+bst.print_tree()
