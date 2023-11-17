@@ -14,10 +14,7 @@ class BinarySearchTree:
     def insert(self, value):
         if not self.root:
             self.root = Node(value)
-            print("this is root", self.root)
         else:
-            print("this is root", self.root.value)
-            print("going in furter insertion")
             self._insert(value, self.root)
 
     def _insert(self, value, curr_node):
