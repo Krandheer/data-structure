@@ -65,13 +65,15 @@ class BinarySearchTree:
         if self.root is None:
             print("tree is empty")
         else:
-            print(self._print_tree(self.root))
+            self._print_tree(self.root)
 
     def _print_tree(self, curr_node):
         if curr_node is not None:
-            self._print_tree(curr_node.left_child)
+            if curr_node.left_child is not None:
+                self._print_tree(curr_node.left_child)
             print(str(curr_node.value))
-            self._print_tree(curr_node.right_child)
+            if curr_node.right_child is not None:
+                self._print_tree(curr_node.right_child)
 
 
 bst = BinarySearchTree()
