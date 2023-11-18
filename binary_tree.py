@@ -9,7 +9,6 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    # add element to binary search tree
     # assuming the values are integer
     def insert(self, value):
         if not self.root:
