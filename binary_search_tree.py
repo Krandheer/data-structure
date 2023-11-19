@@ -17,12 +17,12 @@ class BinarySearchTree:
             self._insert(value, self.root)
 
     def _insert(self, value, curr_node):
-        if curr_node is not None and value < curr_node.value:
+        if curr_node and value < curr_node.value:
             if curr_node.left_child is None:
                 curr_node.left_child = Node(value)
             else:
                 self._insert(value, curr_node.left_child)
-        elif value > curr_node.value:
+        elif curr_node and value > curr_node.value:
             if curr_node.right_child is None:
                 curr_node.right_child = Node(value)
             else:
