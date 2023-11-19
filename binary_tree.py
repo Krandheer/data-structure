@@ -67,11 +67,11 @@ class BinarySearchTree:
             self._print_tree(self.root)
 
     def _print_tree(self, curr_node):
-        if curr_node is not None:
-            if curr_node.left_child is not None:
+        if curr_node:
+            if curr_node.left_child:
                 self._print_tree(curr_node.left_child)
             print(str(curr_node.value))
-            if curr_node.right_child is not None:
+            if curr_node.right_child:
                 self._print_tree(curr_node.right_child)
 
 
