@@ -1,4 +1,3 @@
-# using the trick we learnt in printing stars
 def bubble_sort(arr, r, c):
     if r == 0:
         return
@@ -9,7 +8,7 @@ def bubble_sort(arr, r, c):
             arr[c], arr[c + 1] = arr[c + 1], arr[c]
         bubble_sort(arr, r, c + 1)
     else:
-        # next pass for next pair starts
+        # once first pass id done next pass for next pair starts
         bubble_sort(arr, r - 1, 0)
 
 
