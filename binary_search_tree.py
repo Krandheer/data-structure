@@ -31,7 +31,7 @@ class BinarySearchTree:
             print("value is already in tree, try any other value")
 
     def height(self):
-        if self.root is not None:
+        if self.root:
             return self._height(self.root, 0)
         else:
             return 0
@@ -44,7 +44,7 @@ class BinarySearchTree:
         return max(left_height, right_height)
 
     def search(self, value):
-        if self.root is not None:
+        if self.root:
             return self._search(value, self.root)
         else:
             False
@@ -52,9 +52,9 @@ class BinarySearchTree:
     def _search(self, value, curr_node):
         if value == curr_node.value:
             return True
-        elif value < curr_node.value and curr_node.left_child is not None:
+        elif value < curr_node.value and curr_node.left_child:
             self._search(value, curr_node.left_child)
-        elif value > curr_node.value and curr_node.right_child is not None:
+        elif value > curr_node.value and curr_node.right_child:
             self._search(value, curr_node.right_child)
         else:
             return False
