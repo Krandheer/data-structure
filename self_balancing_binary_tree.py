@@ -13,6 +13,8 @@ class sbbtree_node(Node):
     def get_height(self, node):
         if node:
             return node.height
+        else:
+            return 0
 
     def insert(self, value):
         if not self.root:
