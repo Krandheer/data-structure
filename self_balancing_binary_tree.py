@@ -12,6 +12,13 @@ class sbbtree_node(Node):
 
     def get_height(self, node):
         if node:
+            right_height = 0
+            left_height = 0
+            if node.left:
+                left_height = 1 + self.get_height(node.left)
+            if node.right:
+                right_height = 1 + self.get_height(node.right)
+            node.height = max(left_height, right_height)
             return node.height
         else:
             return 0
@@ -19,24 +26,27 @@ class sbbtree_node(Node):
     def insert(self, value):
         if not self.root:
             self.root = Node(value)
+            return self.root
         else:
-            self._insert(value, self.root)
+            return self._insert(value, self.root)
 
     def _insert(self, value, curr_node):
         if curr_node and value < curr_node.value:
             if not curr_node.left:
                 curr_node.left = Node(value)
-                curr_node.height = curr_node.height + 1
+                curr_node.height = self.get_height(curr_node)
+                return curr_node.left
             else:
-                curr_node.height = curr_node.height + 1
-                self._insert(value, curr_node.left)
+                curr_node.height = 1 + self.get_height(curr_node)
+                return self._insert(value, curr_node.left)
         elif curr_node and value > curr_node.value:
             if not curr_node.right:
                 curr_node.right = Node(value)
-                curr_node.height = curr_node.height + 1
+                curr_node.height = self.get_height(curr_node)
+                return curr_node.right
             else:
-                curr_node.height = curr_node.height + 1
-                self._insert(value, curr_node.right)
+                curr_node.height = 1 + self.get_height(curr_node)
+                return self._insert(value, curr_node.right)
 
     # inorder traversal
     def print_tree(self):
