@@ -1,6 +1,6 @@
 def maxProduct(nums) -> int:
     """
-    leetcode: we maintain curMax and curMax to handle the case in which product of -ve and -ve becomes positive.
+    leetcode: we maintain curMax and curMin to handle the case in which product of -ve and -ve becomes positive.
     """
     curMax, curMin = 1, 1
     res = max(nums)
