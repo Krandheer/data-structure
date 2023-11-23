@@ -48,6 +48,9 @@ class sbbtree_node(Node):
                 curr_node.height = 1 + self.get_height(curr_node)
                 return self._insert(value, curr_node.right)
 
+        # TODO: getbalance factor to apply rotations, and I should be calling
+        # that function before returning the node.;
+
     # inorder traversal
     def print_tree(self):
         if not self.root:
