@@ -1,4 +1,4 @@
-from collections import deque
+from collections import deque, defaultdict
 
 
 class TreeNode:
@@ -11,19 +11,21 @@ class TreeNode:
 def level_order(root):
     if not root:
         return
-    result = []
+    result = {}
 
     queue = deque()
-    queue.append(root)
+    queue.append((root, 0))
 
     while queue:
-        node = queue.popleft()
-        result.append(node.value)
-
+        node, level = queue.popleft()
+        if level not in result:
+            result[level] = [node.value]
+        else:
+            result[level].append(node.value)
         if node.left:
-            queue.append(node.left)
+            queue.append((node.left, level + 1))
         if node.right:
-            queue.append(node.right)
+            queue.append((node.right, level + 1))
     return result
 
 
@@ -63,6 +65,6 @@ root.left.right = TreeNode(5)
 print("Level order traversal:")
 # print(inorder_traversal(root))
 
-print(inorder_traversal(root, []))
+print(level_order(root))
 
 # TODO: lca ( least common ancestor) need to write code for this for bst and bt
