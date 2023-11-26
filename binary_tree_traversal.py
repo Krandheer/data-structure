@@ -29,6 +29,28 @@ def level_order(root):
     return result
 
 
+def level_order2(root):
+    if not root:
+        return
+    result = []
+
+    queue = deque()
+    queue.append(root)
+
+    while queue:
+        size = len(queue)
+        temp = []
+        for i in range(size):
+            node = queue.popleft()
+            temp.append(node.value)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        result.append(temp)
+    return result
+
+
 def inorder_traversal(root, result):
     if not root:
         return
@@ -65,6 +87,12 @@ root.left.right = TreeNode(5)
 print("Level order traversal:")
 # print(inorder_traversal(root))
 
-print(level_order(root))
+print(level_order2(root))
+# result = level_order(root)
+# final_res = []
+# for k, v in result.items():
+#     final_res.append(v)
+# print(final_res)
+
 
 # TODO: lca ( least common ancestor) need to write code for this for bst and bt
