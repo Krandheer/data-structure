@@ -71,6 +71,8 @@ def preorder_traversal(root, result):
 
 # iierative preorder traversal
 def preorder_traversal2(root):
+    if not root:
+        return
     stack = []
     result = []
     stack.append(root)
