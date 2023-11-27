@@ -69,6 +69,22 @@ def preorder_traversal(root, result):
     return result
 
 
+# iierative preorder traversal
+def preorder_traversal2(root):
+    stack = []
+    result = []
+    stack.append(root)
+
+    while stack:
+        node = stack.pop()
+        result.append(node.value)
+        if node.right:
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
+    return result
+
+
 def postorder_traversal(root, result):
     if not root:
         return
@@ -84,10 +100,9 @@ root.right = TreeNode(3)
 root.left.left = TreeNode(4)
 root.left.right = TreeNode(5)
 
-print("Level order traversal:")
-# print(inorder_traversal(root))
-
-print(level_order2(root))
+print(preorder_traversal(root, []))
+print(preorder_traversal2(root))
+# print(level_order2(root))
 # result = level_order(root)
 # final_res = []
 # for k, v in result.items():
