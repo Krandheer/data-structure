@@ -1,6 +1,7 @@
 """
 implementing minheap data-structure
 """
+import heapq
 
 
 class MinHeap:
@@ -51,3 +52,33 @@ class MinHeap:
         self.heapify_down(1)
         return value
 
+
+class MinHeap:
+    def __init__(self):
+        self.heap = []
+
+    def push_heap(self, value):
+        heapq.heappush(self.heap, value)
+
+    def pop_heap(self):
+        if self.heap:
+            heapq.heappop(self.heap)
+        else:
+            return IndexError("heap is empty")
+
+    def is_empty(self):
+        return len(self.heap) == 0
+
+    def peek(self):
+        if self.heap:
+            return self.heap[0]
+        else:
+            return IndexError("heap is empty")
+
+
+minheap = MinHeap()
+minheap.push_heap(5)
+minheap.push_heap(10)
+minheap.push_heap(2)
+minheap.push_heap(8)
+print(minheap.peek())
