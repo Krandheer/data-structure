@@ -1,5 +1,10 @@
 from collections import deque, defaultdict
 
+"""
+preorder, postorder, inorder all of these methods are depth first searches.
+level order is breadth first search for tree.
+"""
+
 
 class TreeNode:
     def __init__(self, value):
