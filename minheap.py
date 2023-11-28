@@ -9,8 +9,7 @@ class MinHeap:
         self.heap = []
         self.size = 0
 
-    # to balance the inserted new element in the heap
-    # we heapify it
+    # to balance the inserted new element in the heap we heapify it
     def heapify_up(self, i):
         while i // 2 > 0:
             if self.heap[i] < self.heap[i // 2]:
@@ -24,15 +23,6 @@ class MinHeap:
         self.size = self.size + 1
         self.heapify_up(self.size)
 
-    # to del with delete operation we move down
-    # the new root to its logical correct position
-    def heapify_down(self, i):
-        while 2 * i <= self.size:
-            min_child = self.min_child(i)
-            if self.heap[i] > self.heap[min_child]:
-                self.heap[i], self.heap[min_child] = self.heap[min_child], self.heap[i]
-            i = min_child
-
     # to find the minimum child of the root
     # from both available child
     def min_child(self, i):
@@ -43,6 +33,15 @@ class MinHeap:
                 return 2 * i
             else:
                 return 2 * i + 1
+
+    # to del with delete operation we move down
+    # the new root to its logical correct position
+    def heapify_down(self, i):
+        while 2 * i <= self.size:
+            min_child = self.min_child(i)
+            if self.heap[i] > self.heap[min_child]:
+                self.heap[i], self.heap[min_child] = self.heap[min_child], self.heap[i]
+            i = min_child
 
     def del_min(self):
         value = self.heap[1]
