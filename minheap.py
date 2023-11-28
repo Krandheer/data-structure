@@ -18,10 +18,10 @@ class MinHeap:
 
     # insert the element in the end of the list
     # then use heapify to maintain the heap property
-    def insert(self, key):
+    def push_heap(self, key):
         self.heap.append(key)
         self.size = self.size + 1
-        self.heapify_up(self.size)
+        self.heapify_up(self.size - 1)
 
     # to find the minimum child of the root
     # from both available child
@@ -43,16 +43,16 @@ class MinHeap:
                 self.heap[i], self.heap[min_child] = self.heap[min_child], self.heap[i]
             i = min_child
 
-    def del_min(self):
+    def heap_pop(self):
         value = self.heap[1]
-        self.heap[1] = self.heap[self.size]
+        self.heap[0] = self.heap[self.size - 1]
         self.size = self.size - 1
         self.heap.pop()
-        self.heapify_down(1)
+        self.heapify_down(0)
         return value
 
 
-class MinHeap:
+class MinHeap2:
     def __init__(self):
         self.heap = []
 
@@ -80,4 +80,4 @@ minheap.push_heap(5)
 minheap.push_heap(10)
 minheap.push_heap(2)
 minheap.push_heap(8)
-print(minheap.peek())
+print(minheap.heap_pop())
