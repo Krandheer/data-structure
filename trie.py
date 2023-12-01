@@ -11,7 +11,7 @@ class Trie:
     def insert(self, word):
         node = self.root
         for i in word:
-            if word not in node.links:
+            if i not in node.links:
                 node.links[i] = Node()
             node = node.links[i]
         node.is_end = True
@@ -39,14 +39,16 @@ class Trie:
 
         for char, child in node.links.items():
             current_word = prefix + char
-            print(f"current word: {current_word} End of wordk: {child.is_end}")
+            # print(f"current word: {current_word} End of wordk: {child.is_end}")
             if child.is_end:
                 print(current_word)
             self.print_trie(child, current_word)
 
 
 tri = Trie()
-tri.insert("tty")
-print(tri.search("tty"))
-print(tri.matching_word("tt"))
+words = ["apple", "app", "banana", "bat", "batman"]
+for word in words:
+    tri.insert(word)
+print(tri.search("banana"))
+print(tri.matching_word("ban"))
 # tri.print_trie()
