@@ -16,6 +16,15 @@ class Trie:
             node = node.links[i]
         node.is_end = True
 
+    def search(self, word):
+        node = self.root
+        if node:
+            for i in word:
+                if i not in node.links:
+                    return False
+                node = node.links[i]
+        return node.is_end
+
     def print_trie(self, node=None, prefix=""):
         if node is None:
             node = self.root
@@ -30,4 +39,5 @@ class Trie:
 
 tri = Trie()
 tri.insert("tty")
-tri.print_trie()
+print(tri.search("tty"))
+# tri.print_trie()
