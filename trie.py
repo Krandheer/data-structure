@@ -46,9 +46,9 @@ class Trie:
 
 
 tri = Trie()
-words = ["apple", "app", "banana", "bat", "batman"]
+words = ["apple", "apple", "app", "banana", "bat", "batman"]
 for word in words:
     tri.insert(word)
-print(tri.search("banana"))
-print(tri.matching_word("ban"))
-# tri.print_trie()
+# print(tri.search("banana"))
+# print(tri.matching_word("ban"))
+tri.print_trie()
