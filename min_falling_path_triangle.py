@@ -1,5 +1,4 @@
 import math
-import time
 
 
 def min_falling_recursion(i, j, matrix):
