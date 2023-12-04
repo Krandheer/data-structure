@@ -61,7 +61,7 @@ class MinHeap2:
 
     def pop_heap(self):
         if self.heap:
-            heapq.heappop(self.heap)
+            return heapq.heappop(self.heap)
         else:
             return IndexError("heap is empty")
 
@@ -75,9 +75,16 @@ class MinHeap2:
             return IndexError("heap is empty")
 
 
-minheap = MinHeap()
-minheap.push_heap(5)
-minheap.push_heap(10)
-minheap.push_heap(2)
-minheap.push_heap(8)
-print(minheap.heap_pop())
+minheap2 = MinHeap2()
+minheap2.push_heap(5)
+minheap2.push_heap(10)
+minheap2.push_heap(2)
+minheap2.push_heap(8)
+print(minheap2.pop_heap())
+
+# minheap = MinHeap()
+# minheap.push_heap(5)
+# minheap.push_heap(10)
+# minheap.push_heap(2)
+# minheap.push_heap(8)
+# print(minheap.heap_pop())
