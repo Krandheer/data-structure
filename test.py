@@ -54,14 +54,14 @@ def shift_zero_to_end(arr):
         return arr
     # using two pointer method iterate and swap if non zero element and move forward zero index
     for i in range(j + 1, len(arr)):
-        if i > j and arr[i] != 0:
+        if arr[i] != 0:
             arr[i], arr[j] = arr[j], arr[i]
             j += 1
     return arr
 
 
 temp = [1, 0, 2, 3, 2, 0, 0, 4, 5, 1]
-# print(shift_zero_to_end(temp))
+print(shift_zero_to_end(temp))
 
 # two pointers method can be used for union and intersection of two sorted array as well.
 # prefix sum, two pointer method can be used for k-sum as well.
