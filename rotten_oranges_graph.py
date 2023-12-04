@@ -5,7 +5,8 @@ Problem Statement: Given a grid of dimension N x M where each cell in the grid c
 1: Cells have fresh oranges
 2: Cells have rotten oranges
 We have to determine what is the minimum time required to rot all oranges. A rotten orange at index [i,j] can rot other
- fresh oranges at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (up, down, left and right) in unit time.
+fresh oranges at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (up, down, left and right) in unit time.
+immediately should strike breadth first traversal in such question.
 """
 
 from collections import deque
