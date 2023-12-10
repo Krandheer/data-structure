@@ -1,10 +1,7 @@
-hello, practicing the vim here
-
-hellow world
+def hello():
 
 
-hellow
-hellow
-hi
-how are you
-I miss you
+
+    print('hello world')
+
+hello()
