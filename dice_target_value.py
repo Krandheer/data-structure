@@ -10,7 +10,7 @@ def dice(pat, target):
         dice(pat + str(i), target - i)
 
 
-def dice2(pat, target, result):
+def dice2(pat, target, result=[]):
     if target == 0:
         result.append(pat)
     for i in range(1, target + 1):
