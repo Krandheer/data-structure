@@ -1,4 +1,4 @@
-from collections import deque 
+from collections import deque
 
 """
 preorder, postorder, inorder all of these methods are depth first searches.
