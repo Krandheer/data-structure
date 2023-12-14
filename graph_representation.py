@@ -1,8 +1,8 @@
-def adjancy_matrix_rep(graph, node):
+def adjancy_matrix_rep(graph):
     g = []
-    for i in range(6):
+    for _ in range():
         temp = []
-        for j in range(6):
+        for _ in range(6):
             temp.append(0)
         g.append(temp)
 
