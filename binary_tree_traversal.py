@@ -45,7 +45,7 @@ def level_order2(root):
     while queue:
         size = len(queue)
         temp = []
-        for i in range(size):
+        for _ in range(size):
             node = queue.popleft()
             temp.append(node.value)
             if node.left:
