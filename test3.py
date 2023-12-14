@@ -1,5 +1,5 @@
 def hello():
-    print("hellow world")
+    print("hello world")
 
 
 hello()
@@ -7,7 +7,11 @@ hello()
 def add(a, b):
     return a + b
 
-
-print(add(1, 3))
-
-"this is some sample test object"
+a = [
+     "sunita",
+     "randheer",
+     "ravi",
+     "pooja",
+     "poonam",
+     "santee",
+    ]
