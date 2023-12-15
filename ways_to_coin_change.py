@@ -34,5 +34,5 @@ def total_num_ways_dp(index, target, arr, dp):
     return dp[index][target]
 
 
-dp = [[-1 for i in range(target + 1)] for j in range(len(denom))]
+dp = [[-1 for _ in range(target + 1)] for _ in range(len(denom))]
 print(total_num_ways_dp(2, target, denom, dp))
