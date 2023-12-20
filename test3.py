@@ -9,15 +9,3 @@ def good_pairs(num):
 
 temp1 = [1, 2, 3, 1, 1, 3]
 print(good_pairs(temp1))
-
-temp = [
-    "hello",
-    "Mapping",
-    "jane",
-    "bhi",
-    "done",
-    "yaaron",
-]
-
-for i in temp:
-    print(i)
