@@ -47,7 +47,7 @@ class BinarySearchTree:
         if self.root:
             return self._search(value, self.root)
         else:
-            False
+            return False
 
     def _search(self, value, curr_node):
         if value == curr_node.value:
