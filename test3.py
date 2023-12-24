@@ -5,6 +5,7 @@
 # Output: 4
 
 from collections import Counter
+import asyncio
 
 
 def get_missing(N, arr):
@@ -32,6 +33,27 @@ def get_missing3(N, arr):
 A = [1, 2, 3, 5]
 N = 5
 
+
 # print(get_missing2(N, A))
-print(get_missing3(N, A))
-print(get_missing(N, A))
+# print(get_missing3(N, A))
+# print(get_missing(N, A))
+
+
+# texting async and await things in python, implementation and learning
+async def foo(text):
+    print(text)
+    await asyncio.sleep(1)
+
+
+async def main():
+    print("inside main")
+    # task is like creating event loop as in javascript
+    # what it does is that it lets main thread run fast and then execute
+    task = asyncio.create_task(foo("randheer"))
+    # if stop the main thread even for a bit then task takes over and
+    # then till it is not complete thread is not given to main function
+    # await asyncio.sleep(2)
+    print("finished")
+
+
+asyncio.run(main())
