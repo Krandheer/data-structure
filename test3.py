@@ -56,4 +56,7 @@ async def main():
     print("finished")
 
 
-asyncio.run(main())
+# asyncio.run(main())
+
+Card = collections.namedtuple("Card", ["rank", "suit"])
+Card.Card
