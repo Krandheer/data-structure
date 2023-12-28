@@ -28,16 +28,16 @@ class Trie:
                 lines.append(self._repr_helper(child, depth + 1))
             return "\n".join(lines)
 
-    def prprint(self):
-        node = self.root
-        result = []
-        count = 0
-        while node.links:
-            for key, n in node.links.items():
-                result.append(" " * count + f"{key}")
-                count += 1
-            node = n
-        print("\n".join(result))
+    # def prprint(self):
+    #     node = self.root
+    #     result = []
+    #     count = 0
+    #     while node.links:
+    #         for key, n in node.links.items():
+    #             result.append(" " * count + f"{key}")
+    #             count += 1
+    #         node = n
+    #     print("\n".join(result))
 
 
 t = Trie()
