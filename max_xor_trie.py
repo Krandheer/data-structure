@@ -15,28 +15,35 @@ class Trie:
                 node.links[bit] = TrieNode()
             node = node.links[bit]
 
-    # def __repr__(self) -> str:
-    #     return self._repr_helper(self.root, 0)
+    def __repr__(self) -> str:
+        return self._repr_helper(self.root, 0)
 
-    # def _repr_helper(self, node, depth):
-    #     if not node.links:
-    #         return "end"
-    #     else:
-    #         lines = []
-    #         for bit, child in node.links.items():
-    #             lines.append("  " * depth + f"Bit {bit}:")
-    #             lines.append(self._repr_helper(child, depth + 1))
-    #         return "\n".join(lines)
+    def _repr_helper(self, node, depth):
+        if not node.links:
+            return "end"
+        else:
+            lines = []
+            for bit, child in node.links.items():
+                lines.append("  " * depth + f"Bit {bit}:")
+                lines.append(self._repr_helper(child, depth + 1))
+            return "\n".join(lines)
 
     def prprint(self):
         node = self.root
+        result = []
+        count = 0
         while node.links:
             for key, n in node.links.items():
-                print(key)
+                result.append(" " * count + f"{key}")
+                count += 1
             node = n
+        print("\n".join(result))
 
 
 t = Trie()
-t.insert(4)
-# print(t.__repr__())
-t.prprint()
+numbers = [3, 10, 5, 25, 2, 8]
+for num in numbers:
+    t.insert(num)
+# t.insert(4)
+print(t.__repr__())
+# t.prprint()
