@@ -16,7 +16,7 @@ def maxprofit_recursion(price, index, buy):
 
 
 def maxProfit(prices) -> int:
-    dp = [[-1, -1] for i in range(len(prices))]
+    dp = [[-1, -1] for _ in range(len(prices))]
     return helper(prices, 0, 0, dp)
 
 
