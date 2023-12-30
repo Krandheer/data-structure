@@ -58,6 +58,13 @@ async def main():
 
 
 # asyncio.run(main())
+def remove_vowels(str1):
+    a = ""
+    for i in str1:
+        if i.lower() not in ["a", "e", "i", "o", "u"]:
+            a += i
+    return a
 
-Card = collections.namedtuple("Card", ["rank", "suit"])
-Card.Card
+
+str1 = "sunitaalagi"
+print(remove_vowels(str1))
