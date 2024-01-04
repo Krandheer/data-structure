@@ -93,6 +93,25 @@ class Square(Shape):
         return 4 * self.side
 
 
-sq = Square(2)
-print(sq.area())
-print(sq.perimeter())
+# sq = Square(2)
+# print(sq.area())
+# print(sq.perimeter())
+
+import asyncio
+
+
+async def main():
+    print("start")
+
+    async def callback():
+        print("callback")
+
+    # Schedule the callback to be called after 5 seconds
+    await asyncio.sleep(5)
+    await callback()
+
+    print("end")
+
+
+# Run the event loop
+asyncio.run(main())
