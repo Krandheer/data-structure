@@ -6,6 +6,7 @@
 
 from collections import Counter
 import asyncio
+import time
 
 
 def get_missing(N, arr):
@@ -111,6 +112,46 @@ async def main():
     await callback()
 
     print("end")
+
+
+# Run the event loop
+# asyncio.run(main())
+
+import asyncio
+
+
+async def task_one():
+    print("Task One: Start")
+    await asyncio.sleep(1)  # Simulate an I/O operation
+    i = 0
+    for i in range(1000000000):
+        i = i + 1
+    print(i)
+    print("Task One: End")
+
+
+async def task_two():
+    print("Task Two: Start")
+    await asyncio.sleep(3)  # Simulate another I/O operation
+    print("Task Two: End")
+
+
+async def main():
+    # Start both tasks concurrently
+    task1 = asyncio.create_task(task_one())
+    task2 = asyncio.create_task(task_two())
+
+    # Add another coroutine that doesn't involve I/O
+    async def non_io_task():
+        print("Non-I/O Task: Start")
+        await asyncio.sleep(2)
+        print("Non-I/O Task: End")
+
+    # Schedule the non-I/O task to run concurrently
+    task3 = asyncio.create_task(non_io_task())
+
+    # Wait for all tasks to complete
+    await asyncio.gather(task1, task2, task3)
 
 
 # Run the event loop
