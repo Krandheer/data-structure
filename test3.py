@@ -122,9 +122,9 @@ import asyncio
 
 async def task_one():
     print("Task One: Start")
-    await asyncio.sleep(1)  # Simulate an I/O operation
+    await asyncio.sleep(3)  # Simulate an I/O operation
     i = 0
-    for i in range(1000000000):
+    for i in range(100000000):
         i = i + 1
     print(i)
     print("Task One: End")
@@ -144,7 +144,7 @@ async def main():
     # Add another coroutine that doesn't involve I/O
     async def non_io_task():
         print("Non-I/O Task: Start")
-        await asyncio.sleep(2)
+        await asyncio.sleep(3)
         print("Non-I/O Task: End")
 
     # Schedule the non-I/O task to run concurrently
