@@ -6,8 +6,6 @@
 
 from collections import Counter
 import asyncio
-import time
-
 
 def get_missing(N, arr):
     for i in range(1, N + 1):
