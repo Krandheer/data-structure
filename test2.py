@@ -1,5 +1,6 @@
 # alice book problem find the page first page of a book whose digit sum of two pages is S
 
+
 def solve(S):
     if S == 1:
         return 1
@@ -58,3 +59,4 @@ print(sum_natural(5, 0))
 #             view = view+1
 #     for i in range(len(result)):
 #         return result[i][1]
+print("hellow wwold")
