@@ -1,8 +1,9 @@
-def maxProfit(prices) -> int:
+def max_profit(prices) -> int:
     """
-    using dp take or not take logic, if buy then that means I am giving money and if bought then set buy to 1, so that
-    it indicates that we can't buy till we sell and make buy to 1, and each time we sell and call function then
-    we move two point ahead in index value for taking care of cooldown period.
+    using dp take or not take logic, if buy then that means I am giving money and
+    if bought then set buy to 1, so that it indicates that we can't buy till we sell
+    and make buy to 1, and each time we sell and call function then we move two point ahead
+    in index value for taking care of cooldown period.
     """
     dp = [[-1, -1] for _ in range(len(prices))]
     return helper(prices, 0, 0, dp)
