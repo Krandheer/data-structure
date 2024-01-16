@@ -4,29 +4,34 @@
 # A[] = {1,2,3,5}
 # Output: 4
 
-from collections import Counter
 import asyncio
+from abc import ABC, abstractmethod
+from collections import Counter
 
-def get_missing(N, arr):
-    for i in range(1, N + 1):
+
+def get_missing(n, arr):
+    """get missing number"""
+    for i in range(1, n + 1):
         if i in arr:
             continue
-        else:
-            return i
+        return i
     return -1
 
 
-def get_missing2(N, arr):
-    total_sum = (N * (N + 1)) / 2
+def get_missing2(n, arr):
+    """get missing number using mathematics rules"""
+    total_sum = (n * (n + 1)) / 2
     arr_sum = sum(arr)
     return int(total_sum - arr_sum)
 
 
-def get_missing3(N, arr):
+def get_missing3(n, arr):
+    """get missing number in array using dictionary"""
     d = Counter(arr)
-    for i in range(1, N + 1):
+    for i in range(1, n + 1):
         if i not in d.keys():
             return i
+    return -1
 
 
 A = [1, 2, 3, 5]
@@ -57,6 +62,7 @@ async def main():
 
 # asyncio.run(main())
 def remove_vowels(str1):
+    """remove vowels from string"""
     a = ""
     for i in str1:
         if i.lower() not in ["a", "e", "i", "o", "u"]:
@@ -68,16 +74,13 @@ def remove_vowels(str1):
 # print(remove_vowels(str1))
 
 
-from abc import ABC, abstractmethod
-
-
 class Shape(ABC):
     @abstractmethod
     def area(self):
         pass
 
     @abstractmethod
-    def perimeter(self):
+    def perimeter(self) ->int:
         pass
 
 
@@ -96,8 +99,6 @@ class Square(Shape):
 # print(sq.area())
 # print(sq.perimeter())
 
-import asyncio
-
 
 async def main():
     print("start")
@@ -114,8 +115,6 @@ async def main():
 
 # Run the event loop
 # asyncio.run(main())
-
-import asyncio
 
 
 async def task_one():
