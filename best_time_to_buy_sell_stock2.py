@@ -4,6 +4,7 @@ and make buy to 1, and each time we call function we move one index """
 
 
 def maxprofit_recursion(price, index, buy):
+    """recursion for max profit"""
     if index >= len(price):
         return 0
     if buy:
@@ -18,6 +19,7 @@ def maxprofit_recursion(price, index, buy):
 
 
 def max_profit(prices) -> int:
+    """returns max profit"""
     dp = [[-1, -1] for _ in range(len(prices))]
     return helper(prices, 0, 0, dp)
 
