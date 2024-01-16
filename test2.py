@@ -26,6 +26,7 @@ def solve(S):
 
 
 def sum_natural(n, temp):
+    """return sum of first n intergers"""
     if n == 1:
         return 1
     temp = n + sum_natural(n - 1, temp)

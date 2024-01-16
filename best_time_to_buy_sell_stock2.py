@@ -1,5 +1,8 @@
-# using dp take or not take logic, if buy then that means I am giving money and if bought then set buy to 1, so that
-# it indicates that we can't buy till we sell and make buy to 1, and each time we call function we move one index
+""" using dp take or not take logic, if buy then that means I am giving money and
+if bought then set buy to 1, so that it indicates that we can't buy till we sell
+and make buy to 1, and each time we call function we move one index """
+
+
 def maxprofit_recursion(price, index, buy):
     if index >= len(price):
         return 0
@@ -8,14 +11,13 @@ def maxprofit_recursion(price, index, buy):
             price[index] + maxprofit_recursion(price, index + 1, 0),
             maxprofit_recursion(price, index + 1, 1),
         )
-    elif not buy:
-        return max(
-            -price[index] + maxprofit_recursion(price, index + 1, 1),
-            maxprofit_recursion(price, index + 1, 0),
-        )
+    return max(
+        -price[index] + maxprofit_recursion(price, index + 1, 1),
+        maxprofit_recursion(price, index + 1, 0),
+    )
 
 
-def maxProfit(prices) -> int:
+def max_profit(prices) -> int:
     dp = [[-1, -1] for _ in range(len(prices))]
     return helper(prices, 0, 0, dp)
 
@@ -39,6 +41,6 @@ def helper(prices, index, buy, dp):
 
 
 ipt = [7, 1, 5, 3, 6, 4]
-# print(maxProfit([4, 9, 0, 4, 10]))
+# print(max_profit([4, 9, 0, 4, 10]))
 print(maxprofit_recursion(ipt, 0, 0))
-print(maxProfit(ipt))
+print(max_profit(ipt))
