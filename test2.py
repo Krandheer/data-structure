@@ -45,7 +45,7 @@ print(sum_natural(5, 0))
 #     index = 0
 #     for i in range(n):
 #         a = entries[i]
-#         if a[0] == "INSERT":
+#         if a[0] == "INSERT"
 #             if not items:
 #                 items.append(a)
 #             for j in range(len(items)):
@@ -59,4 +59,3 @@ print(sum_natural(5, 0))
 #             view = view+1
 #     for i in range(len(result)):
 #         return result[i][1]
-print("hellow wwold")
