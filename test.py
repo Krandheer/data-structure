@@ -39,8 +39,8 @@ def left_rotate_1(arr):
     return arr
 
 
-arr = [1, 2, 4, 3, 5]
-print(left_rotate_1(arr))
+# arr = [1, 2, 4, 3, 5]
+# print(left_rotate_1(arr))
 
 
 def shift_zero_to_end(arr):
@@ -60,8 +60,27 @@ def shift_zero_to_end(arr):
     return arr
 
 
-#temp = [1, 0, 2, 3, 2, 0, 0, 4, 5, 1]
-#print(shift_zero_to_end(temp))
+# temp = [1, 0, 2, 3, 2, 0, 0, 4, 5, 1]
+# print(shift_zero_to_end(temp))
 
 # two pointers method can be used for union and intersection of two sorted array as well.
 # prefix sum, two pointer method can be used for k-sum as well.
+
+
+def fun():
+    temp = [
+        1,
+        0,
+        2,
+        3,
+    ]
+
+    str1 = " "
+    for i in temp:
+        str1 += str(i) + " "
+
+    print(str1)
+
+
+temp = [1, 2, 3, 4]
+print(" ".join(map(str, temp)))
