@@ -68,6 +68,7 @@ def shift_zero_to_end(arr):
 
 
 def fun():
+    """ combine int list to string of int """
     temp = [
         1,
         0,
