@@ -4,8 +4,9 @@ a variable defined outside the scope of function can be accessed inside the func
  creates new variable with same name inside the function instead of actually modifying the variable..
 """
 
+import requests
 
-def isValid(s):
+def is_valid(s):
     # code here
     ipv4 = s.split(".")
     is_ok = True
@@ -19,41 +20,21 @@ def isValid(s):
                 is_ok = False
             if not is_ok:
                 return 0
-            if not (0 <= int(i) <= 255):
+            if not 0 <= int(i) <= 255:
                 return 0
     return 1
 
 
-# print(isValid("0.0.0.0"))
-
-# a = {
-#     "name": 'randheer'
-# }
-# b = {"name": "poonam"}
+# URL = "https://wsguat.writercorporation.com/AtmCassetteMapping/api/GetAtmCasseteMapping"
+# API_KEY = "123456"
+# API_VALUE = "ACM@123"
+#
+# headers = {"Authorization": f"{API_KEY} {API_VALUE}"}
 #
 #
-# def change():
-#     # global a
-#     a = b
-#     print(a['name'])
+# response = requests.get(URL, headers=headers)
 #
-#
-# change()
-# print(a)
-import requests
-
-url = "https://wsguat.writercorporation.com/AtmCassetteMapping/api/GetAtmCasseteMapping"
-api_key = "123456"
-api_value = "ACM@123"
-
-headers = {
-    "Authorization": f"{api_key} {api_value}"
-}
-
-
-response = requests.get(url, headers=headers)
-
-print(response)
+# print(response)
 # # Check if the request was successful (HTTP status code 200-299 typically indicates success)
 # if response.status_code >= 200 and response.status_code < 300:
 #     print("Request successful!")
@@ -62,4 +43,22 @@ print(response)
 #     print(f"Request failed with status code: {response.status_code}")
 #     print(response.text)  # Print the response content for debugging purposes
 
+def fun(a):
+    """
+    just checking variables
+    """
+    print(f"first a from fun {a}")
+    a = a-10
+    print(f"a from fun {a}")
 
+def main():
+    """
+    so this concludes that the variable from main is being copied to fun and
+    the variable in main remains same
+    """
+    a = 20
+    print(f"a from main first time {a}")
+    fun(a)
+    print(f"a second time from main {a}")
+
+main()
