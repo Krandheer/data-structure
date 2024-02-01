@@ -1,12 +1,15 @@
 """
-a variable defined outside the scope of function can be accessed inside the function but can't be modified without
- declaring it as global inside the function, if you try to modify without declaring it as global as actually python
- creates new variable with same name inside the function instead of actually modifying the variable..
+a variable defined outside the scope of function can be accessed 
+inside the function but can't be modified without declaring it as 
+global inside the function, if you try to modify without declaring it as global as actually python
+creates new variable with same name inside the function instead of actually modifying the variable..
 """
 
-import requests
+# import requests
+
 
 def is_valid(s):
+    """checking if ip is valid or not"""
     # code here
     ipv4 = s.split(".")
     is_ok = True
@@ -43,22 +46,26 @@ def is_valid(s):
 #     print(f"Request failed with status code: {response.status_code}")
 #     print(response.text)  # Print the response content for debugging purposes
 
+
 def fun(a):
     """
     just checking variables
     """
     print(f"first a from fun {a}")
-    a = a-10
+    a = a - 10
     print(f"a from fun {a}")
+
 
 def main():
     """
     so this concludes that the variable from main is being copied to fun and
-    the variable in main remains same
+    the variable in main remains same, as python everything is call by value
+    which basically implies copy.
     """
     a = 20
     print(f"a from main first time {a}")
     fun(a)
     print(f"a second time from main {a}")
+
 
 main()
