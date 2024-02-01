@@ -1,8 +1,8 @@
-# Given an array of size N-1 such that it only contains distinct
-# integers in the range of 1 to N. Find the missing element.
-# N = 5
-# A[] = {1,2,3,5}
-# Output: 4
+""" Given an array of size N-1 such that it only contains distinct
+ integers in the range of 1 to N. Find the missing element.
+ N = 5
+ A[] = {1,2,3,5}
+ Output: 4 """
 
 import asyncio
 from abc import ABC, abstractmethod
@@ -80,7 +80,7 @@ class Shape(ABC):
         pass
 
     @abstractmethod
-    def perimeter(self) ->int:
+    def perimeter(self) -> int:
         pass
 
 
