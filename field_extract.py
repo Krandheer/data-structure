@@ -94,11 +94,9 @@ def counter_val(counter1_val, ocr_resp, look_for):
                     counter1_val["type_1_2"][current_keyword] = []
                     # if numerical values with keyword then extract that and add
                     # it in response here itself
-                    continue
                 else:
                     keyword_seen[keyword] = keyword_seen[keyword] + 1
                     counter1_val["type_3_4"][current_keyword] = []
-                    continue
             if after_keyword and current_keyword:
                 if keyword_seen[current_keyword] == 1:
                     counter1_val["type_1_2"][current_keyword].append(row)
@@ -194,8 +192,8 @@ def form_counter_resp(counter_value, counter_resp):
                                 type_3_val = True
 
                             elif (
-                                    not temp.isalpha() and temp.isalnum() and len(temp) >= 3
-                                ):
+                                not temp.isalpha() and temp.isalnum() and len(temp) >= 3
+                            ):
                                 value3 = get_sticked_value(temp)
                                 type_3_val = True
 
@@ -388,5 +386,4 @@ def extract_fields(ocr_resp):
     return result
 
 
-#
 # print(extract_fields(ocr_resp))
