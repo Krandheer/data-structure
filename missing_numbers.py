@@ -8,6 +8,7 @@ python len() function takes O(1) time
 
 
 def missing_number(nums):
+    '''find the missing number in given list'''
     # for i in range(len(nums) + 1):
     #     if i not in nums:
     #         return i
