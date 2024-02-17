@@ -6,6 +6,7 @@ creates new variable with same name inside the function instead of actually modi
 """
 
 # import requests
+import math
 
 
 def is_valid(s):
@@ -68,4 +69,24 @@ def main():
     print(f"a second time from main {a}")
 
 
-main()
+# main()
+
+
+
+class Point:
+    def __init__(self, x: int, y: int) -> None:
+        self.x = x
+        self.y = y
+
+    def dump(self) -> None:
+        """method"""
+        print(f"Object point@{id(self)}, x = {self.x}, y = {self.y}")
+
+    def origin(self) -> float:
+        """method"""
+        return math.sqrt(self.x * self.x + self.y * self.y)
+
+
+pt = Point(3, 4)
+pt.dump()
+print(pt.origin())
