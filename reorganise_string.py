@@ -48,7 +48,7 @@ def reorganize_string(s: str) -> str:
                 res[idx] = key
                 idx += 2
                 val -= 1
-        dic[key]=0
+        dic[key] = 0
     return "".join(res)
 
 
