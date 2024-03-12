@@ -28,7 +28,9 @@ class LinkedList:
         takes O(1) time
         """
         new_node = Node(data)
-        new_node.next = self.head
+        if self.head:
+            new_node.next = self.head
+            self.head = new_node
         self.head = new_node
 
     def insert_at_end(self, data):
