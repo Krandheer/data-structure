@@ -1,9 +1,9 @@
 def sub_seqeunces(temp_p, temp_up, ans):
     """
     we can use this code to check longest increasing subsequence in brute force approach,
-    just before adding in answer check if it is increasing sequence if yes add it and have a variable to store the length
-    and keep modifying the length if any longer length found.
-
+    just before adding in answer check if it is increasing sequence if yes add it
+    and have a variable to store the length and keep modifying the length if any
+    longer length found.
     and since it is recursion we can optimise it using memoization technique
     """
 
@@ -48,7 +48,7 @@ def subsequences(temp_p, temp_up):
 def max_subsequence_sum(i, nums, dp):
     if i == 0:
         return nums[i]
-    elif i < 0:
+    if i < 0:
         return 0
     if dp[i] != -1:
         return dp[i]
@@ -67,7 +67,7 @@ def max_subsequence_sum(i, nums, dp):
 def subsequence_sum(i, nums, target):
     if target == 0:
         return True
-    elif i < 0:
+    if i < 0:
         return False
     pick = False
     if target >= nums[i]:
@@ -85,7 +85,7 @@ def subsequence_sum(i, nums, target):
 def subsequence_sum_dp(i, nums, target, dp):
     if target == 0:
         return True
-    elif i < 0:
+    if i < 0:
         return False
     if dp[i][target] != -1:
         return dp[i][target]
@@ -112,10 +112,10 @@ def subsequence_sum_count(i, nums, target):
     if i == 0:
         if target == 0 and nums[0] == 0:
             return 2
-        if target == 0 or target == nums[0]:
+        if target in (0, nums[0]):
             return 1
-        else:
-            return 0
+
+        return 0
 
     unpick = subsequence_sum_count(i - 1, nums, target)
     pick = 0
