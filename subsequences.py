@@ -18,17 +18,17 @@ def sub_seqeunces(temp_p, temp_up, ans):
     return ans
 
 
-print(
-    sub_seqeunces(
-        [],
-        [
-            5,
-            4,
-            -1,
-        ],
-        [],
-    )
-)
+# print(
+#     sub_seqeunces(
+#         [],
+#         [
+#             5,
+#             4,
+#             -1,
+#         ],
+#         [],
+#     )
+# )
 
 
 def subsequences(temp_p, temp_up):
@@ -99,7 +99,9 @@ def subsequence_sum_dp(i, nums, target, dp):
 
 
 #
-# dp_1 = [[-1 for i in range(target + 1)] for j in range(len(nums))]
+# nums = [1, 2, 3, 4]
+# target = 4
+# dp_1 = [[-1 for _ in range(target + 1)] for _ in range(len(nums))]
 # print(subsequence_sum_dp(len(nums) - 1, nums, target, dp_1))
 
 
