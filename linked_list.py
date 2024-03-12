@@ -74,6 +74,12 @@ class LinkedList:
                         break
                     temp = temp.next
 
+    # delete node when head is not given
+    def delete_node(self, node):
+        temp_data = node.next.data
+        node.next = node.next.next
+        node.data = temp_data
+
     def search(self, key):
         """
         return: True if the key is found otherwise False
