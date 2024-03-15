@@ -9,7 +9,7 @@ def dfs(graph, start_node, intime, lowtime, par):
         if not visited[child]:
             dfs(graph, child, intime, lowtime, start_node)
             if intime[start_node] < lowtime[child]:
-                print('bridge ', start_node, "-", child)
+                print("bridge ", start_node, "-", child)
             else:
                 lowtime[start_node] = min(lowtime[start_node], lowtime[child])
         else:
@@ -20,9 +20,10 @@ def dfs(graph, start_node, intime, lowtime, par):
 ipt = [[1, 2], [1, 3], [2, 4], [3, 4], [3, 5], [5, 6], [5, 7], [6, 7]]
 timer = 1
 """
-low time: current node stores the low value of the deepest parent, the parent which came first then all other of it's
-parent, this makes sure that when we compare intime[node]<lowtime[child] then it is bridge as the node does not have
-any deeper connection
+low time: current node stores the low value of the deepest parent, 
+the parent which came first then all other of it's parent, 
+this makes sure that when we compare intime[node]<lowtime[child] then 
+it is bridge as the node does not have any deeper connection
 """
 lowtime = {}
 intime = {}

@@ -1,4 +1,5 @@
-def adjancy_list_rep(node):
+def adjancy_list_rep(graph, node):
+    """adjacency list represenation of graph"""
     g = {}
     for j in range(1, node):
         g[j] = []
@@ -11,6 +12,7 @@ def adjancy_list_rep(node):
 
 
 def dfs(graph, node, visited=None):
+    """this function calculates the diameter of graph using dfs method"""
     if not visited:
         visited = set()
     visited.add(node)
@@ -23,7 +25,7 @@ def dfs(graph, node, visited=None):
 
 
 ipt = [[1, 2], [2, 4], [2, 5], [2, 6], [1, 3], [3, 7], [1, 8], [6, 10], [1, 9]]
-graph = adjancy_list_rep(11)
+graph = adjancy_list_rep(ipt, 11)
 # reuslt = dfs(graph_1, 3, {})
 # print(reuslt)
 

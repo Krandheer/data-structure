@@ -1,9 +1,9 @@
-def adjancy_list_rep(graph, node):
+def adjancy_list_rep(ipt1, node):
     g = {}
     for i in range(1, node):
         g[i] = []
 
-    for u, v in graph:
+    for u, v in ipt1:
         g[u].append(v)
         g[v].append(u)
 
