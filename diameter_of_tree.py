@@ -1,7 +1,7 @@
-def adjancy_list_rep(graph, node):
+def adjancy_list_rep(node):
     g = {}
-    for i in range(1, node):
-        g[i] = []
+    for j in range(1, node):
+        g[j] = []
 
     for u, v in graph:
         g[u].append(v)
@@ -23,7 +23,7 @@ def dfs(graph, node, visited=None):
 
 
 ipt = [[1, 2], [2, 4], [2, 5], [2, 6], [1, 3], [3, 7], [1, 8], [6, 10], [1, 9]]
-graph = adjancy_list_rep(ipt, 11)
+graph = adjancy_list_rep(11)
 # reuslt = dfs(graph_1, 3, {})
 # print(reuslt)
 

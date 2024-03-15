@@ -1,7 +1,7 @@
 ipt = [[0, 1], [0, 2], [0, 3], [0, 4], [1, 3], [2, 3], [2, 4], [2, 5], [3, 5]]
 
 
-def adjancy_list_rep(graph, node):
+def adjancy_list_rep(node):
     g = {i: [] for i in range(node)}
 
     for i, j in ipt:
@@ -26,7 +26,7 @@ def dfs(graph, node, intime, outtime, timer=1, visited=None):
     return intime, outtime, timer
 
 
-graph = adjancy_list_rep(ipt, 6)
+graph = adjancy_list_rep(6)
 intime, outime = {}, {}
 # timer = 1
 # print("graph", graph)
