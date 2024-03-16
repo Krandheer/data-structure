@@ -71,8 +71,7 @@ def check_valid_string(s: str) -> bool:
                 return False
         if not stack:
             return True
-        else:
-            return False
+        return False
 
     if len(s) % 2 != 0:
         if s[len(s) // 2] != "*":
@@ -91,8 +90,8 @@ def check_valid_string(s: str) -> bool:
     return ch_flag
 
 
-assert check_valid_string("()") == True
-assert check_valid_string("(*)") == True
-assert check_valid_string(")(") == False
-assert check_valid_string("(*))") == True
-assert check_valid_string("(((**)") == True
+assert check_valid_string("()") is True
+assert check_valid_string("(*)") is True
+assert check_valid_string(")(") is False
+assert check_valid_string("(*))") is True
+assert check_valid_string("(((**)") is True
