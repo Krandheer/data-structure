@@ -24,25 +24,75 @@
 # print(find_median(nums1, nums2)
 
 
-class Order:
-    def __init__(self) -> None:
-        self.order_item = {}
-        self.quantities = 0
+# class Order:
+#     def __init__(self) -> None:
+#         self.order_item = {}
+#         self.quantities = 0
+#
+#     def add_itmes(self, item, quantity, price):
+#         self.quantities += quantity
+#         self.order_item[item] = (quantity, price)
+#
+#     def total_price(self):
+#         tot_pr = 0
+#         for _, v in self.order_item.items():
+#             tot_pr += v[1]
+#         return tot_pr
+#
+#
+# order = Order()
+# order.add_itmes("keyboard", 21, 50)
+# order.add_itmes("mouse", 20, 40)
+# print(order.order_item)
+# print(order.quantities)
+# print(order.total_price())
 
-    def add_itmes(self, item, quantity, price):
-        self.quantities += quantity
-        self.order_item[item] = (quantity, price)
 
-    def total_price(self):
-        tot_pr = 0
-        for _, v in self.order_item.items():
-            tot_pr += v[1]
-        return tot_pr
+# Given a string containing only three types of characters: '(', ')', and '*',
+# write a function check_valid_string(s) that checks whether the input string is valid.
+# The input string is valid if:
+# Open brackets must be closed by the same type of brackets.
+# Open brackets must be closed in the correct order.
+# A '*' can be treated as a wildcard character, which can represent either an open bracket
+# '(' or a closing bracket ')' or nothing as well.
+# Write a function check_valid_string(s) that takes a string s and returns True
+# if the string is valid, and False otherwise.
 
 
-order = Order()
-order.add_itmes("keyboard", 21, 50)
-order.add_itmes("mouse", 20, 40)
-print(order.order_item)
-print(order.quantities)
-print(order.total_price())
+def check_valid_string(s: str) -> bool:
+    stack = []
+    if "*" not in s:
+        for i in s:
+            if i == "(":
+                stack.append("(")
+            elif i == ")" and stack:
+                stack.pop()
+            else:
+                return False
+        if not stack:
+            return True
+        else:
+            return False
+
+    if len(s) % 2 != 0:
+        if s[len(s) // 2] != "*":
+            return False
+
+    for i in range(len(s) // 2):
+        stack.append(s[i])
+
+    j = len(s) // 2 + 1
+    ch_flag = True
+    while stack and j < len(s):
+        ch = stack.pop()
+        if not (ch in ("(", "*") and s[j] in ("*", ")")):
+            ch_flag = False
+
+    return ch_flag
+
+
+assert check_valid_string("()") == True
+assert check_valid_string("(*)") == True
+assert check_valid_string(")(") == False
+assert check_valid_string("(*))") == True
+assert check_valid_string("(((**)") == True
