@@ -1,4 +1,4 @@
-from typing import *
+from typing import List
 
 
 def maxSubArray(nums: List[int]) -> int:
@@ -19,6 +19,6 @@ def maxSubArray(nums: List[int]) -> int:
     return maxi
 
 
-nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+nums1 = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 # nums = [-1, -2]
-print(maxSubArray(nums))
+print(maxSubArray(nums1))
