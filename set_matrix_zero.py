@@ -1,7 +1,7 @@
-from typing import *
+from typing import List
 
 
-def setZeroes(matrix: List[List[int]]) -> None:
+def setZeroes(matrix: List[List[int]]) -> List[List]:
     """
     dsa->1
     Do not return anything, modify matrix in-place instead.
@@ -25,6 +25,6 @@ def setZeroes(matrix: List[List[int]]) -> None:
     # return matrix
 
 
-matrix = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]]
+matrix1 = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]]
 
-print(setZeroes(matrix))
+print(setZeroes(matrix1))
