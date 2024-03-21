@@ -18,13 +18,14 @@ def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
             p2 -= 1
             p -= 1
     if p2 >= 0:
-        nums1[p] = nums2[p2]
-        p2 -= 1
-        p -= 1
+        while p2 >= 0:
+            nums1[p] = nums2[p2]
+            p2 -= 1
+            p -= 1
 
 
-nums1 = [1, 2, 3, 0, 0, 0]
-nums2 = [2, 5, 6]
+nums1 = [4, 5, 6, 0, 0, 0]
+nums2 = [1, 2, 3]
 result = merge(nums1, 3, nums2, 3)
 print(nums1)
 
