@@ -1,8 +1,11 @@
 def longest_substring_without_repeating_char(s: str) -> int:
+    """
+    striver sheet 24th problem
+    """
     check = set()
     l, r = 0, 0
     total = 0
-    while l <= r and r <= len(s) - 1:
+    while l <= r <= len(s) - 1:
         if s[r] not in check:
             total = max(total, r - l + 1)
             check.add(s[r])
@@ -16,7 +19,6 @@ def longest_substring_without_repeating_char(s: str) -> int:
     return total
 
 
-# s = "au"
-# s = "abcabcbb"
-s = "tmmzuxt"
-print(longest_substring_without_repeating_char(s))
+s = ["au", "abcabcbb", "tmmzuxt"]
+for st in s:
+    print(longest_substring_without_repeating_char(st))
