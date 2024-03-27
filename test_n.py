@@ -8,9 +8,7 @@ def max_len(arr: List[str]):
     it results in the largest possible number. Since the result may be very large,
     return it as a string.
     Example 1:
-    Input
-    n = 5
-    arr[] =  {"3", "30", "34", "5", "9"}   9534330
+    input =  []"3", "30", "34", "5", "9"]
     Output: "9534330"
     """
     # find the length of largest string in arr
