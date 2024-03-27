@@ -27,12 +27,8 @@ def max_len(arr: List[str]):
         else:
             temp.append(i)
     hash_set = dict(zip(arr, temp))
-    hash_set = {
-        k: v for k, v in sorted(hash_set.items(), key=lambda x: x[1], reverse=True)
-    }
-    ans = ""
-    for k in hash_set.keys():
-        ans += k
+    hash_set = dict(sorted(hash_set.items(), key=lambda x: x[1], reverse=True))
+    ans = "".join(hash_set.keys())
     return ans
 
 
