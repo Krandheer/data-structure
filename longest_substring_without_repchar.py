@@ -11,7 +11,7 @@ def longest_substring_without_repeating_char(s: str) -> int:
             check.add(s[r])
             r += 1
         else:
-            check.remove(s[l])
+            check.remove(s[r])
             l += 1
             total = max(total, r - l)
     if r == len(s):
