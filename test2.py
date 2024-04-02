@@ -93,4 +93,17 @@ def subset2(p, up):
     return take
 
 
-print(subset2("", "abc"))
+# print(subset2("", "abc"))
+
+
+# matrix: no. of ways to reach the bottom right corner
+def ways(i, j):
+    if i == 0 and j == 0:
+        return 1
+    if i < 0 or j < 0:
+        return 0
+    return ways(i - 1, j) + ways(i, j - 1)
+
+
+# 3 X 3 matrix
+print(ways(2, 2))
