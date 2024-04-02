@@ -67,4 +67,30 @@ def delete_data2(up, data):
         return p
 
 
-print(delete_data2("baccad", "a"))
+# print(delete_data2("baccad", "a"))
+
+
+def subset(p, up, answer):
+    if len(up) == 0:
+        answer.append(p)
+        return answer
+    take = up[0]
+    subset(p + take, up[1:], answer)
+    subset(p, up[1:], answer)
+    return answer
+
+
+def subset2(p, up):
+    if len(up) == 0:
+        answer = []
+        answer.append(p)
+        return answer
+    ch = up[0]
+    take = subset2(p + ch, up[1:])
+    not_take = subset2(p, up[1:])
+    if take:
+        take.extend(not_take)
+    return take
+
+
+print(subset2("", "abc"))
