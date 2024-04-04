@@ -19,6 +19,6 @@ def longest_substring_without_repeating_char(s: str) -> int:
     return total
 
 
-s = ["au", "abcabcbb", "tmmzuxt"]
-for st in s:
+sr = ["au", "abcabcbb", "tmmzuxt"]
+for st in sr:
     print(longest_substring_without_repeating_char(st))
