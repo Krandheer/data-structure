@@ -1,15 +1,11 @@
-"""
-given a string find the minimum number of partitions so that all partitions are palindrome.
-solve using the concept of palindrom partitioning.
-"""
-
 import math
-
-# ipt = "bababcbadcede"
-ipt = "aabb"
 
 
 def is_palindrome(i, j, str1):
+    """
+    given a string find the minimum number of partitions so that all partitions are palindrome.
+    solve using the concept of palindrom partitioning.
+    """
     while i <= j:
         if str1[i] != str1[j]:
             return False
@@ -29,4 +25,6 @@ def palindrome_partition(i, str1):
     return min_cost
 
 
+# ipt = "bababcbadcede"
+ipt = "aabb"
 print(palindrome_partition(0, ipt) - 1)
