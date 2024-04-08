@@ -22,5 +22,4 @@ def palindrome_partition(i, str1):
 
 
 ipt = "bababcbadcede"
-# ipt = "aabb"
 print(palindrome_partition(0, ipt) - 1)
