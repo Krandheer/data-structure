@@ -21,5 +21,23 @@ def palindrome_partition(i, str1):
     return min_cost
 
 
-ipt = "bababcbadcede"
-print(palindrome_partition(0, ipt) - 1)
+def palidrome_partition2(index, s, ans, path):
+    if index >= len(s):
+        ans.append(path[:])
+        return ans
+
+    for j in range(index, len(s)):
+        if is_palindrome(index, j, s):
+            path.append(s[index : j + 1])
+            palidrome_partition2(index + 1, s, ans, path)
+            path.pop()
+    return ans
+
+
+ipt = "aabb"
+# ipt = "bababcbadcede"
+# print(palindrome_partition(0, ipt) - 1)
+print(palidrome_partition2(0, ipt, [], []))
+
+
+
