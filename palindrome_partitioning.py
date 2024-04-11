@@ -29,7 +29,7 @@ def palidrome_partition2(index, s, ans, path):
     for j in range(index, len(s)):
         if is_palindrome(index, j, s):
             path.append(s[index : j + 1])
-            palidrome_partition2(index + 1, s, ans, path)
+            palidrome_partition2(j + 1, s, ans, path)
             path.pop()
     return ans
 
@@ -38,6 +38,3 @@ ipt = "aabb"
 # ipt = "bababcbadcede"
 # print(palindrome_partition(0, ipt) - 1)
 print(palidrome_partition2(0, ipt, [], []))
-
-
-
