@@ -33,8 +33,7 @@ class BinarySearchTree:
     def height(self):
         if self.root:
             return self._height(self.root, 0)
-        else:
-            return 0
+        return 0
 
     def _height(self, curr_node, curr_height):
         if curr_node is None:
@@ -46,8 +45,7 @@ class BinarySearchTree:
     def search(self, value):
         if self.root:
             return self._search(value, self.root)
-        else:
-            return False
+        return False
 
     def _search(self, value, curr_node):
         if value == curr_node.value:
