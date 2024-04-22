@@ -5,7 +5,7 @@ def search(nums, target):
         mid = end - (end - start) // 2
         if nums[mid] == target:
             return mid
-        elif nums[mid] > target:
+        if nums[mid] > target:
             end = mid - 1
         elif nums[mid] < target:
             start = mid + 1
@@ -22,13 +22,13 @@ def searchInsert(nums, target):
         mid = start + (end - start) // 2
         if mid and nums[mid] == target:
             return mid
-        elif mid and nums[mid] < target:
+        if mid and nums[mid] < target:
             start = mid + 1
         else:
             end = mid - 1
-    if mide and nums[mid] > target:
-        return mid
-    else:
+        if mid and nums[mid] > target:
+            return mid
+
         return mid + 1
 
 
