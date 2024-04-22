@@ -50,7 +50,7 @@ class BinarySearchTree:
     def _search(self, value, curr_node):
         if value == curr_node.value:
             return True
-        elif value < curr_node.value and curr_node.left_child:
+        if value < curr_node.value and curr_node.left_child:
             self._search(value, curr_node.left_child)
         elif value > curr_node.value and curr_node.right_child:
             self._search(value, curr_node.right_child)
