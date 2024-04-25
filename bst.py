@@ -39,7 +39,7 @@ class BST:
 
     def search(self, data):
         if self.data == data:
-            print('found')
+            print("found")
             return
         if self.data < data:
             if self.right_child is None:
@@ -80,16 +80,16 @@ class BST:
         currently this doesn't work for root node, but that also can be easily achieved
         """
         if self.data is None:
-            print('tree is empty')
+            print("tree is empty")
             return
         if data < self.data:
             if self.left_child:
                 self.left_child = self.left_child.delete(data)
             else:
-                print('data is not present')
+                print("data is not present")
         elif data > self.data:
             if self.right_child:
-                self.right_child = self.right_child(data)
+                self.right_child = self.right_child.delete(data)
             else:
                 print("data is not present")
         else:
