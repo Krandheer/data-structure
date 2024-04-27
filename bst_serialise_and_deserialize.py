@@ -12,35 +12,34 @@ class TreeNode:
 
 
 class Codec:
-
     def serialize(self, root):
-        def level_order(root):
-            temp = {}
-            if not root:
-                return temp
-            queue = deque()
-            queue.append((root, 0))
-            while queue:
-                node, level = queue.popleft()
+        temp = {}
+        if not root:
+            return "[]"
+        queue = deque()
+        queue.append((root, 0))
+        while queue:
+            node, level = queue.popleft()
+            if not node:
+                if level in temp:
+                    temp[level].append("#")
+                else:
+                    temp[level] = ["#"]
+            else:
                 if level not in temp:
                     temp[level] = [node.val]
                 else:
                     temp[level].append(node.val)
+
+            if node:
                 if node.left:
                     queue.append((node.left, level + 1))
-                elif (level + 1) not in temp:
-                    temp[level + 1] = ["#"]
                 else:
-                    temp[level + 1].append("#")
+                    queue.append((None, level + 1))
                 if node.right:
                     queue.append((node.right, level + 1))
-                elif (level + 1) not in temp:
-                    temp[level + 1] = ["#"]
                 else:
-                    temp[level + 1].append("#")
-            return temp
-
-        temp = level_order(root)
+                    queue.append((None, level + 1))
         result = []
         for v in temp.values():
             result += v
@@ -65,10 +64,10 @@ class Codec:
 
 
 root = TreeNode(1)
-root.left = TreeNode(2)
-root.right = TreeNode(3)
-root.right.left = TreeNode(4)
-root.right.right = TreeNode(5)
+# root.left = TreeNode(2)
+root.right = TreeNode(2)
+# root.right.left = TreeNode(4)
+# root.right.right = TreeNode(5)
 sl = Codec()
 data = sl.serialize(root)
 print(data)
