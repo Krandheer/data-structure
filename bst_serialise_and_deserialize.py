@@ -54,20 +54,25 @@ class Codec:
         queue.append((root, 0))
         while queue:
             node, index = queue.pop()
-            if data[2 * index + 1] != "#":
-                node.left = TreeNode(data[2 * index + 1])
-                queue.append((node.left, index + 1))
-            if data[2 * index + 2] != "#":
-                node.right = TreeNode(data[2 * index + 2])
-                queue.append((node.right, index + 2))
+            if node:
+                if (2 * index + 1) < len(data) and data[2 * index + 1] != "#":
+                    node.left = TreeNode(data[2 * index + 1])
+                    queue.append((node.left, index + 1))
+                else:
+                    queue.append((None, index + 1))
+                if (2 * index + 2) < len(data) and data[2 * index + 2] != "#":
+                    node.right = TreeNode(data[2 * index + 2])
+                    queue.append((node.right, index + 2))
+                else:
+                    queue.append((None, index + 2))
         return root
 
 
 root = TreeNode(1)
-# root.left = TreeNode(2)
-root.right = TreeNode(2)
-# root.right.left = TreeNode(4)
-# root.right.right = TreeNode(5)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.right.left = TreeNode(4)
+root.right.right = TreeNode(5)
 sl = Codec()
 data = sl.serialize(root)
 print(data)
