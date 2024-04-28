@@ -12,7 +12,7 @@ class Solution:
             left_h = height(node.left)
             right_h = height(node.right)
 
-            d = max(d, +right_h + 1)
+            d = max(d, left_h + right_h + 1)
 
             return max(left_h, right_h) + 1
 
