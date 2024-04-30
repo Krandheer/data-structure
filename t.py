@@ -128,6 +128,7 @@ def subset2(p, up, ans):
 
 # print(subset2("", "abc", []))
 
+
 def subset3(p, up):
     ans = []
     if not up:
@@ -138,8 +139,33 @@ def subset3(p, up):
     # take
     left = subset3(p + ch, up[1:])
     right = subset3(p, up[1:])
-    ans += left+right
+    ans += left + right
     return ans
 
 
-print(subset3("", "abc"))
+# print(subset3("", "abc"))
+
+
+def dice_traget(p, target):
+    ans = []
+    if target == 0:
+        ans.append(p)
+        return ans
+
+    for i in range(1, target + 1):
+        ans += dice_traget(p + str(i), target - i)
+    return ans
+
+
+# print(dice_traget("", 4))
+
+
+def maze_ways(m, n, i, j):
+    count = 0
+    if i == m - 1 or j == n - 1:
+        return 1
+    count += maze_ways(m, n, i + 1, j) + maze_ways(m, n, i, j + 1)
+    return count
+
+
+print(maze_ways(4, 4, 0, 0))
