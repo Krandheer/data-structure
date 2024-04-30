@@ -100,4 +100,29 @@ def skip_char2(p, up, to_skip):
     return skip_char2(p, up[1:], to_skip)
 
 
-print(skip_char2("", "bcacabd", "a"))
+# print(skip_char2("", "bcacabd", "a"))
+
+
+def subset(p, up):
+    if not up:
+        print(p)
+        return
+    ch = up[0]
+
+    # take
+    subset(p + ch, up[1:])
+    subset(p, up[1:])
+
+
+def subset2(p, up, ans):
+    if not up:
+        ans.append(p)
+        return
+    ch = up[0]
+
+    # take
+    subset2(p + ch, up[1:], ans)
+    subset2(p, up[1:], ans)
+    return ans
+
+print(subset2("", 'abc', []))
