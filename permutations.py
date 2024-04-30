@@ -22,6 +22,7 @@ def get_permutations2(p, up):
 
 # print(get_permutations2("", 'abc'))
 
+
 def get_permutations3(p, up):
     if up == "":
         return [p]
@@ -32,4 +33,4 @@ def get_permutations3(p, up):
     return ans
 
 
-print(get_permutations3("", 'abc'))
+print(get_permutations3("", "abc"))
