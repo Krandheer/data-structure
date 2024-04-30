@@ -125,4 +125,21 @@ def subset2(p, up, ans):
     subset2(p, up[1:], ans)
     return ans
 
-print(subset2("", 'abc', []))
+
+# print(subset2("", "abc", []))
+
+def subset3(p, up):
+    ans = []
+    if not up:
+        ans.append(p)
+        return ans
+    ch = up[0]
+
+    # take
+    left = subset3(p + ch, up[1:])
+    right = subset3(p, up[1:])
+    ans += left+right
+    return ans
+
+
+print(subset3("", "abc"))
