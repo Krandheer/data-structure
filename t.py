@@ -81,8 +81,7 @@ def skip_char(up, to_skip):
         temp = skip_char(up[1:], to_skip)
         ans = ans + temp
         return ans
-    else:
-        return skip_char(up[1:], to_skip)
+    return skip_char(up[1:], to_skip)
 
 
 # print(skip_char("bcacabd", "a"))
