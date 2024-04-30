@@ -52,3 +52,18 @@ def pattern(r, c):
 
 
 pattern(4, 0)
+
+
+def pattern2(r, c):
+    if not r:
+        return
+
+    if c < r:
+        pattern2(r, c + 1)
+        print("*", end=" ")
+    else:
+        pattern2(r - 1, 0)
+        print()
+
+
+pattern2(4, 0)
