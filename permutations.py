@@ -1,14 +1,14 @@
 def get_permutations(p, up, ans):
     if up == "":
         ans.append(p)
-        return ans
+        return
     ch = up[0]
     for i in range(len(p) + 1):
         get_permutations(p[0:i] + ch + p[i:], up[1:], ans)
     return ans
 
 
-# print(get_permutations("", 'abc', []))
+# print(get_permutations("", "abc", []))
 
 
 def get_permutations2(p, up):
