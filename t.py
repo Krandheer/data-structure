@@ -51,7 +51,7 @@ def pattern(r, c):
         pattern(r - 1, 0)
 
 
-pattern(4, 0)
+# pattern(4, 0)
 
 
 def pattern2(r, c):
@@ -66,4 +66,39 @@ def pattern2(r, c):
         print()
 
 
-pattern2(4, 0)
+# pattern2(4, 0)
+
+
+def skip_char(up, to_skip):
+    ans = ""
+    if not up:
+        return ans
+
+    # take case
+    ch = up[0]
+    if ch != to_skip:
+        ans = ans + ch
+        temp = skip_char(up[1:], to_skip)
+        ans = ans + temp
+        return ans
+    else:
+        return skip_char(up[1:], to_skip)
+
+
+# print(skip_char("bcacabd", "a"))
+
+
+def skip_char2(p, up, to_skip):
+    if not up:
+        return p
+
+    # take case
+    ch = up[0]
+
+    # not take case
+    if ch != to_skip:
+        return skip_char2(p + ch, up[1:], to_skip)
+    return skip_char2(p, up[1:], to_skip)
+
+
+print(skip_char2("", "bcacabd", "a"))
