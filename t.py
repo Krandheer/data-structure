@@ -31,7 +31,7 @@ def linear_search3(arr, i, target, ans):
     return linear_search3(arr, i + 1, target, ans)
 
 
-arr = [1, 2, 4, 4, 11, 9, 12]
+arr1 = [1, 2, 4, 4, 11, 9, 12]
 # ans = check_sorted(arr, 1)
 # ans = linear_search(arr, 0, 11)s
 # ans = linear_search2(arr, 0, 4)
