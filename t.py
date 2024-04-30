@@ -35,5 +35,20 @@ arr = [1, 2, 4, 4, 11, 9, 12]
 # ans = check_sorted(arr, 1)
 # ans = linear_search(arr, 0, 11)s
 # ans = linear_search2(arr, 0, 4)
-ans = linear_search3(arr, 0, 4, [])
-print(ans)
+# ans = linear_search3(arr, 0, 4, [])
+# print(ans)
+
+
+def pattern(r, c):
+    if not r:
+        return
+
+    if c < r:
+        print("*", end=" ")
+        pattern(r, c + 1)
+    else:
+        print()
+        pattern(r - 1, 0)
+
+
+pattern(4, 0)
