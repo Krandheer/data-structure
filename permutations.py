@@ -24,10 +24,11 @@ def get_permutations2(p, up):
 
 
 def get_permutations3(p, up):
-    if up == "":
-        return [p]
-    ch = up[0]
     ans = []
+    if up == "":
+        ans.append(p)
+        return ans
+    ch = up[0]
     for i in range(len(p) + 1):
         ans += get_permutations3(p[0:i] + ch + p[i:], up[1:])
     return ans
