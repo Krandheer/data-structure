@@ -1,10 +1,6 @@
-from typing import List
-
-
 class Solution:
     def letterCombinations(self, digits: str):
         self.map_d = {
-            1: "",
             2: "abc",
             3: "def",
             4: "ghi",
@@ -21,13 +17,13 @@ class Solution:
                 return
             n = up[0]
             ch = self.map_d[int(n)]
-            for i in range(len(ch)):
-                helper(p + ch[i], up[1:], ans)
+            for _, ch in enumerate(ch):
+                helper(p + ch, up[1:], ans)
             return ans
 
         return helper("", digits, [])
 
 
 sol = Solution()
-ans = sol.letterCombinations("23")
+ans = sol.letterCombinations("234")
 print(ans)
