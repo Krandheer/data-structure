@@ -1,19 +1,18 @@
 import math
 
 
-def compare_string(index1, index2, word1, word2, mini):
+def compare_string(index1, index2, word1, word2):
     if index1 <= 0:
         return index2 + 1
     if index2 <= 0:
         return index1 + 1
     if word1[index1] == word2[index2]:
-        return min(mini, compare_string(index1 - 1, index2 - 1, word1, word2, mini))
+        return compare_string(index1 - 1, index2 - 1, word1, word2)
     else:
         return 1 + min(
-            mini,
-            compare_string(index1 - 1, index2 - 1, word1, word2, mini),
-            compare_string(index1 - 1, index2, word1, word2, mini),
-            compare_string(index1, index2 - 1, word1, word2, mini),
+            compare_string(index1 - 1, index2 - 1, word1, word2),
+            compare_string(index1 - 1, index2, word1, word2),
+            compare_string(index1, index2 - 1, word1, word2),
         )
 
 
@@ -44,4 +43,4 @@ word2 = "execution"
 dp = [[-1] * len(word2) for _ in range(len(word1))]
 res = recur(word1, word2, len(word1) - 1, len(word2) - 1, dp, math.inf)
 print(res)
-print(compare_string(len(word1) - 1, len(word2) - 1, word1, word2, math.inf))
+print(compare_string(len(word1) - 1, len(word2) - 1, word1, word2))
