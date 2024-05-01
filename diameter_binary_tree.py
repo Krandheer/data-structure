@@ -1,6 +1,13 @@
 from typing import Optional
 
 
+class TreeNode:
+    def __init__(self, val, left=None, right=None):
+        self.root = val
+        self.left = left
+        self.right = right
+
+
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         d = 0
