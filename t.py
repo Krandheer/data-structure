@@ -164,8 +164,14 @@ def maze_ways(m, n, i, j):
     count = 0
     if i == m - 1 or j == n - 1:
         return 1
-    count += maze_ways(m, n, i + 1, j) + maze_ways(m, n, i, j + 1)
+
+    # if diagonal movement allowed then (i+1, j+1) case add
+    count += (
+        maze_ways(m, n, i + 1, j)
+        + maze_ways(m, n, i, j + 1)
+        + maze_ways(m, n, i + 1, j + 1)
+    )
     return count
 
 
-print(maze_ways(4, 4, 0, 0))
+print(maze_ways(3, 3, 0, 0))
