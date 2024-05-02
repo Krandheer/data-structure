@@ -143,35 +143,4 @@ def subset3(p, up):
     return ans
 
 
-# print(subset3("", "abc"))
-
-
-def dice_traget(p, target):
-    ans = []
-    if target == 0:
-        ans.append(p)
-        return ans
-
-    for i in range(1, target + 1):
-        ans += dice_traget(p + str(i), target - i)
-    return ans
-
-
-# print(dice_traget("", 4))
-
-
-def maze_ways(m, n, i, j):
-    count = 0
-    if i == m - 1 or j == n - 1:
-        return 1
-
-    # if diagonal movement allowed then (i+1, j+1) case add
-    count += (
-        maze_ways(m, n, i + 1, j)
-        + maze_ways(m, n, i, j + 1)
-        + maze_ways(m, n, i + 1, j + 1)
-    )
-    return count
-
-
-print(maze_ways(3, 3, 0, 0))
+print(subset3("", "abc"))
