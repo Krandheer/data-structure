@@ -24,4 +24,19 @@ def max_profit(prices) -> int:
     # return ans
 
 
+# two pointer approach
+def pro(arr):
+    i, j = 0, 1
+    ans = 0
+    while i <= j and j < len(arr):
+        if arr[i] <= arr[j]:
+            ans = max(ans, arr[j] - arr[i])
+            j += 1
+        else:
+            i = j
+            j += 1
+    return ans
+
+
 print(max_profit([7, 1, 5, 3, 6, 4]))
+print(pro([7, 1, 5, 3, 6, 4]))
