@@ -14,6 +14,8 @@ for i in range(9):
     color.append(-1)
 
 
+# if graph has no cycle then it will always be bipartite, if graph has cycle
+# and cycle length is odd then it will not be bipartite
 def dfs(graph, node, col, color):
     color[node] = col
 

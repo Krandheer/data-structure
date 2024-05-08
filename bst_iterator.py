@@ -9,6 +9,7 @@ class TreeNode:
         self.right = right
 
 
+# this iterator works as inorder traversal,
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
