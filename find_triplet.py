@@ -7,8 +7,8 @@ def triplete():
         for j in range(i + 1, len(arr)):
             temp = target - (arr[i] + arr[j])
             if temp in arr:
-                arr.index(temp) > i and arr.index(temp) > j
-                return arr[i], arr[j], temp
+                if arr.index(temp) > i and arr.index(temp) > j:
+                    return arr[i], arr[j], temp
 
 
 def find_triplet(arr, target, triplet=[], index=0):
