@@ -1,7 +1,8 @@
 """
-this is used to find min distance from any node to any other node, usually used in matrix type representation of
-graph.
+this is used to find min distance from any node to any other node, 
+usually used in matrix type representation of graph.
 """
+
 import math
 
 ipt = [[1, 3, 2], [1, 2, -1], [2, 3, 3], [3, 5, 2], [2, 5, 1], [3, 4, 1], [4, 5, 2]]
