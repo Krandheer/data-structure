@@ -11,7 +11,7 @@ index+1 = rod length
 
 def max_cost(index, rod, cost_arr):
     if index == 0:
-        return rod * cost_arr[0]
+        return rod * cost_arr[index]
 
     not_take = 0 + max_cost(index - 1, rod, cost_arr)
     take = -math.inf
