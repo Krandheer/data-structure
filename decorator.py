@@ -59,3 +59,10 @@ def print_name():
 
 
 print_name()
+
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+import itertools
+
+# prefix sum
+print(list(itertools.accumulate(arr)))
