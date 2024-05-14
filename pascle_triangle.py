@@ -15,10 +15,10 @@ def nth_row_pascle_triangle(n_row):
     row[0] = row[-1] = 1
     denom = 1
     numer = 1
-    for i in range(0, n_row-1):
-        numer *= (n_row - i)
-        denom *= (i+1)
-        row[i+1] = int(numer / denom)
+    for i in range(0, n_row - 1):
+        numer *= n_row - i
+        denom *= i + 1
+        row[i + 1] = int(numer / denom)
     return row
 
 
