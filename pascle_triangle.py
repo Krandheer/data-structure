@@ -11,6 +11,7 @@ print(pascle_triangle(5))
 
 
 def nth_row_pascle_triangle(n_row):
+    # 4^C_0->n
     row = [0] * (n_row + 1)
     row[0] = row[-1] = 1
     denom = 1
