@@ -1,6 +1,7 @@
 """
 implementing minheap data-structure
 """
+
 import heapq
 
 
@@ -66,8 +67,7 @@ class MinHeap2:
     def pop_heap(self):
         if self.heap:
             return heapq.heappop(self.heap)
-        else:
-            return IndexError("heap is empty")
+        return IndexError("heap is empty")
 
     def is_empty(self):
         return len(self.heap) == 0
@@ -75,8 +75,7 @@ class MinHeap2:
     def peek(self):
         if self.heap:
             return self.heap[0]
-        else:
-            return IndexError("heap is empty")
+        return IndexError("heap is empty")
 
 
 # minheap2 = MinHeap2()
