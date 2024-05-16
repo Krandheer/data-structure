@@ -28,3 +28,11 @@ for i in a:
     else:
         for j in i:
             print(j)
+
+        d = {}
+        for ind, num in enumerate(nums):
+            d[(num, ind)] = num
+
+        d = sorted(d, key=lambda x: x[1])
+
+        nums = [1, 3, 2, 3, 1]
