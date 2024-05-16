@@ -1,4 +1,4 @@
-from typing import *
+from typing import List
 
 
 def nextPermutation(nums: List[int]) -> None:
@@ -20,5 +20,6 @@ def nextPermutation(nums: List[int]) -> None:
         nums.reverse()
 
 
-nums = [3, 2, 1]
-print(nextPermutation(nums))
+nums = [2, 3, 1]
+nextPermutation(nums)
+print(nums)
