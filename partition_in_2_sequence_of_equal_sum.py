@@ -3,7 +3,7 @@ def subsequence_sum_dp(i, nums, target, dp):
         return True
     elif i < 0:
         return False
-    if dp[i][target] != -1:
+    if dp[i][target]:
         return dp[i][target]
     pick = False
     if target >= nums[i]:
@@ -20,7 +20,7 @@ def partition(arr):
         return False
     else:
         target = arr_sum // 2
-        dp_1 = [[-1 for i in range(target + 1)] for j in range(len(nums))]
+        dp_1 = [[False for i in range(target + 1)] for j in range(len(nums))]
         return subsequence_sum_dp(len(arr) - 1, arr, target, dp_1)
 
 
