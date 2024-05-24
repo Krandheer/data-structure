@@ -36,5 +36,5 @@ def palidrome_partition2(index, s, ans, path):
 
 ipt = "aabb"
 # ipt = "bababcbadcede"
-# print(palindrome_partition(0, ipt) - 1)
+print(palindrome_partition(0, ipt) - 1)
 print(palidrome_partition2(0, ipt, [], []))
