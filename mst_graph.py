@@ -1,4 +1,8 @@
 # krushkal algorithm for minimum spanning tree using disjoint set concept
+
+"""
+mst: minimum spanning tree, no cycle in graph.
+"""
 ipt = [
     [1, 2, 1],
     [3, 6, 2],
@@ -21,7 +25,7 @@ def find(graph, node):
 
 
 def union(graph, u, v, answer):
-    a = find(graph, u)
+    a = find(graph, u)  # will return the head node of the family
     b = find(graph, v)
 
     # this check helps to avoid the formation of cycle
