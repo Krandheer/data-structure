@@ -1,6 +1,6 @@
 """
-Given a string s and a dictionary of strings wordDict, return true if s can be segmented into
-a space-separated sequence of one or more dictionary words.
+Given a string s and a dictionary of strings wordDict, 
+return true if s can be segmented into a space-separated sequence of one or more dictionary words.
 Note that the same word in the dictionary may be reused multiple times in the segmentation.
 """
 
@@ -15,7 +15,7 @@ def wordBreak(s: str, wordDict) -> bool:
         for j in range(i, len(s)):
             if not dp[i]:
                 break
-            if dp[i] and s[i:j + 1] in wordDict:
+            if dp[i] and s[i : j + 1] in wordDict:
                 dp[j + 1] = True
 
     return dp[-1]
