@@ -1,8 +1,8 @@
 class TreeNode:
-    def __init__(self, value):
+    def __init__(self, value, left=None, right=None):
         self.value = value
-        self.left = None
-        self.right = None
+        self.left = left
+        self.right = right
 
 
 # Function to find the lowest common ancestor of two nodes in a binary tree
