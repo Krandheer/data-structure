@@ -11,7 +11,7 @@ def lowest_common_ancestor(root, p, q):
         return None
 
     # If either p or q matches the current node, return the current node
-    if root.value == p.value or root.value == q.value:
+    if root.value in [p.value, q.value]:
         return root
 
     # Recursively search for p and q in the left and right subtrees
