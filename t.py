@@ -1,24 +1,28 @@
-from collections import Counter
+import math
 
 
-def sort012(arr):
-    temp = Counter(arr)
-    m = 0
-    for _ in range(temp[0]):
-        arr[m] = 0
-        m += 1
+def max_sum_subarray(nums):
+    maxi = -math.inf
+    i, j = 0, 0
+    temp = 0
+    start_sub = 0
+    end_sub = 0
+    while i <= j and i < len(nums) and j < len(nums):
+        temp += nums[j]
+        j += 1
+        len_sub = j - i + 1
+        if temp < 0:
+            i += 1
+            temp = 0
+            maxi = max(maxi, temp)
+            continue
+        if temp > maxi:
+            maxi = temp
+            start_sub = i
+            end_sub = j
+    print(maxi)
+    return nums[start_sub + 1 : end_sub]
 
-    for _ in range(temp[1]):
-        arr[m] = 1
-        m += 1
 
-    for _ in range(temp[2]):
-        arr[m] = 2
-        m += 1
-
-    return arr
-
-
-# arr = [0, 2, 1, 2, 0]
-# ans = sort012(arr)
-# print(ans)
+# inp1 = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+# print(max_sum_subarray(inp1))
