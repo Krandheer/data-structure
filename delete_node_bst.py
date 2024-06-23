@@ -16,7 +16,7 @@ class Solution:
 
         node = root
 
-        # this will handle only root tree too
+        # this will handle only root of the tree
         if root.val == key:
             return self.helper(root)
 
