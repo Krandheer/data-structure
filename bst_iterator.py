@@ -1,7 +1,6 @@
 from typing import Optional
 
 
-# Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -22,8 +21,7 @@ class BSTIterator:
             if node.right:
                 self.pushAll(node.right, self.stack)
             return node.val
-        else:
-            return -1
+        return -1
 
     def pushAll(self, node, stack):
         if node:
