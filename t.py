@@ -10,7 +10,6 @@ def max_sum_subarray(nums):
     while i <= j and i < len(nums) and j < len(nums):
         temp += nums[j]
         j += 1
-        len_sub = j - i + 1
         if temp < 0:
             i += 1
             temp = 0
