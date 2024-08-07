@@ -23,23 +23,23 @@ class MinHeap:
                 break
 
     def pop_heap(self):
-        if not self.heap:
-            raise IndexError("heap is empty")
-        if len(self.heap) == 1:
-            return self.heap.pop()
-        root = self.heap[0]
-        self.heap[0] = self.heap.pop()
-        self._heapify_down(0)
-        return root
+        if self.heap:
+            if len(self.heap) == 1:
+                return self.heap.pop()
+            root = self.heap[0]
+            self.heap[0] = self.heap.pop()
+            self._heapify_down(0)
+            return root
+        raise IndexError("heap is empty")
 
     def _heapify_down(self, i):
         while 2 * i + 1 < len(self.heap):
             left_child = 2 * i + 1
             right_child = 2 * i + 2 if 2 * i + 2 < len(self.heap) else None
             min_child = (
-                left_child
-                if right_child is None or self.heap[left_child] < self.heap[right_child]
-                else right_child
+                right_child
+                if right_child is not None and self.heap[left_child] >= self.heap[right_child]
+                else left_child
             )
 
             if self.heap[i] <= self.heap[min_child]:
@@ -65,17 +65,17 @@ class MinHeap2:
         heapq.heappush(self.heap, value)
 
     def pop_heap(self):
-        if self.heap:
-            return heapq.heappop(self.heap)
-        return IndexError("heap is empty")
+        if not self.heap:
+            return IndexError("heap is empty")
+        return heapq.heappop(self.heap)
 
     def is_empty(self):
         return len(self.heap) == 0
 
     def peek(self):
-        if self.heap:
-            return self.heap[0]
-        return IndexError("heap is empty")
+        if not self.heap:
+            return IndexError("heap is empty")
+        return self.heap[0]
 
 
 # minheap2 = MinHeap2()
