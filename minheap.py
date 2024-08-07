@@ -16,11 +16,11 @@ class MinHeap:
     def _heapify_up(self, i):
         while i > 0:
             parent = (i - 1) // 2
-            if self.heap[i] < self.heap[parent]:
+            if self.heap[i] >= self.heap[parent]:
+                break
+            else:
                 self.heap[i], self.heap[parent] = self.heap[parent], self.heap[i]
                 i = parent
-            else:
-                break
 
     def pop_heap(self):
         if self.heap:
