@@ -42,11 +42,11 @@ class MinHeap:
                 else right_child
             )
 
-            if self.heap[i] > self.heap[min_child]:
+            if self.heap[i] <= self.heap[min_child]:
+                break
+            else:
                 self.heap[i], self.heap[min_child] = self.heap[min_child], self.heap[i]
                 i = min_child
-            else:
-                break
 
     def peek(self):
         if not self.heap:
