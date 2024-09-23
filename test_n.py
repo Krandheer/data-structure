@@ -12,7 +12,7 @@ def max_len(arr: List[str]):
     Output: "9534330"
     """
     # find the length of largest string in arr
-    # make all of the string of same length
+    # make all the string of same length
     # do the mapping of original string as value and this new arr as key
     # sort of basis of this key
     # and then combine using the values of hashset
@@ -32,5 +32,7 @@ def max_len(arr: List[str]):
     return ans
 
 
-input_arr = ["3", "30", "34", "5", "9"]
-print(max_len(input_arr))
+# input_arr = ["3", "30", "34", "5", "9"]
+# print(max_len(input_arr))
+from pathlib import Path
+print(Path.cwd())
