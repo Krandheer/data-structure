@@ -34,5 +34,18 @@ def max_len(arr: List[str]):
 
 # input_arr = ["3", "30", "34", "5", "9"]
 # print(max_len(input_arr))
-from pathlib import Path
-print(Path.cwd())
+def display_sorted_books(books_id, overdue_id):
+    found = False
+    def helper(temp_id):
+        if temp_id in overdue_id:
+            nonlocal found
+            found = True
+            return (0, temp_id)
+        return (1,temp_id)
+    books_id.sort(key=helper)
+    return found
+
+book_ids = [1,2,3,4,5,6,7,9]
+overdue_ids = [1,3]
+result = display_sorted_books(book_ids, overdue_ids)
+print(result)
