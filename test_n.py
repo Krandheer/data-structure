@@ -40,8 +40,8 @@ def display_sorted_books(books_id, overdue_id):
         if temp_id in overdue_id:
             nonlocal found
             found = True
-            return (0, temp_id)
-        return (1,temp_id)
+            return 0, temp_id
+        return 1,temp_id
     books_id.sort(key=helper)
     return found
 
