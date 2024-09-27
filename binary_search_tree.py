@@ -31,9 +31,9 @@ class BinarySearchTree:
             print("value is already in tree, try any other value")
 
     def height(self):
-        if self.root:
-            return self._height(self.root, 0)
-        return 0
+        if not self.root:
+            return 0
+        return self._height(self.root, 0)
 
     def _height(self, curr_node, curr_height):
         if curr_node is None:
