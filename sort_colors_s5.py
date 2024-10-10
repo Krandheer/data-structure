@@ -2,7 +2,7 @@ from typing import List
 from collections import Counter
 
 
-def sortColors(nums: List[int]) -> List:
+def sort_colors(nums: List[int]) -> List:
     """
     dsa --> 5, day2
     Do not return anything, modify nums in-place instead.
@@ -27,4 +27,4 @@ def sortColors(nums: List[int]) -> List:
 
 nums1 = [2, 0, 2, 1, 1, 0]
 
-print(sortColors(nums1))
+print(sort_colors(nums1))
