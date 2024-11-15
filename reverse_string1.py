@@ -17,4 +17,4 @@ def reverse_characters(temp_str):
     return "".join(temp)
 
 
-print(reverse_characters("ab-cd"))
+print(reverse_characters("j<*zz"))
