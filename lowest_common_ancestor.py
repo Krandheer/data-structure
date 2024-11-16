@@ -5,16 +5,13 @@ class TreeNode:
         self.right = right
 
 
-# Function to find the lowest common ancestor of two nodes in a binary tree
 def lowest_common_ancestor(root, p, q):
     if not root:
         return None
 
-    # If either p or q matches the current node, return the current node
     if root.value in [p.value, q.value]:
         return root
 
-    # Recursively search for p and q in the left and right subtrees
     left_lca = lowest_common_ancestor(root.left, p, q)
     right_lca = lowest_common_ancestor(root.right, p, q)
 
@@ -27,7 +24,6 @@ def lowest_common_ancestor(root, p, q):
     return left_lca if left_lca else right_lca
 
 
-# Example usage:
 # Construct a binary tree
 root = TreeNode(3)
 root.left = TreeNode(5)
