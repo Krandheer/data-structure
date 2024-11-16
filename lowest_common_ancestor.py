@@ -35,8 +35,8 @@ root.right.right = TreeNode(8)
 root.left.right.left = TreeNode(7)
 root.left.right.right = TreeNode(4)
 
-p = TreeNode(5)
-q = TreeNode(1)
+p = TreeNode(0)
+q = TreeNode(8)
 
 lca = lowest_common_ancestor(root, p, q)
 print("Lowest Common Ancestor:", lca.value)
