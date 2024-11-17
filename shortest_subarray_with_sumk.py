@@ -1,27 +1,23 @@
+from collections import deque
 from typing import List
 
 
 def shortest_subarray(nums: List[int], k: int) -> int:
-    i = 0
-    j = 0
-    smallest_len = len(nums) + 1
-    temp = 0
     n = len(nums)
+    pre = [0] * (n + 1)
+    q = deque()
+    min_len = n + 1
+    for i in range(n):
+        pre[i + 1] = pre[i] + nums[i]
 
-    while j < n:
-        temp += nums[j]
+    for i in range(n + 1):
+        while q and pre[i] - pre[q[0]] >= k:
+            min_len = min(min_len, i - q.popleft())
 
-        while i <= j and temp >= k:
-            smallest_len = min(smallest_len, j - i + 1)
-            temp -= nums[i]
-            i += 1
+        while q and pre[i] <= pre[q[-1]]:
+            q.pop()
+        q.append(i)
+    return min_len if min_len <= n else -1
 
-        j += 1
 
-        if temp <= 0:
-            temp = 0
-            i = j
-
-    return smallest_len if smallest_len <= n else -1
-
-print(shortest_subarray([1,2], 4))
+print(shortest_subarray([84, -37, 32, 40, 95], 167))
