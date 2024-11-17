@@ -11,6 +11,7 @@ def min_sub_array_len(target: int, nums: List[int]) -> int:
             minimal_len = min(minimal_len, j-i+1)
             temp-=nums[i]
             i+=1
+        # increment is happening in last j-i+1 works otherwise j-i+1 would have not worked
         j+=1
     return minimal_len if minimal_len<=len(nums) else 0
 
