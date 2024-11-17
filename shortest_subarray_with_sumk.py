@@ -7,7 +7,7 @@ def shortest_subarray(nums: List[int], k: int) -> int:
     if nums[0]==k:
         return 1
 
-    smallest_len = 0
+    smallest_len = len(nums)+1
     temp = 0
     while j < len(nums):
         if temp <= k:
@@ -15,14 +15,11 @@ def shortest_subarray(nums: List[int], k: int) -> int:
             j+=1
         if temp >= k:
             temp-=nums[i]
-            if smallest_len == 0:
-                smallest_len =j-i
-            else:
-                smallest_len=min(smallest_len, j-i)
+            smallest_len=min(smallest_len, j-i)
             i+=1
 
-    if smallest_len>0:
-        return smallest_len
-    return -1
+    if smallest_len>len(nums):
+        return -1
+    return smallest_len
 
-print(shortest_subarray([89,67,99,25,29], 166))
+print(shortest_subarray([1,2], 4))
