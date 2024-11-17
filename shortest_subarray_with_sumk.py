@@ -2,13 +2,13 @@ from typing import List
 
 
 def shortest_subarray(nums: List[int], k: int) -> int:
-    # nums.sort()
     i, j = 0, 0
     if nums[0]==k:
         return 1
 
     smallest_len = len(nums)+1
     temp = 0
+
     while j < len(nums):
         if temp <= k:
             temp+=nums[j]
