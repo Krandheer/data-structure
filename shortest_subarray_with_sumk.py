@@ -14,6 +14,7 @@ def shortest_subarray(nums: List[int], k: int) -> int:
         while q and pre[i] - pre[q[0]] >= k:
             min_len = min(min_len, i - q.popleft())
 
+        # this check keeps range larger of to minimize the window,
         while q and pre[i] <= pre[q[-1]]:
             q.pop()
         q.append(i)
