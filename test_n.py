@@ -45,7 +45,28 @@ def display_sorted_books(books_id, overdue_id):
     books_id.sort(key=helper)
     return found
 
-book_ids = [1,2,3,4,5,6,7,9]
-overdue_ids = [1,3]
-result = display_sorted_books(book_ids, overdue_ids)
-print(result)
+# book_ids = [1,2,3,4,5,6,7,9]
+# overdue_ids = [1,3]
+# result = display_sorted_books(book_ids, overdue_ids)
+# print(result)
+
+
+def binary_search(nums, target):
+    low = 0
+    high = len(nums)-1
+    while low <= high:
+        mid = (low + high)//2
+        if nums[mid]==target:
+            return nums[mid], mid
+
+        if nums[mid]<target:
+            low = mid
+
+        else:
+            high = mid
+
+
+nums = [1,2,3,4,5,6,7,8,9]
+target = 8
+number, index = binary_search(nums, target)
+print(number, index)
