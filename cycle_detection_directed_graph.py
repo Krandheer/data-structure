@@ -1,7 +1,7 @@
 def dfs_cycle(graph, node, visited, current_path, par):
     """
     simple as undirected graph but here we need to check whether the current
-    node is already present in the path or not. For that we are using pathvisited map
+    node is already present in the path or not. For that we are using current_path map
     """
     visited[node] = True
     current_path[node] = True
