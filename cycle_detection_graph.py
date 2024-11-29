@@ -1,6 +1,7 @@
 """
 cycle detection in undirected graph, this same can be done using dfs as well.
-the concept is that when you fall on visited node then it should not be parent and if so then there is cycle.
+the concept is that when you fall on visited node then it should not be parent.
+If it is parent then there is cycle.
 """
 
 from collections import deque
@@ -24,11 +25,9 @@ def adjancy_list_rep(graph, node):
 graph = adjancy_list_rep(ipt, n + 1)
 
 
-def bfs_cycle(graph, node, par, visited=None):
-    queue = deque()
-    queue.append((node, par))
-    if not visited:
-        visited = set()
+def bfs_cycle(graph, node, par):
+    queue = deque([(node, par)])
+    visited = set()
     visited.add(node)
 
     while queue:
