@@ -20,8 +20,7 @@ ipt = [
 def find(graph, node):
     if graph[node] < 0:
         return node
-    else:
-        return find(graph, graph[node])
+    return find(graph, graph[node])
 
 
 def union(graph, u, v, answer):
@@ -47,13 +46,13 @@ def union(graph, u, v, answer):
 
 # sorting on basis of weight to get mst
 ipt = sorted(ipt, key=lambda x: x[2])
-n = 7
+N = 7
 answer = []
-graph = [-1] * (n + 1)
+graph = [-1] * (N + 1)
 for (
     u,
     v,
-    _,
+    _
 ) in ipt:
     union(graph, u, v, answer)
 print(answer)
