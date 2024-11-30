@@ -3,19 +3,25 @@ topological sorting exists only in DAG, directed acyclic graph, as otherwise it 
 in that cycle from which it could not come out.
 print node in order of which they come in graph, means if there is edge between u and v
 and u pointing to v then u should come first then v.
-we can use indegree concept to do this, when in degree is 0 then take it in queue
+we can use indegree concept to do this, when indegree is 0 then take it in queue
 and print it and traverse rest of its child
 kahn algorithm uses this concept of indegree to do topological sorting.
+
+If length of graph and topological sort is not same then that means cycle
+exists.
 """
+
 from collections import deque
 
 
 def kahn(graph, visited, indegree):
     queue = deque()
+    count = 0
     for key in indegree:
         if indegree[key] == 0:
             queue.append(key)
             visited[key] = True
+            count += 1
 
     while queue:
         node = queue.popleft()
@@ -24,8 +30,11 @@ def kahn(graph, visited, indegree):
             if not visited[child]:
                 indegree[child] -= 1
                 if indegree[child] == 0:
+                    count += 1
                     queue.append(child)
                     visited[child] = True
+    # if count and len(graph) not equal then cycle exists
+    print(f"count {count}, {len(graph)}")
 
 
 ipt = [
@@ -55,6 +64,5 @@ for i in range(1, 10):
 for u, v in ipt:
     graph[u].append(v)
     indegree[v] += 1
-
 kahn(graph, visited, indegree)
-# print(graph)
+print(graph)
