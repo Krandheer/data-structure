@@ -2,6 +2,10 @@
 Algo for sssp for directed graph, for undirected graph simple sssp with bfs using level order traversal works,
 actually this will work for undirected as well, just use min heap instead of queue and then bfs will do job,
 heap will make sure that you pop min element that minimise the distance.
+if negative cycle present then it wouldn't work in that case use bellman ford algo.
+how bellman ford different, it relaxes all edges n-1 times. and it works only for directed graphs.
+if after n-1 iterations still there is a change in distance means negative cycle exists.
+for bellman ford no need of any queue or heap, we simply do all n-1 iterations on all nodes and perform relaxation.
 """
 import math
 from heapq import heappop, heappush
