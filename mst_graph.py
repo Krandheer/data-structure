@@ -1,6 +1,8 @@
 # krushkal algorithm for minimum spanning tree using disjoint set concept
 
 """
+it's like greedy algo, just that here edges are sorted first and then taken out one by one.
+while in prime's algo we take nodes one by one. but there also we remain by keeping a  min heap.
 mst: minimum spanning tree, no cycle in graph.
 """
 ipt = [
@@ -49,10 +51,6 @@ ipt = sorted(ipt, key=lambda x: x[2])
 N = 7
 answer = []
 graph = [-1] * (N + 1)
-for (
-    u,
-    v,
-    _
-) in ipt:
+for u, v, _ in ipt:
     union(graph, u, v, answer)
 print(answer)
