@@ -34,7 +34,7 @@ for k in range(1, n + 1):
             elif graph[i][k] + graph[k][j] < graph[i][j]:
                 graph[i][j] = graph[i][k] + graph[k][j]
 
-# drop first row and and first column from the graph
+# drop first row and first column from the graph
 graph.pop(0)
 graph[0].pop(0)
 for item in graph:
