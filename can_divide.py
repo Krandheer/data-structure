@@ -13,14 +13,14 @@ def minimum_size(nums: List[int], max_operations: int) -> int:
 
     left = 1
     right = max(nums)
-    while left < right:
+    while left <= right:
         mid = (left + right) // 2
         # this basically tells if all elements can be made less than or equal to this.
         if can_distribute(mid):
-            right = mid
+            right = mid - 1
         else:
             left = mid + 1
     return left
 
 
-print(minimum_size([2, 4, 8, 2], 4))
+print(minimum_size([9], 2))
