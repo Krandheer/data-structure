@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 
-def maximum_length(self, s: str) -> int:
+def maximum_length(s: str) -> int:
     count = defaultdict(int)
     for start in range(len(s)):
         temp = ""
