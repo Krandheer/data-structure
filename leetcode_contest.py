@@ -1,4 +1,6 @@
+import heapq
 from collections import defaultdict
+import math
 from typing import List
 
 
@@ -88,4 +90,15 @@ def is_array_special(nums: List[int], queries: List[List[int]]) -> List[bool]:
     return ans
 
 
-print(is_array_special([4, 3, 1, 6], [[0, 2], [2, 3]]))
+# print(is_array_special([4, 3, 1, 6], [[0, 2], [2, 3]]))
+
+
+def pick_gifts(gifts: List[int], k: int) -> int:
+    temp = [-num for num in gifts]
+    heapq.heapify(temp)
+    for _ in range(k):
+        heapq.heappush(temp, -(math.isqrt(-heapq.heappop(temp))))
+    return sum([-x for x in temp])
+
+
+print(pick_gifts([25, 64, 9, 4, 100], 4))
