@@ -101,4 +101,22 @@ def pick_gifts(gifts: List[int], k: int) -> int:
     return sum([-x for x in temp])
 
 
-print(pick_gifts([25, 64, 9, 4, 100], 4))
+# print(pick_gifts([25, 64, 9, 4, 100], 4))
+
+
+def find_score(nums: List[int]) -> int:
+    marked = [False] * len(nums)
+    ans = 0
+    heap = []
+    for i, num in enumerate(nums):
+        heapq.heappush(heap, (num, i))
+    while heap:
+        num, i = heapq.heappop(heap)
+        if not marked[i]:
+            ans += num
+            marked[i] = True
+            if i - 1 >= 0:
+                marked[i - 1] = True
+            if i + 1 < len(nums):
+                marked[i + 1] = True
+    return ans
