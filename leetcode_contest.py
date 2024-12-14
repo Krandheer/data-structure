@@ -1,3 +1,4 @@
+import collections
 import heapq
 from collections import defaultdict
 import math
@@ -120,3 +121,23 @@ def find_score(nums: List[int]) -> int:
             if i + 1 < len(nums):
                 marked[i + 1] = True
     return ans
+
+
+def continuous_subarrays(nums: List[int]) -> int:
+    left, right, count = 0, 0, 0
+    n = len(nums)
+    temp = {}
+    while right < n:
+        temp[nums[right]] = temp.get(nums[right], 0) + 1
+        while max(temp) - min(temp) > 2:
+            temp[nums[left]] -= 1
+            if temp[nums[left]] == 0:
+                del temp[nums[left]]
+            left += 1
+        count += right - left + 1
+        right += 1
+
+    return count
+
+
+print(continuous_subarrays([5, 4, 2, 4]))
