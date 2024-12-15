@@ -163,9 +163,7 @@ def max_average_ratio(classes: List[List[int]], extraStudents: int) -> float:
     for i, val in enumerate(classes):
         a, b = val
         res += a / b
-
-    res = res / len(classes)
-    return res
+    return res / len(classes)
 
 
 print(max_average_ratio([[1, 2], [3, 5], [2, 2]], 2))
