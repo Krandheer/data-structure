@@ -143,7 +143,7 @@ def continuous_subarrays(nums: List[int]) -> int:
 # print(continuous_subarrays([5, 4, 2, 4]))
 
 
-def max_average_ratio(classes: List[List[int]], extraStudents: int) -> float:
+def max_average_ratio(classes: List[List[int]], extra_students: int) -> float:
     # leetcode 1792. Maximum Average Pass Ratio
     heap = []
     for i, val in enumerate(classes):
@@ -151,13 +151,13 @@ def max_average_ratio(classes: List[List[int]], extraStudents: int) -> float:
         j = (a / b) - (a + 1) / (b + 1)
         heapq.heappush(heap, (j, i))
 
-    while extraStudents > 0:
+    while extra_students > 0:
         j, i = heapq.heappop(heap)
         a, b = classes[i]
         classes[i] = [a + 1, b + 1]
         j = ((a + 1) / (b + 1)) - ((a + 2) / (b + 2))
         heapq.heappush(heap, (j, i))
-        extraStudents -= 1
+        extra_students -= 1
 
     res = 0
     for i, val in enumerate(classes):
