@@ -166,4 +166,51 @@ def max_average_ratio(classes: List[List[int]], extra_students: int) -> float:
     return res / len(classes)
 
 
-print(max_average_ratio([[1, 2], [3, 5], [2, 2]], 2))
+# print(max_average_ratio([[1, 2], [3, 5], [2, 2]], 2))
+
+
+def get_final_state(nums: List[int], k: int, multiplier: int) -> List[int]:
+    heap = []
+    for index, num in enumerate(nums):
+        heapq.heappush(heap, (num, index))
+
+    while k > 0:
+        num, i = heapq.heappop(heap)
+        num = num * multiplier
+        nums[i] = num
+        heapq.heappush(heap, (num, i))
+        k -= 1
+    return nums
+
+
+# print(get_final_state([2, 1, 3, 5, 6], 5, 2))
+
+
+def repeat_limited_string(s: str, repeat_limit: int) -> str:
+    freq = defaultdict(int)
+    for char in s:
+        freq[char] += 1
+    heap = []
+    for k in freq:
+        heapq.heappush(heap, (-ord(k), k))
+
+    res = []
+    while heap:
+        _, char = heapq.heappop(heap)
+        count = freq[char]
+        curr_count = min(count, repeat_limit)
+        res.append(char * curr_count)
+        if count - curr_count > 0 and heap:
+            _, next_char = heapq.heappop(heap)
+            next_count = freq[next_char]
+            res.append(next_char)
+            if next_count > 1:
+                freq[next_char] -= 1
+                heapq.heappush(heap, (-ord(next_char), next_char))
+            heapq.heappush(heap, (-ord(char), char))
+            freq[char] -= curr_count
+
+    return "".join(res)
+
+
+print(repeat_limited_string("cczazcc", 3))
