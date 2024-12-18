@@ -213,4 +213,19 @@ def repeat_limited_string(s: str, repeat_limit: int) -> str:
     return "".join(res)
 
 
-print(repeat_limited_string("cczazcc", 3))
+# print(repeat_limited_string("cczazcc", 3))
+
+
+def final_prices(prices: List[int]) -> List[int]:
+    ans = []
+    for i, price in enumerate(prices):
+        discount = 0
+        for j in range(i + 1, len(prices)):
+            if prices[j] <= price:
+                discount = prices[j]
+                break
+        ans.append(price - discount)
+    return ans
+
+
+print(final_prices([8, 4, 6, 2, 3]))
