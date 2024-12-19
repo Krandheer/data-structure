@@ -228,4 +228,17 @@ def final_prices(prices: List[int]) -> List[int]:
     return ans
 
 
-print(final_prices([8, 4, 6, 2, 3]))
+# print(final_prices([8, 4, 6, 2, 3]))
+
+
+def max_chunks_to_sorted(arr: List[int]) -> int:
+    res = 0
+    curr_max = -1
+    for i, num in enumerate(arr):
+        # this works because all elements are distinct, so if max value == index
+        # that means all other values till that index will have values from
+        # 0...index
+        curr_max = max(curr_max, num)
+        if curr_max == i:
+            res += 1
+    return res
