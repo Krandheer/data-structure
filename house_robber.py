@@ -19,7 +19,8 @@ def rob(nums):
 
 class Solution:
     def rob(self, nums) -> int:
-        return self.rob2(len(nums) - 1, nums, [-1] * (len(nums)))
+        n = len(nums)
+        return self.rob2(n - 1, nums, [-1] * n)
 
     # base recursion for dp
     def rob2(self, i, nums, dp):
