@@ -242,3 +242,33 @@ def max_chunks_to_sorted(arr: List[int]) -> int:
         if curr_max == i:
             res += 1
     return res
+
+
+def max_k_divisible_components(
+    edges: List[List[int]], values: List[int], k: int
+) -> int:
+    # greedy approach to maximize connected component. start from bottom, leaf node,
+    # if it is divisible by k then it is one component otherwise it passes up it's value to parent and then
+    # if sum at parent is divisible by k then it becomes one separate component.
+
+    adj = defaultdict(list)
+
+    for n1, n2 in edges:
+        adj[n1].append(n2)
+        adj[n2].append(n1)
+
+    res = 0
+
+    def dfs(curr_node, parent):
+        total = values[curr_node]
+        for node in adj[curr_node]:
+            if node != parent:
+                total += dfs(node, curr_node)
+        if total % k == 0:
+            nonlocal res
+            res += 1
+        return total
+
+    dfs(0, -1)
+
+    return res
