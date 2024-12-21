@@ -1,25 +1,27 @@
 def rob(nums):
-    if nums is None or len(nums) == 0:
+    n = len(nums)
+    if nums is None or n == 0:
         return 0
-    if len(nums) == 1:
+    if n == 1:
         return nums[0]
-    if len(nums) == 2:
+    if n == 2:
         return max(nums[0], nums[1])
 
-    dp = [0] * len(nums)
+    dp = [0] * n
     dp[0] = nums[0]
     dp[1] = max(nums[0], nums[1])
 
-    for i in range(2, len(nums)):
+    for i in range(2, n):
         dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
 
-    return dp[len(nums) - 1]
+    return dp[n - 1]
 
 
 class Solution:
     def rob(self, nums) -> int:
         return self.rob2(len(nums) - 1, nums, [-1] * (len(nums)))
 
+    # base recursion for dp
     def rob2(self, i, nums, dp):
         if i == 0:
             return nums[i]
