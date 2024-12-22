@@ -272,3 +272,73 @@ def max_k_divisible_components(
     dfs(0, -1)
 
     return res
+
+
+def leftmost_building_queries(
+    heights: List[int], queries: List[List[int]]
+) -> List[int]:
+    # [1,2,1], [0,2]
+    stack = []
+    monotonic = [-1] * len(heights)
+    for i in range(len(heights)):
+        while stack and heights[stack[-1]] < heights[i]:
+            monotonic[stack.pop()]=i
+        stack.append(i)
+
+    ans = [-1] * len(queries)
+    for i, q in enumerate(queries):
+        l, r = sorted(q)
+        if l == r or heights[r] > heights[l]:
+            ans[i] = r
+            continue
+
+        for j in range(r + 1, len(heights)):
+            if heights[j] > max(heights[l], heights[r]):
+                ans[i] = j
+                break
+
+    return ans
+
+
+# [1,2,1,2,1,2]
+queries = [
+    [0, 0],
+    [0, 1],
+    [0, 2],
+    [0, 3],
+    [0, 4],
+    [0, 5],
+    [1, 0],
+    [1, 1],
+    [1, 2],
+    [1, 3],
+    [1, 4],
+    [1, 5],
+    [2, 0],
+    [2, 1],
+    [2, 2],
+    [2, 3],
+    [2, 4],
+    [2, 5],
+    [3, 0],
+    [3, 1],
+    [3, 2],
+    [3, 3],
+    [3, 4],
+    [3, 5],
+    [4, 0],
+    [4, 1],
+    [4, 2],
+    [4, 3],
+    [4, 4],
+    [4, 5],
+    [5, 0],
+    [5, 1],
+    [5, 2],
+    [5, 3],
+    [5, 4],
+    [5, 5],
+]
+
+print(leftmost_building_queries([1, 2, 1, 2, 1, 2], queries))
+# print(leftmost_building_queries([1, 2, 1, 1, 2], [[0, 2]]))
