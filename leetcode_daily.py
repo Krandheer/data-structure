@@ -277,7 +277,6 @@ def max_k_divisible_components(
 def leftmost_building_queries(
     heights: List[int], queries: List[List[int]]
 ) -> List[int]:
-    # [1,2,1], [0,2]
     ans = [-1] * len(queries)
     groups = defaultdict(list)
     for i, q in enumerate(queries):
@@ -294,50 +293,9 @@ def leftmost_building_queries(
             heapq.heappush(min_heap, (q_h, q_i))
         while min_heap and h > min_heap[0][0]:
             q_h, q_i = heapq.heappop(min_heap)
-            ans[q_i]=i
+            ans[q_i] = i
 
     return ans
 
 
-# [1,2,1,2,1,2]
-queries = [
-    [0, 0],
-    [0, 1],
-    [0, 2],
-    [0, 3],
-    [0, 4],
-    [0, 5],
-    [1, 0],
-    [1, 1],
-    [1, 2],
-    [1, 3],
-    [1, 4],
-    [1, 5],
-    [2, 0],
-    [2, 1],
-    [2, 2],
-    [2, 3],
-    [2, 4],
-    [2, 5],
-    [3, 0],
-    [3, 1],
-    [3, 2],
-    [3, 3],
-    [3, 4],
-    [3, 5],
-    [4, 0],
-    [4, 1],
-    [4, 2],
-    [4, 3],
-    [4, 4],
-    [4, 5],
-    [5, 0],
-    [5, 1],
-    [5, 2],
-    [5, 3],
-    [5, 4],
-    [5, 5],
-]
-
-print(leftmost_building_queries([1, 2, 1, 2, 1, 2], queries))
 # print(leftmost_building_queries([1, 2, 1, 1, 2], [[0, 2]]))
