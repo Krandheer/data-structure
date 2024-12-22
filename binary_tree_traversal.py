@@ -18,8 +18,7 @@ def level_order(root):
         return
     result = {}
 
-    queue = deque()
-    queue.append((root, 0))
+    queue = deque([(root, 0)])
 
     while queue:
         node, level = queue.popleft()
