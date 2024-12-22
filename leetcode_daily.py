@@ -278,13 +278,6 @@ def leftmost_building_queries(
     heights: List[int], queries: List[List[int]]
 ) -> List[int]:
     # [1,2,1], [0,2]
-    stack = []
-    monotonic = [-1] * len(heights)
-    for i in range(len(heights)):
-        while stack and heights[stack[-1]] < heights[i]:
-            monotonic[stack.pop()]=i
-        stack.append(i)
-
     ans = [-1] * len(queries)
     for i, q in enumerate(queries):
         l, r = sorted(q)
