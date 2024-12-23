@@ -1,5 +1,7 @@
 from collections import defaultdict
 
+# important conceptually
+
 
 def valid_arrangement(pairs):
     adj = defaultdict(list)
