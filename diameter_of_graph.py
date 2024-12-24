@@ -30,6 +30,10 @@ graph = adjancy_list_rep(ipt, 11)
 # print(result)
 
 # find the diameter by iterating on all node.
+"""
+Instead of doing below things, we could just take any random node, find the farthest distance node using bfs
+and then using that node find the next end of diameter which will also give the diameter of the graph.
+"""
 max_r = 0
 for i in range(1, 11):
     result = dfs(graph, i, set())
