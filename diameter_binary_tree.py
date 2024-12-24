@@ -8,20 +8,22 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
-    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        d = 0
+def diameter_of_binary_tree(root: Optional[TreeNode]) -> int:
+    d = 0
 
-        def height(node):
-            nonlocal d
-            if not node:
-                return 0
-            left_h = height(node.left)
-            right_h = height(node.right)
+    def height(node):
+        nonlocal d
 
-            d = max(d, left_h + right_h + 1)
+        if not node:
+            return 0
 
-            return max(left_h, right_h) + 1
+        left_h = height(node.left)
+        right_h = height(node.right)
 
-        height(root)
-        return d - 1
+        d = max(d, left_h + right_h + 1)
+
+        return max(left_h, right_h) + 1
+
+    height(root)
+    # since root is being counted twice so -1 from d
+    return d - 1
