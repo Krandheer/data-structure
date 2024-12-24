@@ -1,4 +1,8 @@
-import time
+"""
+Note: give an acyclic graph/tree, the farthest distance from any node is the one end of the diameter of the tree/graph.
+and now when you find the farthest distance from that node, the farthest distance from that node is the other end of the
+diameter of the tree/graph.
+"""
 
 
 def adjancy_list_rep(graph, node):
