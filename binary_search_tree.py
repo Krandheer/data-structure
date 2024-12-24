@@ -32,15 +32,15 @@ class BinarySearchTree:
 
     def height(self):
         if not self.root:
-            return 0
-        return self._height(self.root, 0)
+            return -1
+        return self._height(self.root)
 
-    def _height(self, curr_node, curr_height):
+    def _height(self, curr_node):
         if curr_node is None:
-            return curr_height
-        left_height = self._height(curr_node.left_child, curr_height + 1)
-        right_height = self._height(curr_node.right_child, curr_height + 1)
-        return max(left_height, right_height)
+            return -1
+        left_height = self._height(curr_node.left_child)
+        right_height = self._height(curr_node.right_child)
+        return max(left_height, right_height) + 1
 
     def search(self, value):
         if self.root:
@@ -78,4 +78,5 @@ bst.insert(40)
 bst.insert(35)
 bst.insert(45)
 bst.insert(30)
-bst.print_tree()
+print(bst.height())
+# bst.print_tree()

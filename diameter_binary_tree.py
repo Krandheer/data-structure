@@ -15,7 +15,7 @@ def diameter_of_binary_tree(root: Optional[TreeNode]) -> int:
         nonlocal d
 
         if not node:
-            return 0
+            return -1
 
         left_h = height(node.left)
         right_h = height(node.right)
