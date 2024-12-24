@@ -1,5 +1,11 @@
 from typing import Optional
 
+"""
+Note: give an acyclic graph/tree, the farthest distance from any node is the one end of the diameter of the tree/graph.
+and now when you find farthest distance from that node, the farthest distance from that node is the other end of the 
+diameter of the tree/graph.
+"""
+
 
 class TreeNode:
     def __init__(self, val, left=None, right=None):
