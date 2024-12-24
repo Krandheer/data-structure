@@ -1,3 +1,6 @@
+import time
+
+
 def adjancy_list_rep(graph, node):
     """adjacency list representation of graph"""
     g = {}
@@ -39,4 +42,40 @@ for i in range(1, 11):
     result = dfs(graph, i, set())
     if result > max_r:
         max_r = result
-print(max_r)
+print(max_r - 1)
+
+
+# this function finds the farthest node from the given node
+def find_farthest_node(graph, node):
+    visited = set()
+    visited.add(node)
+    queue = [node]
+    farthest_node = None
+    while queue:
+        farthest_node = queue.pop(0)
+        for child in graph[farthest_node]:
+            if child not in visited:
+                visited.add(child)
+                queue.append(child)
+
+    return farthest_node
+
+
+# find the diameter of the graph
+def find_diameter(graph, node):
+    farthest_node = find_farthest_node(graph, node)
+    queue = [(farthest_node, 0)]
+    diameter = 0
+    visited = set()
+    visited.add(farthest_node)
+    while queue:
+        node, distance = queue.pop(0)
+        diameter = distance
+        for child in graph[node]:
+            if child not in visited:
+                visited.add(child)
+                queue.append((child, distance + 1))
+    return diameter
+
+
+print(find_diameter(graph, 1))
