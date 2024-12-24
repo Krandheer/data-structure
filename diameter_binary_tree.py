@@ -20,7 +20,7 @@ def diameter_of_binary_tree(root: Optional[TreeNode]) -> int:
         left_h = height(node.left)
         right_h = height(node.right)
 
-        d = max(d, left_h + right_h + 1)
+        d = max(d, left_h + right_h + 2)
 
         return max(left_h, right_h) + 1
 
