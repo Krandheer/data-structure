@@ -3,6 +3,7 @@ Note: give an acyclic graph/tree, the farthest distance from any node is the one
 and now when you find the farthest distance from that node, the farthest distance from that node is the other end of the
 diameter of the tree/graph.
 """
+from collections import deque
 
 
 def adjancy_list_rep(graph, node):
@@ -68,12 +69,12 @@ def find_farthest_node(graph, node):
 # find the diameter of the graph
 def find_diameter(graph, node):
     farthest_node = find_farthest_node(graph, node)
-    queue = [(farthest_node, 0)]
+    queue = deque([(farthest_node, 0)])
     diameter = 0
     visited = set()
     visited.add(farthest_node)
     while queue:
-        node, distance = queue.pop(0)
+        node, distance = queue.popleft()
         diameter = distance
         for child in graph[node]:
             if child not in visited:
