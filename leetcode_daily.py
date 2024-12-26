@@ -1,8 +1,8 @@
-import collections
 import heapq
 from collections import defaultdict
 import math
 from typing import List
+from collections import deque
 
 
 def find_minimumTime(strength: List[int], K: int) -> int:
@@ -298,4 +298,41 @@ def leftmost_building_queries(
     return ans
 
 
-# print(leftmost_building_queries([1, 2, 1, 1, 2], [[0, 2]]))
+# this one gives tle but very good solution of thinking track of graph. as you think of recursive tree of take not take.
+# this is actually quite simple and elegant solution but only problem is it is slow.
+def find_target_sum_ways(nums: List[int], target: int) -> int:
+    ans = deque()
+    for num in nums:
+        if not ans:
+            ans.append(-num)
+            ans.append(num)
+            continue
+        for _ in range(len(ans)):
+            t = ans.popleft()
+            ans.append(t + num)
+            ans.append(t - num)
+    count = 0
+    for _ in range(len(ans)):
+        elem = ans.popleft()
+        if elem == target:
+            count += 1
+    return count
+
+
+# print(find_target_sum_ways([1, 1, 1, 1, 1], 3))
+def recur(nums, i, current_sum, target, dp):
+    if i == len(nums):
+        return 1 if current_sum == target else 0
+    key = (i, current_sum)
+    if key in dp:
+        return dp[key]
+    plus = recur(nums, i + 1, current_sum + nums[i], target, dp)
+    minus = recur(nums, i + 1, current_sum - nums[i], target, dp)
+    dp[key] = plus + minus
+    return dp[key]
+
+
+nums = [1, 0]
+target = 1
+dp = {}
+print(recur(nums, 0, 0, target, dp))
