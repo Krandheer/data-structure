@@ -18,9 +18,9 @@ def query_sum(start, end, index, left, right, segmenttree):
     if left >= start and end >= right:
         return segmenttree[index]
 
-    mid = right - (right - start) // 2
+    mid = (left + right) // 2
     left = query_sum(start, end, 2 * index + 1, left, mid, segmenttree)
-    right = query_sum(start, end, 2 * index + 2, mid, right, segmenttree)
+    right = query_sum(start, end, 2 * index + 2, mid + 1, right, segmenttree)
     return left + right
 
 
