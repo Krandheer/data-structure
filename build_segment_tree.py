@@ -1,10 +1,18 @@
 def build_segment_tree(arr, segmenttree, start, end, index):
+
+    # base case
     if start == end:
         segmenttree[index] = arr[start]
         return
     mid = (start + end) // 2
+
+    # build left segment tree
     build_segment_tree(arr, segmenttree, start, mid, 2 * index + 1)
+
+    # build right segment tree
     build_segment_tree(arr, segmenttree, mid + 1, end, 2 * index + 2)
+
+    # build parent node
     segmenttree[index] = segmenttree[2 * index + 1] + segmenttree[2 * index + 2]
 
 
