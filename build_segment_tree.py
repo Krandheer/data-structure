@@ -13,11 +13,11 @@ def build_segment_tree(index, left, right, arr, segmenttree):
 
 
 def query_sum(start, end, index, left, right, segmenttree):
-    if end > left or start > right:
+    if end < left or start > right:
         return 0
 
     # this is basically saying range left-right is inside start-end
-    if start <= start and right <= end:
+    if start <= left and right <= end:
         return segmenttree[index]
 
     mid = (left + right) // 2
@@ -29,5 +29,6 @@ def query_sum(start, end, index, left, right, segmenttree):
 arr = [1, 2, 3, 4]
 segmenttree = [0] * (2 * len(arr))
 build_segment_tree(0, 0, len(arr) - 1, arr, segmenttree)
-result = query_sum(1, 3, 0, 0, len(arr) - 1, segmenttree)
+result = query_sum(0, 2, 0, 0, len(arr) - 1, segmenttree)
 print(result)
+print(segmenttree)
