@@ -5,8 +5,8 @@ from typing import List
 class Solution:
     def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
         subarray_sum = []
-        i, j = 0, 0
-        temp = 0
+        i, j, temp = 0, 0, 0
+
         while i <= j < len(nums):
             temp += nums[j]
             if j - i + 1 == k:
@@ -35,8 +35,11 @@ class Solution:
                 return
             if start_index + k - 1 >= len(nums):
                 return
+
             take = subarray_sum[start_index] + helper(start_index + k, count - 1)
             not_take = helper(start_index + 1, count)
+
+            # this makes sure that we take lexicographically smallest index
             if take >= not_take:
                 ans.append(start_index)
                 solve(start_index + k, count - 1, nums)
