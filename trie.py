@@ -10,10 +10,10 @@ class Trie:
 
     def insert(self, word):
         node = self.root
-        for i in word:
-            if i not in node.links:
-                node.links[i] = Node()
-            node = node.links[i]
+        for ch in word:
+            if ch not in node.links:
+                node.links[ch] = Node()
+            node = node.links[ch]
         node.is_end = True
 
     def search(self, word):
