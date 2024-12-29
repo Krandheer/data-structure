@@ -19,18 +19,18 @@ class Trie:
     def search(self, word):
         node = self.root
         if node:
-            for i in word:
-                if i not in node.links:
+            for ch in word:
+                if ch not in node.links:
                     return False
-                node = node.links[i]
+                node = node.links[ch]
         return node.is_end
 
     def matching_word(self, word):
         node = self.root
-        for i in word:
-            if i not in node.links:
+        for ch in word:
+            if ch not in node.links:
                 return False
-            node = node.links[i]
+            node = node.links[ch]
         return True
 
     def print_trie(self, node=None, prefix=""):
@@ -49,6 +49,4 @@ tri = Trie()
 words = ["apple", "apple", "app", "banana", "bat", "batman"]
 for word in words:
     tri.insert(word)
-# print(tri.search("banana"))
-# print(tri.matching_word("ban"))
 tri.print_trie()
