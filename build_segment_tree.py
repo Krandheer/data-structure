@@ -29,9 +29,23 @@ def query_sum(start, end, index, left, right, segmenttree):
     return left + right
 
 
+def update(index, val, i, l, r, segmenttree):
+    if l == r:
+        segmenttree[i] = val
+        return
+    mid = (l + r) // 2
+    if i <= mid:
+        update(index, val, 2 * i + 1, l, mid, segmenttree)
+    else:
+        update(index, val, 2 * i + 2, mid + 1, r, segmenttree)
+    segmenttree[i] = segmenttree[2 * i + 1] + segmenttree[2 * i + 2]
+
+
 arr = [1, 2, 3, 4]
 segmenttree = [0] * (2 * len(arr))
 build_segment_tree(0, 0, len(arr) - 1, arr, segmenttree)
 result = query_sum(0, 2, 0, 0, len(arr) - 1, segmenttree)
 print(result)
+print(segmenttree)
+update(1, 5, 0, 0, len(arr) - 1, segmenttree)
 print(segmenttree)
