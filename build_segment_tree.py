@@ -1,3 +1,6 @@
+from typing import List
+
+
 def build_segment_tree(index, left, right, arr, segmenttree):
     if left == right:
         segmenttree[index] = arr[left]
