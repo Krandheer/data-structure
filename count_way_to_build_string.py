@@ -1,12 +1,19 @@
+dp = {}
+
+
 def helper(limit, num_zero, num_one, ans):
-    if len(ans) == limit:
+    state = (limit, ans)
+    if state in dp:
+        return dp[state]
+    if ans == limit:
         return 1
-    if len(ans) > limit:
+    if ans > limit:
         return 0
 
-    take_zero = helper(limit, num_zero, num_one, ans + "0" * num_zero)
-    take_one = helper(limit, num_zero, num_one, ans + "1" * num_one)
-    return take_zero + take_one
+    take_zero = helper(limit, num_zero, num_one, ans + num_zero)
+    take_one = helper(limit, num_zero, num_one, ans + num_one)
+    dp[state] = (take_zero + take_one) % (10**9 + 7)
+    return dp[state]
 
 
 ans = 0
