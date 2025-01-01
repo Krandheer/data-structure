@@ -332,7 +332,31 @@ def recur(nums, i, current_sum, target, dp):
     return dp[key]
 
 
-nums = [1, 0]
-target = 1
-dp = {}
-print(recur(nums, 0, 0, target, dp))
+# nums = [1, 0]
+# target = 1
+# dp = {}
+# print(recur(nums, 0, 0, target, dp))
+
+
+def maxScore(s: str):
+    left = defaultdict(int)
+    num_zeroes = 0
+    for i, ch in enumerate(s):
+        if ch == "0":
+            num_zeroes += 1
+        left[i] = num_zeroes
+    num_ones = 0
+    right = defaultdict(int)
+    for i in range(len(s) - 1, -1, -1):
+        if s[i] == "1":
+            num_ones += 1
+        right[i] = num_ones
+
+    maxi = float("-inf")
+    for i in range(len(s)):
+        temp = left[i] + right[i]
+        maxi = max(temp, maxi)
+    return maxi
+
+
+maxScore("011101")
