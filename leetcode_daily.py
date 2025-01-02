@@ -358,5 +358,30 @@ def maxScore(s: str):
         maxi = max(temp, maxi)
     return maxi
 
+    # maxScore("011101")
 
-maxScore("011101")
+
+def vowelStrings(words: List[str], queries: List[List[int]]) -> List[int]:
+    temp = []
+    for w in words:
+        if w[0] in "aeiou" and w[-1] in "aeiou":
+            temp.append(1)
+        else:
+            temp.append(0)
+
+    pref = [0] * len(temp)
+    pref[0] = temp[0]
+    for i in range(1, len(temp)):
+        pref[i] = pref[i - 1] + pref[i]
+    ans = []
+    for l, r in queries:
+        if l == 0:
+            ans.append(pref[r])
+        else:
+            ans.append(pref[r] - pref[l - 1])
+    return ans
+
+
+words = ["aba", "bcb", "ece", "aa", "e"]
+queries = [[0, 2], [1, 4], [1, 1]]
+vowelStrings(words, queries)
