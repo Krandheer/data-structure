@@ -372,7 +372,7 @@ def vowelStrings(words: List[str], queries: List[List[int]]) -> List[int]:
     pref = [0] * len(temp)
     pref[0] = temp[0]
     for i in range(1, len(temp)):
-        pref[i] = pref[i - 1] + pref[i]
+        pref[i] = pref[i - 1] + temp[i]
     ans = []
     for l, r in queries:
         if l == 0:
