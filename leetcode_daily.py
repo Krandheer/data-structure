@@ -406,4 +406,21 @@ def ways_to_split_array(nums: List[int]) -> int:
     return count
 
 
+# print(ways_to_split_array([2, 3, 1, 0]))
+
+
+def ways_to_split_array2(nums: List[int]) -> int:
+    count = 0
+    n = len(nums)
+    temp_sum = sum(nums)
+    first = 0
+    for i in range(n - 1):
+        first += nums[i]
+        last = temp_sum - first
+        if first >= last:
+            count += 1
+
+    return count
+
+
 print(ways_to_split_array([2, 3, 1, 0]))
