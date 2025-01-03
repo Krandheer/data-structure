@@ -382,6 +382,28 @@ def vowelStrings(words: List[str], queries: List[List[int]]) -> List[int]:
     return ans
 
 
-words = ["aba", "bcb", "ece", "aa", "e"]
-queries = [[0, 2], [1, 4], [1, 1]]
-vowelStrings(words, queries)
+# words = ["aba", "bcb", "ece", "aa", "e"]
+# queries = [[0, 2], [1, 4], [1, 1]]
+# vowelStrings(words, queries)
+
+
+def ways_to_split_array(nums: List[int]) -> int:
+    n = len(nums)
+    pref = [0] * n
+    pref[0] = nums[0]
+
+    for i in range(1, n):
+        pref[i] = pref[i - 1] + nums[i]
+
+    count = 0
+
+    for i in range(n - 1):
+        first = pref[i]
+        last = pref[-1] - pref[i]
+        if first >= last:
+            count += 1
+
+    return count
+
+
+print(ways_to_split_array([2, 3, 1, 0]))
