@@ -358,8 +358,6 @@ def maxScore(s: str):
         maxi = max(temp, maxi)
     return maxi
 
-    # maxScore("011101")
-
 
 def vowelStrings(words: List[str], queries: List[List[int]]) -> List[int]:
     temp = []
@@ -406,9 +404,6 @@ def ways_to_split_array(nums: List[int]) -> int:
     return count
 
 
-# print(ways_to_split_array([2, 3, 1, 0]))
-
-
 def ways_to_split_array2(nums: List[int]) -> int:
     count = 0
     n = len(nums)
@@ -423,4 +418,4 @@ def ways_to_split_array2(nums: List[int]) -> int:
     return count
 
 
-print(ways_to_split_array([2, 3, 1, 0]))
+# print(ways_to_split_array([2, 3, 1, 0]))
