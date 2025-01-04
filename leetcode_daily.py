@@ -1,5 +1,5 @@
 import heapq
-from collections import defaultdict
+from collections import Counter, defaultdict
 import math
 from typing import List
 from collections import deque
@@ -419,3 +419,30 @@ def ways_to_split_array2(nums: List[int]) -> int:
 
 
 # print(ways_to_split_array([2, 3, 1, 0]))
+
+
+def countPalindromicSubsequence(s: str) -> int:
+    # key point is that for 3 letter pallindrom if first and last are same then
+    # everything in between will form palindrome, just need to makes sure that same
+    # palindrome is not counted for that use seen in that range.
+
+    freq = Counter(s)
+    considered = {}
+    for ch, count in freq.items():
+        if count >= 2:
+            considered[ch] = True
+
+    matters = defaultdict(list)
+    for index, ch in enumerate(s):
+        if ch in considered:
+            matters[ch].append(index)
+
+    count = 0
+
+    for k, v in matters.items():
+        left, right = v[0], v[-1]
+        temp = set()
+        for i in range(left + 1, right):
+            temp.add(s[i])
+        count += len(temp)
+    return count
