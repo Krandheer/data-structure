@@ -427,12 +427,15 @@ def countPalindromicSubsequence(s: str) -> int:
     # palindrome is not counted for that use seen in that range.
 
     freq = Counter(s)
+
     considered = {}
+
     for ch, count in freq.items():
         if count >= 2:
             considered[ch] = True
 
     matters = defaultdict(list)
+
     for index, ch in enumerate(s):
         if ch in considered:
             matters[ch].append(index)
