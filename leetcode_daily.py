@@ -449,3 +449,23 @@ def countPalindromicSubsequence(s: str) -> int:
             temp.add(s[i])
         count += len(temp)
     return count
+
+
+# tag: prefix_sum, revise.
+def shiftingLetters(s: str, shifts: List[List[int]]) -> str:
+    prefix = [0] * (len(s) + 1)
+    for u, v, w in shifts:
+        if w == 1:
+            prefix[u] += -1
+            prefix[v + 1] += 1
+        else:
+            prefix[u] += 1
+            prefix[v + 1] += -1
+
+    diff = 0
+    res = [ord(c) - ord("a") for c in s]
+    for i in reversed(range(len(s) + 1)):
+        diff += prefix[i]
+        res[i - 1] = (res[i - 1] + diff) % 26
+    s1 = [chr(ord("a") + n) for n in res]
+    return "".join(s1)
