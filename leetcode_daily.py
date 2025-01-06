@@ -469,3 +469,18 @@ def shiftingLetters(s: str, shifts: List[List[int]]) -> str:
         res[i - 1] = (res[i - 1] + diff) % 26
     s1 = [chr(ord("a") + n) for n in res]
     return "".join(s1)
+
+
+def minOperations(boxes: str) -> List[int]:
+    n = len(boxes)
+    ans = [0] * n
+    for i in range(n):
+        temp = 0
+        for j in range(n):
+            if boxes[j] == "1":
+                temp += abs(j - i)
+        ans[i] = temp
+    return ans
+
+
+print(minOperations("110"))
