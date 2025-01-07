@@ -483,4 +483,14 @@ def minOperations(boxes: str) -> List[int]:
     return ans
 
 
-print(minOperations("110"))
+def stringMatching(words: List[str]) -> List[str]:
+    ans = []
+    for i, word in enumerate(words):
+        for j, cmp in enumerate(words):
+            if i == j:
+                continue
+            if word in cmp:
+                ans.append(word)
+                break
+
+    return ans
