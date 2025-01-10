@@ -497,30 +497,26 @@ def stringMatching(words: List[str]) -> List[str]:
 
 
 def wordSubsets(words1: List[str], words2: List[str]) -> List[str]:
-    freq = defaultdict(int)
-    for word in words1:
+    def get_freq(word):
+        freq = [0] * 26
         for ch in word:
-            freq[(word, ch)] += 1
+            freq[ord(ch) - ord("a")] += 1
+        return freq
 
-    words = set()
+    # Get the maximum frequency required for each character from words2
+    max_freq = [0] * 26
     for word in words2:
-        words.add(word)
-    words2 = list(words)
+        curr_freq = get_freq(word)
+        for i in range(26):
+            max_freq[i] = max(max_freq[i], curr_freq[i])
 
-    veri = defaultdict(int)
-    for word in words2:
-        for ch in word:
-            veri[(word, ch)] += 1
-
+    # Check which words from words1 satisfy the requirements
     ans = []
     for word in words1:
-        is_sub = True
-        for k, v in veri.items():
-            if freq[(word, k[1])] < v:
-                is_sub = False
-                break
-        if is_sub:
+        freq = get_freq(word)
+        if all(freq[i] >= max_freq[i] for i in range(26)):
             ans.append(word)
+
     return ans
 
 
