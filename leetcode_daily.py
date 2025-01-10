@@ -503,14 +503,12 @@ def wordSubsets(words1: List[str], words2: List[str]) -> List[str]:
             freq[ord(ch) - ord("a")] += 1
         return freq
 
-    # Get the maximum frequency required for each character from words2
     max_freq = [0] * 26
     for word in words2:
         curr_freq = get_freq(word)
         for i in range(26):
             max_freq[i] = max(max_freq[i], curr_freq[i])
 
-    # Check which words from words1 satisfy the requirements
     ans = []
     for word in words1:
         freq = get_freq(word)
