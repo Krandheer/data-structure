@@ -494,3 +494,36 @@ def stringMatching(words: List[str]) -> List[str]:
                 break
 
     return ans
+
+
+def wordSubsets(words1: List[str], words2: List[str]) -> List[str]:
+    freq = defaultdict(int)
+    for word in words1:
+        for ch in word:
+            freq[(word, ch)] += 1
+
+    words = set()
+    for word in words2:
+        words.add(word)
+    words2 = list(words)
+
+    veri = defaultdict(int)
+    for word in words2:
+        for ch in word:
+            veri[(word, ch)] += 1
+
+    ans = []
+    for word in words1:
+        is_sub = True
+        for k, v in veri.items():
+            if freq[(word, k[1])] < v:
+                is_sub = False
+                break
+        if is_sub:
+            ans.append(word)
+    return ans
+
+
+words1 = ["cccbb", "aacbc", "bbccc", "baaba", "acaba"]
+words2 = ["cb", "b", "cb"]
+print(wordSubsets(words1, words2))
