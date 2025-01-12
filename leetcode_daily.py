@@ -518,6 +518,54 @@ def wordSubsets(words1: List[str], words2: List[str]) -> List[str]:
     return ans
 
 
-words1 = ["cccbb", "aacbc", "bbccc", "baaba", "acaba"]
-words2 = ["cb", "b", "cb"]
-print(wordSubsets(words1, words2))
+# words1 = ["cccbb", "aacbc", "bbccc", "baaba", "acaba"]
+# words2 = ["cb", "b", "cb"]
+# print(wordSubsets(words1, words2))
+
+
+def canConstruct(s: str, k: int) -> bool:
+    if k > len(s):
+        return False
+
+    freq = defaultdict(int)
+    for i in s:
+        freq[i] += 1
+
+    odd_count = 0
+
+    for i, v in freq.items():
+        if v & 1:
+            odd_count += 1
+
+    if odd_count > k:
+        return False
+
+    return True
+
+
+def canBeValid(s: str, locked: str) -> bool:
+    if len(s) & 1:
+        return False
+    wildcard = []
+    stack = []
+    n = len(s)
+    for i in range(n):
+        if locked[i] == "0":
+            wildcard.append(i)
+        elif s[i] == "(":
+            stack.append(i)
+        else:
+            if stack:
+                stack.pop()
+            elif wildcard:
+                wildcard.pop()
+            else:
+                return False
+    while stack and wildcard and stack[-1] < wildcard[-1]:
+        stack.pop()
+        wildcard.pop()
+
+    if stack:
+        return False
+
+    return False if len(wildcard) & 1 else True
