@@ -569,3 +569,35 @@ def canBeValid(s: str, locked: str) -> bool:
         return False
 
     return False if len(wildcard) & 1 else True
+
+
+def minimumLength(s: str) -> int:
+    temp = defaultdict(int)
+    for i in s:
+        temp[i] += 1
+    ans = 0
+    for v in temp.values():
+        if v <= 2:
+            ans += v
+        elif v & 1:
+            ans += 1
+        else:
+            ans += 2
+    return ans
+
+
+def findThePrefixCommonArray(A: List[int], B: List[int]) -> List[int]:
+    common_a = set()
+    common_b = set()
+    n = len(A)
+    n = len(A)
+    pre = [0] * n
+    for i in range(n):
+        common_a.add(A[i])
+        common_b.add(B[i])
+        temp = common_a.intersection(common_b)
+        pre[i] = len(temp)
+    return pre
+
+
+print(findThePrefixCommonArray([1, 3, 2, 4], [3, 1, 2, 4]))
