@@ -609,6 +609,3 @@ def doesValidArrayExist(derived: List[int]) -> bool:
     for i in derived:
         ans ^= i
     return ans == 0
-
-
-print(doesValidArrayExist([1, 0, 1]))
