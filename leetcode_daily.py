@@ -600,4 +600,15 @@ def findThePrefixCommonArray(A: List[int], B: List[int]) -> List[int]:
     return pre
 
 
-print(findThePrefixCommonArray([1, 3, 2, 4], [3, 1, 2, 4]))
+def doesValidArrayExist(derived: List[int]) -> bool:
+    # if derived array comes from original array then the xor of derived array
+    # should we 0, why? because in derived array each element is xor of two element in that
+    # way if we do xor sum of derived array then each element will appear twice, making it
+    # equal to 0
+    ans = 0
+    for i in derived:
+        ans ^= i
+    return ans == 0
+
+
+print(doesValidArrayExist([1, 0, 1]))
