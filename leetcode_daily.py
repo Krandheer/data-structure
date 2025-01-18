@@ -609,3 +609,34 @@ def doesValidArrayExist(derived: List[int]) -> bool:
     for i in derived:
         ans ^= i
     return ans == 0
+
+
+def minCost(grid: List[List[int]]) -> int:
+    row, col = len(grid), len(grid[0])
+    directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    visited = []
+    for _ in range(row):
+        temp = []
+        for _ in range(col):
+            temp.append(False)
+        visited.append(temp)
+
+    def dfs(i, j, cost):
+        if i == row - 1 and j == col - 1:
+            return cost
+        if visited[i][j]:
+            return float("inf")
+        min_cost = float("inf")
+        visited[i][j] = True
+        for index, val in enumerate(directions):
+            dx, dy = i + val[0], j + val[1]
+            if 0 <= dx < row and 0 <= dy < col:
+                new_cost = cost + 1 if grid[i][j] != index + 1 else cost
+                min_cost = min(min_cost, dfs(dx, dy, new_cost))
+        visited[i][j] = False
+        return min_cost
+
+    return dfs(0, 0, 0)
+
+
+print(minCost([[1, 1, 3], [3, 2, 2], [1, 1, 4]]))
