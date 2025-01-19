@@ -639,4 +639,54 @@ def minCost(grid: List[List[int]]) -> int:
     return dfs(0, 0, 0)
 
 
-print(minCost([[1, 1, 3], [3, 2, 2], [1, 1, 4]]))
+def minCost(grid: List[List[int]]) -> int:
+    # tag: dijkshatra_algo, graph
+    row, col = len(grid), len(grid[0])
+    directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    distance = [[float("inf")] * col for _ in range(row)]
+    visited = [[False] * col for _ in range(row)]
+
+    def bfs(i, j, cost):
+        q = []
+        heapq.heappush(q, (cost, i, j))
+        visited[i][j] = True
+
+        while q:
+            cost, x, y = heapq.heappop(q)
+            for ind, v in enumerate(directions):
+                dx, dy = x + v[0], y + v[1]
+                if 0 <= dx < row and 0 <= dy < col:
+                    new_cost = cost + 1 if ind + 1 != grid[x][y] else cost
+                    if new_cost < distance[dx][dy]:
+                        distance[dx][dy] = new_cost
+                        heapq.heappush(q, (new_cost, dx, dy))
+        return distance[row - 1][col - 1]
+
+    return bfs(0, 0, 0)
+
+
+def trapRainWater(heightMap: List[List[int]]) -> int:
+    m, n = len(heightMap), len(heightMap[0])
+    queue = []
+    visited = [[False] * n for _ in range(m)]
+
+    for i in range(m):
+        for j in range(n):
+            if i in [0, m - 1] or j in [0, n - 1]:
+                heapq.heappush(queue, (heightMap[i][j], i, j))
+                visited[i][j] = True
+    direction = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    ans = 0
+    while queue:
+        height, x, y = heapq.heappop(queue)
+        for u, v in direction:
+            dx, dy = x + u, y + v
+
+            if 0 <= dx < m and 0 <= dy < n and not visited[dx][dy]:
+                ans += max(height - heightMap[dx][dy], 0)
+                heapq.heappush(queue, (max(height, heightMap[dx][dy]), dx, dy))
+                visited[dx][dy] = True
+    return ans
+
+
+print(trapRainWater([[1, 4, 3, 1, 3, 2], [3, 2, 1, 3, 2, 4], [2, 3, 3, 2, 3, 1]]))
