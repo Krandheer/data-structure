@@ -611,7 +611,7 @@ def doesValidArrayExist(derived: List[int]) -> bool:
     return ans == 0
 
 
-def minCost(grid: List[List[int]]) -> int:
+def minCost(grid: List[List[int]]):
     row, col = len(grid), len(grid[0])
     directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
     visited = []
@@ -639,7 +639,7 @@ def minCost(grid: List[List[int]]) -> int:
     return dfs(0, 0, 0)
 
 
-def minCost(grid: List[List[int]]) -> int:
+def minCost2(grid: List[List[int]]):
     # tag: dijkshatra_algo, graph
     row, col = len(grid), len(grid[0])
     directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
