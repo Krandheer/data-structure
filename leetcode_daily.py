@@ -689,4 +689,41 @@ def trapRainWater(heightMap: List[List[int]]) -> int:
     return ans
 
 
-print(trapRainWater([[1, 4, 3, 1, 3, 2], [3, 2, 1, 3, 2, 4], [2, 3, 3, 2, 3, 1]]))
+def firstCompleteIndex(arr: List[int], mat: List[List[int]]) -> int:
+    row, col = len(mat), len(mat[0])
+    r_sum = []
+    c_sum = []
+    h_map = {}
+    for r in range(row):
+        temp = 0
+        for c in range(col):
+            temp += mat[r][c]
+            h_map[mat[r][c]] = (r, c)
+        r_sum.append(temp)
+
+    for c in range(col):
+        temp = 0
+        for r in range(row):
+            temp += mat[r][c]
+        c_sum.append(temp)
+
+    for index, elem in enumerate(arr):
+        i, j = h_map[elem]
+        temp1 = r_sum[i] - elem
+        r_sum[i] = temp1
+        temp2 = c_sum[j] - elem
+        c_sum[j] = temp2
+        if temp1 == 0 or temp2 == 0:
+            return index
+
+
+# tag: wow, amazing problem. lc 2017. gridGame, #grid
+def gridGame(grid: List[List[int]]) -> float:
+    top_sum = sum(grid[0])
+    bottom_sum = 0
+    mini = float("inf")
+    for i in range(len(grid[0])):
+        top_sum -= grid[0][i]
+        mini = min(mini, max(top_sum, bottom_sum))
+        bottom_sum += grid[1][i]
+    return mini
