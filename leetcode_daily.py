@@ -727,3 +727,29 @@ def gridGame(grid: List[List[int]]) -> float:
         mini = min(mini, max(top_sum, bottom_sum))
         bottom_sum += grid[1][i]
     return mini
+
+
+# tags: bfs question, lc 1765. map of highest peak, problem description is so bad, I thought I will need to watch
+# video to understand the solution and problem but reading some discussion section I got it and coded myself.
+# it is basically multiple source bfs, start from water and then move to land.
+# One good learning was that any multiple source bfs can be converted to single source bfs by adding all sources to
+# a node and then start bfs from that node. and in end just subtract one from distance.
+def highestPeak(isWater: List[List[int]]) -> List[List[int]]:
+    m, n = len(isWater), len(isWater[0])
+    q = deque()
+    for i in range(m):
+        for j in range(n):
+            if isWater[i][j] == 1:
+                q.append((i, j))
+
+    heights = [[0 if cell == 1 else -1 for cell in row] for row in isWater]
+    directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    while q:
+        x, y = q.popleft()
+        for u, v in directions:
+            dx, dy = x + u, y + v
+            if 0 <= dx < m and 0 <= dy < n and heights[dx][dy] == -1:
+                heights[dx][dy] = heights[x][y] + 1
+                q.append((dx, dy))
+
+    return heights
