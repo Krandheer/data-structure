@@ -792,3 +792,21 @@ def eventualSafeNodes(graph: List[List[int]]) -> List[int]:
         return True
 
     return [node for node in range(n) if dfs(node)]
+
+
+# tag: quite interesting problem. observations is key
+def lexicographicallySmallestArray(nums: List[int], limit: int) -> List[int]:
+    groups = []
+    num_group = {}
+
+    for n in sorted(nums):
+        if not groups or abs(n - groups[-1][-1]) > limit:
+            groups.append(deque())
+        groups[-1].append(n)
+        num_group[n] = len(groups) - 1
+
+    res = []
+    for n in nums:
+        j = num_group[n]
+        res.append(groups[j].popleft())
+    return res
