@@ -781,13 +781,10 @@ def eventualSafeNodes(graph: List[List[int]]) -> List[int]:
     def dfs(node):
         if state[node] > 0:
             return state[node] == 2
-
         state[node] = 1
-
         for neighbor in graph[node]:
             if not dfs(neighbor):
                 return False
-
         state[node] = 2
         return True
 
