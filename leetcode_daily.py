@@ -689,7 +689,7 @@ def trapRainWater(heightMap: List[List[int]]) -> int:
     return ans
 
 
-def firstCompleteIndex(arr: List[int], mat: List[List[int]]) -> int:
+def firstCompleteIndex(arr: List[int], mat: List[List[int]]):
     row, col = len(mat), len(mat[0])
     r_sum = []
     c_sum = []
