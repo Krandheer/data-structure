@@ -807,3 +807,55 @@ def lexicographicallySmallestArray(nums: List[int], limit: int) -> List[int]:
         j = num_group[n]
         res.append(groups[j].popleft())
     return res
+
+
+# tags: probably the hardest leetcode problem ever.
+def maximumInvitations(favorite: List[int]) -> int:
+    n = len(favorite)
+    longest_cycle = 0
+    visited = [False] * n
+    len_2_cycle = []
+
+    for i in range(n):
+        if visited[i]:
+            continue
+        start, curr = i, i
+        curr_set = set()
+
+        while not visited[curr]:
+            visited[curr] = True
+            curr_set.add(curr)
+            curr = favorite[curr]
+
+        if curr in curr_set:
+            length = len(curr_set)
+            while start != curr:
+                length -= 1
+                start = favorite[start]
+            longest_cycle = max(longest_cycle, length)
+            if length == 2:
+                len_2_cycle.append((curr, favorite[curr]))
+
+    inverted = defaultdict(list)
+    for dest, src in enumerate(favorite):
+        inverted[src].append(dest)
+
+    def bfs(src, parent):
+        q = deque()
+        q.append((src, 0))
+        max_length = 0
+
+        while q:
+            node, dest = q.popleft()
+            if node == parent:
+                continue
+            max_length = max(max_length, dest)
+            for nei in inverted[node]:
+                q.append((nei, dest + 1))
+        return max_length
+
+    chain_sum = 0
+
+    for n1, n2 in len_2_cycle:
+        chain_sum += bfs(n1, n2) + bfs(n2, n1) + 2
+    return max(chain_sum, longest_cycle)
