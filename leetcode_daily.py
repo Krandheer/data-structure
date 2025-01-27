@@ -861,28 +861,27 @@ def maximumInvitations(favorite: List[int]) -> int:
     return max(chain_sum, longest_cycle)
 
 
-class Solution:
-    def checkIfPrerequisite(
-        self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]
-    ) -> List[bool]:
-        # this could be optimised more using toposort kahn's algo but didn't had time to spend more on this problem so have not optimised yet
-        adj = defaultdict(list)
-        for u, v in prerequisites:
-            adj[u].append(v)
+def checkIfPrerequisite(
+    numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]
+) -> List[bool]:
+    # this could be optimised more using toposort kahn's algo but didn't had time to spend more on this problem so have not optimised yet
+    adj = defaultdict(list)
+    for u, v in prerequisites:
+        adj[u].append(v)
 
-        def dfs(graph, src, dest, visited):
-            visited[src] = True
-            if src == dest:
-                return True
+    def dfs(graph, src, dest, visited):
+        visited[src] = True
+        if src == dest:
+            return True
 
-            isReachable = False
-            for node in adj[src]:
-                if not visited[node]:
-                    isReachable = isReachable or dfs(graph, node, dest, visited)
-            return isReachable
+        isReachable = False
+        for node in adj[src]:
+            if not visited[node]:
+                isReachable = isReachable or dfs(graph, node, dest, visited)
+        return isReachable
 
-        ans = []
-        for u, v in queries:
-            visited = [False] * numCourses
-            ans.append(dfs(adj, u, v, visited))
-        return ans
+    ans = []
+    for u, v in queries:
+        visited = [False] * numCourses
+        ans.append(dfs(adj, u, v, visited))
+    return ans
