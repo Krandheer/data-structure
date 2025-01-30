@@ -1,8 +1,7 @@
 import heapq
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, deque
 import math
 from typing import List
-from collections import deque
 
 
 def find_minimumTime(strength: List[int], K: int) -> int:
