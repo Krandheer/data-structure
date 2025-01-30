@@ -885,3 +885,43 @@ def checkIfPrerequisite(
         visited = [False] * numCourses
         ans.append(dfs(adj, u, v, visited))
     return ans
+
+
+def magnificentSets(n: int, edges: List[List[int]]) -> int:
+    graph = defaultdict(list)
+    for u, v in edges:
+        graph[u].append(v)
+        graph[v].append(u)
+
+    visited = set()
+
+    def get_component(src):
+        q = deque([(src, 1)])
+        visit = {src: 1}
+        while q:
+            node, l = q.popleft()
+            for nei in graph[node]:
+                if nei in visit:
+                    if visit[nei] == l:
+                        return visit, -1
+                    continue
+                visit[nei] = l + 1
+                q.append((nei, l + 1))
+                visited.add(nei)
+        return visit, max(visit.values())
+
+    res = 0
+    for i in range(1, n + 1):
+        if i in visited:
+            continue
+        visited.add(i)
+        component, length = get_component(i)
+        if length == -1:
+            return -1
+
+        max_count = 0
+        for src in component:
+            _, maxi = get_component(src)
+            max_count = max(max_count, maxi)
+        res += max_count
+    return res
