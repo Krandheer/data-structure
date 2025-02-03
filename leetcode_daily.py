@@ -939,3 +939,28 @@ class Solution:
                 return False
 
         return True
+
+
+def longestMonotonicSubarray(nums: List[int]) -> int:
+    in_len, max_in_len = 1, 1
+    de_len, max_de_len = 1, 1
+
+    n = len(nums)
+    for i in range(1, n):
+        if nums[i - 1] < nums[i]:
+            in_len += 1
+        else:
+            max_in_len = max(max_in_len, in_len)
+            in_len = 1
+    for i in range(1, n):
+        if nums[i - 1] > nums[i]:
+            de_len += 1
+        else:
+            max_de_len = max(max_de_len, de_len)
+            de_len = 1
+    max_in_len = max(max_in_len, in_len)
+    max_de_len = max(max_de_len, de_len)
+    return max(max_in_len, max_de_len)
+
+
+print(longestMonotonicSubarray([3, 2, 1]))
