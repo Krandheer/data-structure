@@ -927,18 +927,17 @@ def magnificentSets(n: int, edges: List[List[int]]) -> int:
 
 
 # tag: nice intuitive solution, for rotated sorted array.
-class Solution:
-    def check(self, nums: List[int]) -> bool:
-        count = 0
-        n = len(nums)
+def check(nums: List[int]) -> bool:
+    count = 0
+    n = len(nums)
 
-        for i in range(n):
-            if nums[i] > nums[(i + 1) % n]:
-                count += 1
-            if count > 1:
-                return False
+    for i in range(n):
+        if nums[i] > nums[(i + 1) % n]:
+            count += 1
+        if count > 1:
+            return False
 
-        return True
+    return True
 
 
 def longestMonotonicSubarray(nums: List[int]) -> int:
@@ -960,7 +959,5 @@ def longestMonotonicSubarray(nums: List[int]) -> int:
             de_len = 1
     max_in_len = max(max_in_len, in_len)
     max_de_len = max(max_de_len, de_len)
+
     return max(max_in_len, max_de_len)
-
-
-print(longestMonotonicSubarray([3, 2, 1]))
