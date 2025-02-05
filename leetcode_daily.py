@@ -961,3 +961,27 @@ def longestMonotonicSubarray(nums: List[int]) -> int:
     max_de_len = max(max_de_len, de_len)
 
     return max(max_in_len, max_de_len)
+
+
+def areAlmostEqual(s1, s2):
+    i, j = -1, -1
+    cnt = 0
+    for k in range(0, len(s1)):
+        if s1[k] != s2[k]:
+            cnt += 1
+            if i == -1:
+                i = k
+            elif j == -1:
+                j = k
+
+    if cnt == 0:
+        return True
+    elif cnt == 2 and s1[i] == s2[j] and s1[j] == s2[i]:
+        return True
+
+    return False
+
+
+s1 = "abcd"
+s2 = "dcba"
+print(areAlmostEqual(s1, s2))
