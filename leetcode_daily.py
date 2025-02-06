@@ -982,6 +982,11 @@ def areAlmostEqual(s1, s2):
     return False
 
 
-s1 = "abcd"
-s2 = "dcba"
-print(areAlmostEqual(s1, s2))
+def tupleSameProduct(nums: List[int]) -> int:
+    freq = defaultdict(int)
+    n = len(nums)
+    for i in range(n - 1):
+        for j in range(i + 1, n):
+            freq[nums[i] * nums[j]] += 1
+
+    return sum(f * (f - 1) * 4 for f in freq.values())
