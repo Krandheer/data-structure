@@ -990,3 +990,23 @@ def tupleSameProduct(nums: List[int]) -> int:
             freq[nums[i] * nums[j]] += 1
 
     return sum(f * (f - 1) * 4 for f in freq.values())
+
+
+def queryResults(limit: int, queries: List[List[int]]) -> List[int]:
+    ans = []
+    balls = defaultdict(int)
+    color = defaultdict(int)
+    for ball, c in queries:
+        if ball in balls:
+            temp = balls[ball]
+            color[temp] -= 1
+            if color[temp] == 0:
+                del color[temp]
+        balls[ball] = c
+        color[c] += 1
+        ans.append(len(color))
+
+    return ans
+
+
+print(queryResults(4, [[1, 4], [2, 5], [1, 3], [3, 4]]))
