@@ -1007,6 +1007,3 @@ def queryResults(limit: int, queries: List[List[int]]) -> List[int]:
         ans.append(len(color))
 
     return ans
-
-
-print(queryResults(4, [[1, 4], [2, 5], [1, 3], [3, 4]]))
