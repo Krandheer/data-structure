@@ -1007,3 +1007,19 @@ def queryResults(limit: int, queries: List[List[int]]) -> List[int]:
         ans.append(len(color))
 
     return ans
+
+
+def countBadPairs(nums: List[int]) -> int:
+    # at each index the max bad pair is the index itself.
+    # so we can keep track of how many good pairs we have seen so far
+    # and then at each index we can calculate how many bad pairs we have seen so far
+    # and then add that to our answer.
+    bad_pairs = 0
+    diff_count = defaultdict(int)
+    for ind, num in enumerate(nums):
+        diff = ind - num
+        good_pairs_count = diff_count.get(diff, 0)
+        bad_pairs += ind - good_pairs_count
+        diff_count[diff] += 1
+
+    return bad_pairs
