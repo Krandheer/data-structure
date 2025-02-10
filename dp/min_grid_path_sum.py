@@ -2,9 +2,7 @@ def minPathSum(grid):
     """minimum path sum in grid from top left to bottom right"""
 
     def helper(grid, row, col):
-        if row < 0:
-            return float("inf")
-        if col < 0:
+        if row < 0 or col < 0:
             return float("inf")
         if row == 0 and col == 0:
             return grid[0][0]
@@ -18,12 +16,8 @@ def minPathSum(grid):
 
 
 # memoising it
-
-
 def min_path_sum(grid, row, col, dp):
-    if row < 0:
-        return float("inf")
-    if col < 0:
+    if row < 0 or col < 0:
         return float("inf")
     if row == 0 and col == 0:
         return grid[row][col]
@@ -40,9 +34,7 @@ def min_path_sum(grid, row, col, dp):
 def minPathSum2(grid):
 
     def helper(grid, row, col, dp):
-        if row < 0:
-            return float("inf")
-        if col < 0:
+        if row < 0 or col < 0:
             return float("inf")
         if row == 0 and col == 0:
             return grid[row][col]
