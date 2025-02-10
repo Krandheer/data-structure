@@ -24,10 +24,9 @@ def min_path_sum(grid, row, col, dp):
 
     if dp[row][col] != -1:
         return dp[row][col]
-    mini = grid[row][col] + min(
+    dp[row][col] = grid[row][col] + min(
         min_path_sum(grid, row - 1, col, dp), min_path_sum(grid, row, col - 1, dp)
     )
-    dp[row][col] = mini
     return dp[row][col]
 
 
@@ -41,10 +40,9 @@ def minPathSum2(grid):
 
         if dp[row][col] != -1:
             return dp[row][col]
-        mini = grid[row][col] + min(
+        dp[row][col] = grid[row][col] + min(
             helper(grid, row - 1, col, dp), helper(grid, row, col - 1, dp)
         )
-        dp[row][col] = mini
         return dp[row][col]
 
     dp = [[-1 for i in range(len(grid[0]))] for j in range(len(grid))]
