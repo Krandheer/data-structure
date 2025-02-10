@@ -11,9 +11,6 @@ def ways_to_climb_stairs(p, target, ans):
     return ans
 
 
-print(ways_to_climb_stairs("", 10, []))
-
-
 def way_dp(target, dp):
     if target == 1 or target == 2:
         return target
@@ -28,4 +25,5 @@ def way_dp(target, dp):
         return dp[target]
 
 
+# print(ways_to_climb_stairs("", 10, []))
 # print(way_dp(10, [-1] * 11))
