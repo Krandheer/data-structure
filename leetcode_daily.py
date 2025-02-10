@@ -1,6 +1,7 @@
 import heapq
 from collections import Counter, defaultdict, deque
 import math
+import re
 from typing import List
 
 
@@ -1023,3 +1024,18 @@ def countBadPairs(nums: List[int]) -> int:
         diff_count[diff] += 1
 
     return bad_pairs
+
+
+def clearDigits(s: str) -> str:
+    nearest_alpha = 0
+    n = len(s)
+    temp = [False] * n
+    for i in range(n):
+        if s[i].isalpha():
+            nearest_alpha = i
+        elif s[i].isdigit():
+            temp[nearest_alpha] = True
+            temp[i] = True
+            while nearest_alpha > 0 and temp[nearest_alpha]:
+                nearest_alpha -= 1
+    return "".join(s[i] for i in range(n) if not temp[i])
