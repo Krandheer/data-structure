@@ -18,17 +18,8 @@ def sub_seqeunces(temp_p, temp_up, ans):
     return ans
 
 
-# print(
-#     sub_seqeunces(
-#         [],
-#         [
-#             5,
-#             4,
-#             -1,
-#         ],
-#         [],
-#     )
-# )
+unprocess = [5, 4, -1]
+print(sub_seqeunces([], unprocess, []))
 
 
 def subsequences(temp_p, temp_up):
