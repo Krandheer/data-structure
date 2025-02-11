@@ -6,6 +6,7 @@ def shortest_common_supersequence(s1, s2):
 
         if dp[index1][index2] != -1:
             return dp[index1][index2]
+
         if s1[index1] == s2[index2]:
             return 1 + lcs(index1 - 1, index2 - 1, s1, s2, dp)
         else:
