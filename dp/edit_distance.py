@@ -6,13 +6,14 @@ def compare_string(index1, index2, word1, word2):
         return index2 + 1
     if index2 <= 0:
         return index1 + 1
+
     if word1[index1] == word2[index2]:
         return compare_string(index1 - 1, index2 - 1, word1, word2)
     else:
-        replace = compare_string(index1 - 1, index2 - 1, word1, word2)
-        delete = compare_string(index1 - 1, index2, word1, word2)
-        insert = compare_string(index1, index2 - 1, word1, word2)
-        return 1 + min(replace, delete, insert)
+        replace = 1 + compare_string(index1 - 1, index2 - 1, word1, word2)
+        delete = 1 + compare_string(index1 - 1, index2, word1, word2)
+        insert = 1 + compare_string(index1, index2 - 1, word1, word2)
+        return min(replace, delete, insert)
 
 
 def recur(word1, word2, i, j, dp):
@@ -23,15 +24,14 @@ def recur(word1, word2, i, j, dp):
     if dp[i][j] != -1:
         return dp[i][j]
 
-    # not take case
     if word1[i] == word2[j]:
         dp[i][j] = recur(word1, word2, i - 1, j - 1, dp)
         return dp[i][j]
     else:
-        replace = compare_string(i - 1, j - 1, word1, word2)
-        delete = compare_string(i - 1, j, word1, word2)
-        insert = compare_string(i, j - 1, word1, word2)
-        dp[i][j] = 1 + min(replace, delete, insert)
+        replace = 1 + compare_string(i - 1, j - 1, word1, word2)
+        delete = 1 + compare_string(i - 1, j, word1, word2)
+        insert = 1 + compare_string(i, j - 1, word1, word2)
+        dp[i][j] = min(replace, delete, insert)
         return dp[i][j]
 
 
