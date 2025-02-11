@@ -6,6 +6,8 @@ cost = [2, 5, 7, 8, 10]
 """
 cost is the market price for length of rod, for length 1 price 2, length 2 price 5 and so on...
 index+1 = rod length
+think like collecting rod length of different sizes till you reach the rod length.
+And while doing so keep maximazing the cost.
 """
 
 
