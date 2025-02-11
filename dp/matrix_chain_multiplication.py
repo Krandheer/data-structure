@@ -6,15 +6,13 @@ def mat_chain_mul_recursion(i, j, arr):
     if i == j:
         return 0
     min_steps = math.inf
-    # i = 0 to n-1, j = n-1 to 1, so for i == n and for j == n-1
     for k in range(i, j):
         steps = (
             arr[i - 1] * arr[k] * arr[j]
             + mat_chain_mul_recursion(i, k, arr)
             + mat_chain_mul_recursion(k + 1, j, arr)
         )
-        if steps < min_steps:
-            min_steps = steps
+        min_steps = min(steps, min_steps)
     return min_steps
 
 
@@ -30,16 +28,13 @@ def matrix_chain_mul_dp(i, j, arr, dp):
     min_steps = math.inf
     if dp[i][j] != -1:
         return dp[i][j]
-    # i = 0 to n - 1, j = n-1 to 1
     for k in range(i, j):
         steps = (
             arr[i - 1] * arr[k] * arr[j]
             + matrix_chain_mul_dp(i, k, arr, dp)
             + matrix_chain_mul_dp(k + 1, j, arr, dp)
         )
-        if steps < min_steps:
-            min_steps = steps
-        dp[i][j] = min_steps
+        dp[i][j] = min(steps, min_steps)
     return dp[i][j]
 
 
