@@ -7,7 +7,7 @@ def lis_recursion(index, prev_index, arr):
     """
     if index == len(arr):
         return 0
-    max_length = 0 + lis_recursion(index + 1, prev_index, arr)
+    max_length = lis_recursion(index + 1, prev_index, arr)
     if prev_index == -1 or arr[prev_index] < arr[index]:
         max_length = max(max_length, 1 + lis_recursion(index + 1, index, arr))
     return max_length
@@ -18,7 +18,7 @@ def lis(index, prev_index, arr, dp):
         return 0
     if dp[index][prev_index + 1] != -1:
         return dp[index][prev_index + 1]
-    max_length = 0 + lis(index + 1, prev_index, arr, dp)
+    max_length = lis(index + 1, prev_index, arr, dp)
     if prev_index == -1 or arr[prev_index] < arr[index]:
         max_length = max(max_length, 1 + lis(index + 1, index, arr, dp))
 
@@ -41,6 +41,6 @@ def list_bottom_up(nums):
 
 arr = [30, 2, 5, 7, 45, 8]
 print(lis_recursion(0, -1, arr))
-dp = [[-1] * len(arr) for i in range(len(arr) + 1)]
-print(lis(0, -1, arr, dp))
-print(list_bottom_up(arr))
+# dp = [[-1] * len(arr) for i in range(len(arr) + 1)]
+# print(lis(0, -1, arr, dp))
+# print(list_bottom_up(arr))
