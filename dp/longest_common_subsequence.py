@@ -1,12 +1,10 @@
-s1 = "adcbc"
-s2 = "adadb"
-
 """
-to get the longest common string convert the solution to bottom up, and start tracking from right bottom in table
-as that is where you get the solution and then move back to left up and find if match then take otherwise move to
-left or up whichever is highest as that is from where the current value must have come, and if match move diagonal
-up.
-for longest common substring start with n+1, m+1 table and fill if match with diagonal+1  or 0 and return max_val for table
+to get the longest common string convert the solution to bottom up, and start tracking 
+from right bottom in table as that is where you get the solution and then move back to 
+left up and find if match then take otherwise move to left or up whichever is highest 
+as that is from where the current value must have come, and if match move diagonal up.
+for longest common substring start with n+1, m+1 table and fill if match with diagonal+1  
+or 0 and return max_val for table
 """
 
 
@@ -23,6 +21,8 @@ def lcs(index1, index2, string1, string2):
         )
 
 
+s1 = "adcbc"
+s2 = "adadb"
 print(lcs(4, 4, s1, s2))
 
 
