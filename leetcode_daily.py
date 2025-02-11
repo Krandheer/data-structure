@@ -1039,3 +1039,10 @@ def clearDigits(s: str) -> str:
             while nearest_alpha > 0 and temp[nearest_alpha]:
                 nearest_alpha -= 1
     return "".join(s[i] for i in range(n) if not temp[i])
+
+
+def removeOccurrences(s: str, part: str) -> str:
+    while part in s:
+        start = s.index(part)
+        s = s[:start] + s[start + len(part) :]
+    return s
