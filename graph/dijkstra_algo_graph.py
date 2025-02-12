@@ -7,6 +7,7 @@ how bellman ford different, it relaxes all edges n-1 times. and it works only fo
 if after n-1 iterations still there is a change in distance means negative cycle exists.
 for bellman ford no need of any queue or heap, we simply do all n-1 iterations on all nodes and perform relaxation.
 """
+
 import math
 from heapq import heappop, heappush
 
@@ -21,7 +22,7 @@ def dikshatra(graph, visited, distance, start):
         for cdist, cnode in graph[node]:
             if not visited[cnode] and cdist + dist < distance[cnode]:
                 distance[cnode] = cdist + dist
-                heappush(bag, [cdist + distance[node], cnode])
+                heappush(bag, [cdist + dist, cnode])
 
 
 ipt = [
