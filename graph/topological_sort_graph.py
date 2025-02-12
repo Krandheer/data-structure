@@ -9,11 +9,13 @@ kahn algorithm uses this concept of indegree to do topological sorting.
 
 If length of graph and topological sort is not same then that means cycle
 exists.
+
+this could also be used to detect cycle and edges present in cycle,
+after kahn algo completes, the node which are not visited or whose indegree is not 0
+will be there in cycle.
+
 """
 
-# this could also be used to detect cycle and edges present in cycle,
-# after kahn algo completes, the node which are not visited or whose indegree is not 0
-# will be there in cycle.
 from collections import deque
 
 
