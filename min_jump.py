@@ -1,8 +1,8 @@
 def jump(nums):
     """
-    trying to find the farthest distance from a range of indices, where r is the highest end of range
-    and l is the lowest end of range, and number of jump to reach a range is one as we will consider on
-    index out of those range in final path.
+    trying to find the farthest distance from a range of indices, where r is the highest
+    end of range and l is the lowest end of range, and number of jump to reach a range
+    is one as we will consider on index out of those range in final path.
     """
 
     res = 0
