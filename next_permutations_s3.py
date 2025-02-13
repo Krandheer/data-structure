@@ -3,7 +3,6 @@ from typing import List
 
 def nextPermutation(nums: List[int]) -> None:
     """
-    dsa ->3, day2
     Do not return anything, modify nums in-place instead.
     """
     is_modified = False

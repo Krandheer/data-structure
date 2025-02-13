@@ -1,4 +1,4 @@
-# minimum insertion need to convert given string to palindrome
+# minimum insertion needed to convert given string to palindrome
 def minimum_insertion_to_palindrome(index, ipt):
     def helper(index1, index2, ipt, ipt2):
         if index1 < 0 or index2 < 0:
