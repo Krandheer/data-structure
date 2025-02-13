@@ -1,5 +1,4 @@
 def productExceptSelf(nums):
-    """leetcode 238"""
     prefix = []
     suffix = [0] * len(nums)
     ans = []
