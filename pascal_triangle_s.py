@@ -1,8 +1,7 @@
-from typing import *
+from typing import List
 
 
 def generate(numRows: int) -> List[List[int]]:
-    """dsa ->2"""
     pascal = [[1]]
     if numRows == 2:
         pascal.append([1, 1])
