@@ -3,7 +3,6 @@ from typing import List
 
 def maxSubArray(nums: List[int]) -> int:
     """
-    dsa -> s4, day2
     find the subarray with maximum sum
     """
     if max(nums) < 0:
