@@ -22,17 +22,6 @@ def shortest_subarray(nums: List[int], k: int) -> int:
             q.pop()
         q.append(i)
     print(f"total operations: {operations}")
-
-    # operations2 = 0
-    # for i in range(1, n+1):
-    #     j = 0
-    #     while j <= i:
-    #         operations2 += 1
-    #         if pre[i]-pre[j]>=k:
-    #             min_len = min(min_len, i-j)
-    #         j+=1
-    # print(f"total operations2: {operations2}")
-
     return min_len if min_len <= n else -1
 
 
