@@ -1,6 +1,8 @@
-def find_champion(self, n: int, edges: List[List[int]]) -> int:
-    """leetcode 2924
-    """
+from typing import List
+
+
+def find_champion(n: int, edges: List[List[int]]) -> int:
+    """leetcode 2924"""
     incoming = [0] * n
     for _, d in edges:
         incoming[d] += 1
