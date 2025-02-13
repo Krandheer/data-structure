@@ -33,7 +33,7 @@ def level_order(root):
     return result
 
 
-# level order traversal is also can be called as breath first search/bfs.
+# level order traversal can also be called as breath first search/bfs.
 def level_order2(root):
     if not root:
         return
