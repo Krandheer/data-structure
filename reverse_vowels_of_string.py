@@ -1,5 +1,4 @@
 def reverseVowels(s):
-    """leetcode 345"""
     vow = ""
     for i in range(len(s)):
         if s[i] in ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]:
