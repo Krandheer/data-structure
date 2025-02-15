@@ -1062,3 +1062,39 @@ class Solution:
             else:
                 break
         return ans
+
+
+def punishmentNumber(n: int) -> int:
+    def is_valid(start, curr_sum, target, string):
+        if start == len(string) and curr_sum == target:
+            return True
+        for i in range(start, len(string)):
+            if is_valid(i + 1, curr_sum + int(string[start : i + 1]), target, string):
+                return True
+        return False
+
+    ans = 0
+    for i in range(1, n + 1):
+        if is_valid(0, 0, i, str(i * i)):
+            ans += i * i
+
+    return ans
+
+
+def sumOfGoodNumbers(nums: List[int], k: int) -> int:
+    n = len(nums)
+    ans = 0
+    for ind, num in enumerate(nums):
+        left_exists = ind - k >= 0
+        right_exists = ind + k < n
+        if not left_exists and not right_exists:
+            ans += num
+        elif not left_exists and right_exists:
+            if num > nums[ind + k]:
+                ans += num
+        elif not right_exists and left_exists:
+            if num > nums[ind - k]:
+                ans += num
+        elif num > nums[ind - k] and num > nums[ind + k]:
+            ans += num
+    return ans
