@@ -1046,3 +1046,19 @@ def removeOccurrences(s: str, part: str) -> str:
         start = s.index(part)
         s = s[:start] + s[start + len(part) :]
     return s
+
+
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        heapq.heapify(nums)
+        ans = 0
+        for i in range(len(nums)):
+            x = heapq.heappop(nums)
+            if x < k:
+                y = heapq.heappop(nums)
+                ans += 1
+                temp = min(x, y) * 2 + max(x, y)
+                heapq.heappush(nums, temp)
+            else:
+                break
+        return ans
