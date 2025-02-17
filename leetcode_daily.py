@@ -1098,3 +1098,24 @@ def sumOfGoodNumbers(nums: List[int], k: int) -> int:
         elif num > nums[ind - k] and num > nums[ind + k]:
             ans += num
     return ans
+
+
+def solve(n, tiles, used, result, string):
+    result.add(string)
+    for i in range(n):
+        if used[i]:
+            continue
+        used[i] = True
+        solve(n, tiles, used, result, string + tiles[i])
+        used[i] = False
+
+
+def numTilePossibilities(tiles: str) -> int:
+    n = len(tiles)
+    used = defaultdict(bool)
+    result = set()
+    solve(n, tiles, used, result, "")
+    return len(result) - 1
+
+
+print(numTilePossibilities("CDC"))
