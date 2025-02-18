@@ -1118,4 +1118,32 @@ def numTilePossibilities(tiles: str) -> int:
     return len(result) - 1
 
 
-print(numTilePossibilities("CDC"))
+def smallestNumber(pattern: str):
+    used = [False] * 10
+    result = []
+
+    def helper(curr_position, pattern):
+        if curr_position == len(pattern) + 1:
+            return True
+        for i in range(1, 10):
+            if used[i]:
+                continue
+            if curr_position > 0:
+                if pattern[curr_position - 1] == "D" and result[-1] <= i:
+                    continue
+                if pattern[curr_position - 1] == "I" and result[-1] >= i:
+                    continue
+
+            used[i] = True
+            result.append(i)
+            if helper(curr_position + 1, pattern):
+                return True
+            result.pop()
+            used[i] = False
+        return False
+
+    if helper(0, pattern):
+        return "".join(str(i) for i in result)
+
+
+print(smallestNumber("DDD"))
