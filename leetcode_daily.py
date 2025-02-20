@@ -1,6 +1,8 @@
+from gettext import find
 import heapq
 from collections import Counter, defaultdict, deque
 import math
+from operator import ge
 import re
 from typing import List
 
@@ -1146,4 +1148,40 @@ def smallestNumber(pattern: str):
         return "".join(str(i) for i in result)
 
 
-print(smallestNumber("DDD"))
+def getHappyString(n: int, k: int):
+    string = ["a", "b", "c"]
+    result = []
+
+    def helper(curr_string):
+        if len(curr_string) == n:
+            result.append(curr_string)
+            return
+        for s in string:
+            if not curr_string or s != curr_string[-1]:
+                helper(curr_string + s)
+
+    helper("")
+    if k > len(result):
+        return ""
+    return result[k - 1]
+
+
+def findDifferentBinaryString(nums: List[str]):
+    lookup = Counter(nums)
+    n = len(nums)
+
+    def helper(p):
+        if len(p) == n and p not in lookup:
+            return p
+        if len(p) > n:
+            return
+        for i in range(n):
+            for j in range(2):
+                ans = helper(p + str(j))
+                if ans:
+                    return ans
+
+    return helper("")
+
+
+print(findDifferentBinaryString(["00", "01"]))
