@@ -1182,6 +1182,3 @@ def findDifferentBinaryString(nums: List[str]):
                     return ans
 
     return helper("")
-
-
-print(findDifferentBinaryString(["00", "01"]))
