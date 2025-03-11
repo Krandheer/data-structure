@@ -1182,3 +1182,19 @@ def findDifferentBinaryString(nums: List[str]):
                     return ans
 
     return helper("")
+
+
+def numberOfSubstrings(s: str) -> int:
+    track = defaultdict(int)
+    ans = 0
+    i, j = 0, 0
+    while i <= j < len(s):
+        track[s[j]] += 1
+        while len(track) == 3:
+            ans += len(s) - j
+            track[s[i]] -= 1
+            if track[s[i]] == 0:
+                del track[s[i]]
+            i += 1
+        j += 1
+    return ans
