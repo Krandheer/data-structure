@@ -1218,3 +1218,25 @@ def minZeroArray(nums: List[int], queries: List[List[int]]) -> int:
         total_sum += difference_array[index]
 
     return k
+
+
+def maximumCandies(candies: List[int], k: int) -> int:
+    def is_possible(mid):
+        max_children = 0
+        for candy in candies:
+            max_children += candy // mid
+        return max_children >= k
+
+    left, right = 0, max(candies)
+    while left < right:
+        mid = (left + right + 1) // 2
+        if is_possible(mid):
+            left = mid
+        else:
+            right = mid - 1
+    return left
+
+
+# [8, 8, 8, 8, 8]
+
+print(maximumCandies([4, 7, 5], 4))
