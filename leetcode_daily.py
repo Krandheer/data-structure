@@ -1237,6 +1237,30 @@ def maximumCandies(candies: List[int], k: int) -> int:
     return left
 
 
-# [8, 8, 8, 8, 8]
+class Solution:
+    def minCapability(self, nums: List[int], k: int) -> int:
+        left, right = min(nums), max(nums)
 
-print(maximumCandies([4, 7, 5], 4))
+        def canPick(mid):
+            """Check if we can pick k elements where max value ≤ mid."""
+            count = 0
+            i = 0
+            while i < len(nums):
+                if nums[i] <= mid:
+                    count += 1
+                    i += 1
+                i += 1
+            return count >= k
+
+        while left < right:
+            mid = (left + right) // 2
+            if canPick(mid):
+                right = mid
+            else:
+                left = mid + 1
+
+        return left
+
+
+sol = Solution()
+print(sol.minCapability([2, 3, 5, 9], 2))
