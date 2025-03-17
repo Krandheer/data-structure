@@ -1,6 +1,6 @@
 def rob(nums):
     n = len(nums)
-    if nums is None or n == 0:
+    if not nums:
         return 0
     if n == 1:
         return nums[0]
