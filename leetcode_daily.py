@@ -1262,5 +1262,28 @@ class Solution:
         return left
 
 
-sol = Solution()
-print(sol.minCapability([2, 3, 5, 9], 2))
+def repairCars(ranks: List[int], cars: int) -> int:
+    r = max(ranks) * cars * cars
+    l = 0
+
+    def is_possible(mid):
+        car_fixed = 0
+        for rank in ranks:
+            car_fixed += math.floor(math.sqrt(mid / rank))
+        return car_fixed >= cars
+
+    while l <= r:
+        mid = (l + r) // 2
+        if is_possible(mid):
+            r = mid - 1
+        else:
+            l = mid + 1
+    return l
+
+
+def divideArray(nums: List[int]) -> bool:
+    temp = Counter(nums)
+    for _, v in temp.items():
+        if v & 1:
+            return False
+    return True
