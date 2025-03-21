@@ -1050,8 +1050,7 @@ def removeOccurrences(s: str, part: str) -> str:
     return s
 
 
-class Solution:
-    def minOperations(self, nums: List[int], k: int) -> int:
+def minOperations_1(self, nums: List[int], k: int) -> int:
         heapq.heapify(nums)
         ans = 0
         for i in range(len(nums)):
@@ -1287,3 +1286,20 @@ def divideArray(nums: List[int]) -> bool:
         if v & 1:
             return False
     return True
+
+
+# tag: bit manipulation, https://leetcode.com/problems/longest-nice-subarray
+def longestNiceSubarray(self, nums: list[int]) -> int:
+    used_bits = 0
+    window_start = 0
+    max_length = 0
+
+    for window_end in range(len(nums)):
+        while used_bits & nums[window_end] != 0:
+            used_bits ^= nums[window_start]
+            window_start += 1
+
+        used_bits |= nums[window_end]
+        max_length = max(max_length, window_end - window_start + 1)
+
+    return max_length
