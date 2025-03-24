@@ -1051,18 +1051,18 @@ def removeOccurrences(s: str, part: str) -> str:
 
 
 def minOperations_1(self, nums: List[int], k: int) -> int:
-        heapq.heapify(nums)
-        ans = 0
-        for i in range(len(nums)):
-            x = heapq.heappop(nums)
-            if x < k:
-                y = heapq.heappop(nums)
-                ans += 1
-                temp = min(x, y) * 2 + max(x, y)
-                heapq.heappush(nums, temp)
-            else:
-                break
-        return ans
+    heapq.heapify(nums)
+    ans = 0
+    for i in range(len(nums)):
+        x = heapq.heappop(nums)
+        if x < k:
+            y = heapq.heappop(nums)
+            ans += 1
+            temp = min(x, y) * 2 + max(x, y)
+            heapq.heappush(nums, temp)
+        else:
+            break
+    return ans
 
 
 def punishmentNumber(n: int) -> int:
@@ -1294,12 +1294,12 @@ def longestNiceSubarray(self, nums: list[int]) -> int:
     window_start = 0
     max_length = 0
 
-    for window_end in range(len(nums)):
-        while used_bits & nums[window_end] != 0:
+    for index, num in enumerate(nums):
+        while used_bits & num != 0:
             used_bits ^= nums[window_start]
             window_start += 1
 
-        used_bits |= nums[window_end]
-        max_length = max(max_length, window_end - window_start + 1)
+        used_bits |= num
+        max_length = max(max_length, index - window_start + 1)
 
     return max_length
