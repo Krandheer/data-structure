@@ -1,9 +1,6 @@
-from gettext import find
 import heapq
 from collections import Counter, defaultdict, deque
 import math
-from operator import ge
-import re
 from typing import List
 
 
@@ -1289,7 +1286,7 @@ def divideArray(nums: List[int]) -> bool:
 
 
 # tag: bit manipulation, https://leetcode.com/problems/longest-nice-subarray
-def longestNiceSubarray(self, nums: list[int]) -> int:
+def longestNiceSubarray(nums: list[int]) -> int:
     used_bits = 0
     window_start = 0
     max_length = 0
