@@ -1301,12 +1301,13 @@ def longestNiceSubarray(nums: list[int]) -> int:
 
     return max_length
 
+
 def partitionArray(nums: List[int], k: int) -> int:
     nums.sort()
     ans = 0
     low = nums[0]
     for i in range(1, len(nums)):
-        if abs(nums[i]-low)>k:
-            ans+=1
+        if abs(nums[i] - low) > k:
+            ans += 1
             low = nums[i]
-    return ans+1
+    return ans + 1
