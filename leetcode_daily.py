@@ -1233,29 +1233,28 @@ def maximumCandies(candies: List[int], k: int) -> int:
     return left
 
 
-class Solution:
-    def minCapability(self, nums: List[int], k: int) -> int:
-        left, right = min(nums), max(nums)
+def minCapability(self, nums: List[int], k: int) -> int:
+    left, right = min(nums), max(nums)
 
-        def canPick(mid):
-            """Check if we can pick k elements where max value ≤ mid."""
-            count = 0
-            i = 0
-            while i < len(nums):
-                if nums[i] <= mid:
-                    count += 1
-                    i += 1
+    def canPick(mid):
+        """Check if we can pick k elements where max value ≤ mid."""
+        count = 0
+        i = 0
+        while i < len(nums):
+            if nums[i] <= mid:
+                count += 1
                 i += 1
-            return count >= k
+            i += 1
+        return count >= k
 
-        while left < right:
-            mid = (left + right) // 2
-            if canPick(mid):
-                right = mid
-            else:
-                left = mid + 1
+    while left < right:
+        mid = (left + right) // 2
+        if canPick(mid):
+            right = mid
+        else:
+            left = mid + 1
 
-        return left
+    return left
 
 
 def repairCars(ranks: List[int], cars: int) -> int:
@@ -1311,3 +1310,61 @@ def partitionArray(nums: List[int], k: int) -> int:
             ans += 1
             low = nums[i]
     return ans + 1
+
+
+def genrateTag(caption: str) -> str:
+    result = ["#"]
+    words = caption.split()
+    for ind, word in enumerate(words):
+        if ind == 0:
+            result.append(word[0].lower() + word[1:].lower())
+        result.append(word[0].upper() + word[1:].lower())
+
+    return "".join(result)
+
+
+class Solution:
+    def primeSubarray(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        prime_cache = {}
+
+        def is_prime_cached(num):
+            if num not in prime_cache:
+                prime_cache[num] = self.is_prime(num)
+            return prime_cache[num]
+
+        ans = 0
+
+        for i in range(n):
+            primes = []
+            for j in range(i, n):
+                if is_prime_cached(nums[j]):
+                    primes.append(nums[j])
+
+                if len(primes) >= 2:
+                    min_prime = min(primes)
+                    max_prime = max(primes)
+
+                    if max_prime - min_prime <= k:
+                        ans += 1
+                    else:
+                        break
+
+        return ans
+
+    def is_prime(self, n):
+        if n < 2:
+            return False
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+
+        for i in range(3, int(n**0.5) + 1, 2):
+            if n % i == 0:
+                return False
+        return True
+
+
+c = Solution()
+print(c.primeSubarray([49787, 16741, 41203], 42840))
