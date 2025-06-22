@@ -1366,5 +1366,17 @@ class Solution:
         return True
 
 
-c = Solution()
-print(c.primeSubarray([49787, 16741, 41203], 42840))
+def divideString(s: str, k: int, fill: str) -> List[str]:
+    i, j = 0, k
+    ans = []
+    while i < len(s):
+        temp = s[i:j]
+        if len(temp) < k:
+            temp = temp + fill * (k - len(temp))
+        ans.append(temp)
+        i = j
+        j += k
+    return ans
+
+
+print(divideString("abcdefghij", 3, "x"))
