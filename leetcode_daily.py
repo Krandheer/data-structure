@@ -1379,4 +1379,34 @@ def divideString(s: str, k: int, fill: str) -> List[str]:
     return ans
 
 
-print(divideString("abcdefghij", 3, "x"))
+def kMirror(k: int, n: int):
+    def is10mirror(i):
+        if i.toString() == i.toString()[::-1]:
+            return True
+        return False
+
+    def checkKmirror(i, k):
+        num = 0
+        base = 1
+        while i > 0:
+            digit = i % k
+            num += digit * base
+            base *= 10
+            i //= k
+        return str(num) == str(num)[::-1]
+
+    count = 0
+    ans = 0
+    i = 1
+    while count < n:
+        if is10mirror(i) and checkKmirror(i, k):
+            count += 1
+            ans += i
+        i += 1
+    return ans
+
+
+def max_subsequence(nums: List[int], k: int) -> List[int]:
+    sorted_nums = sorted(enumerate(nums), key=lambda x: x[1])
+    res = [x for i, x in sorted(sorted_nums[-k:])]
+    return res
