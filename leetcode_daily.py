@@ -1416,9 +1416,7 @@ def max_subsequence(nums: List[int], k: int) -> List[int]:
 def num_subsequences(nums: List[int], target: int) -> int:
     nums.sort()
     ans = 0
-
     n = len(nums)
-
     for i in range(n):
         low = nums[i]
         high = target - low
