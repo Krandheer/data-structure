@@ -1,3 +1,4 @@
+import bisect
 import heapq
 from collections import Counter, defaultdict, deque
 import math
@@ -1410,3 +1411,22 @@ def max_subsequence(nums: List[int], k: int) -> List[int]:
     sorted_nums = sorted(enumerate(nums), key=lambda x: x[1])
     res = [x for i, x in sorted(sorted_nums[-k:])]
     return res
+
+
+def num_subsequences(nums: List[int], target: int) -> int:
+    nums.sort()
+    ans = 0
+
+    n = len(nums)
+
+    for i in range(n):
+        low = nums[i]
+        high = target - low
+        high_index = bisect.bisect_right(nums, high) - 1
+        if high_index < i:
+            continue
+        ans += 2 ** (high_index - i)
+    return ans % (10**9 + 7)
+
+
+print(num_subsequences([2, 3, 3, 4, 6, 7], 12))
