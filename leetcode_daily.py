@@ -1416,14 +1416,12 @@ def max_subsequence(nums: List[int], k: int) -> List[int]:
 def num_subsequences(nums: List[int], target: int) -> int:
     nums.sort()
     ans = 0
-    n = len(nums)
-    for i in range(n):
-        low = nums[i]
-        high = target - low
+    for ind, num in enumerate(nums):
+        high = target - num
         high_index = bisect.bisect_right(nums, high) - 1
-        if high_index < i:
+        if high_index < ind:
             continue
-        ans += 2 ** (high_index - i)
+        ans += 2 ** (high_index - ind)
     return ans % (10**9 + 7)
 
 
