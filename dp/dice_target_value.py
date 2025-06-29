@@ -3,7 +3,7 @@ Find the way to get the to the particular number on dice
 """
 
 
-# recursion
+# Recursion
 def dice(pat, target):
     if target == 0:
         print(pat)
