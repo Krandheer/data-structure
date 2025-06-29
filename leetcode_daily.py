@@ -1425,4 +1425,19 @@ def num_subsequences(nums: List[int], target: int) -> int:
     return ans % (10**9 + 7)
 
 
-print(num_subsequences([2, 3, 3, 4, 6, 7], 12))
+def partitionString(s: str) -> List[str]:
+    seen = set()
+    ans = []
+    i = 0
+    temp = []
+    while i < len(s):
+        temp.append(s[i])
+        if "".join(temp) not in seen:
+            seen.add("".join(temp))
+            ans.append("".join(temp))
+            temp = []
+        i += 1
+    return ans
+
+
+print(partitionString("abbccccd"))
