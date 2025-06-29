@@ -1,8 +1,9 @@
 """
-recursion solution to find the way to get the to the particular number on dice
+Find the way to get the to the particular number on dice
 """
 
 
+# recursion
 def dice(pat, target):
     if target == 0:
         print(pat)
@@ -15,13 +16,11 @@ def dice2(pat, target, result=[]):
         result.append(pat)
     for i in range(1, target + 1):
         dice2(pat + str(i), target - i, result)
-    # print(len(result))
     return result
 
 
-# dice("", 4)
-# print(dice2("", 4, []))
-# print(dice2("", 4, []))
+dice("", 4)
+print(dice2("", 4, []))
 
 
 def coin_sum(coins, index, target):
@@ -55,9 +54,9 @@ def coin_sum_dp(coins, index, target, dp):
     return dp[index][target]
 
 
-coins = [1, 2, 3]
-target = 4
-# 1111, 112, 121, 13, 211, 22, 31
-dp = [[-1] * (target + 1) for _ in range(len(coins))]
-print(coin_sum(coins, len(coins) - 1, target))
-print(coin_sum_dp(coins, len(coins) - 1, target, dp))
+# coins = [1, 2, 3]
+# target = 4
+# # 1111, 112, 121, 13, 211, 22, 31
+# dp = [[-1] * (target + 1) for _ in range(len(coins))]
+# print(coin_sum(coins, len(coins) - 1, target))
+# print(coin_sum_dp(coins, len(coins) - 1, target, dp))
