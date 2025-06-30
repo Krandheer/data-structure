@@ -15,7 +15,7 @@ def maxprofit_recursion(price, index, buy):
             maxprofit_recursion(price, index + 1, 1),
         )
     return max(
-        +price[index] + maxprofit_recursion(price, index + 1, 1),
+        price[index] + maxprofit_recursion(price, index + 1, 1),
         maxprofit_recursion(price, index + 1, 0),
     )
 
