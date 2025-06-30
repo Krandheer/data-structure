@@ -11,11 +11,11 @@ def maxprofit_recursion(price, index, buy):
         return 0
     if buy:
         return max(
-            price[index] + maxprofit_recursion(price, index + 1, 0),
+            -price[index] + maxprofit_recursion(price, index + 1, 0),
             maxprofit_recursion(price, index + 1, 1),
         )
     return max(
-        -price[index] + maxprofit_recursion(price, index + 1, 1),
+        +price[index] + maxprofit_recursion(price, index + 1, 1),
         maxprofit_recursion(price, index + 1, 0),
     )
 
@@ -23,7 +23,7 @@ def maxprofit_recursion(price, index, buy):
 def max_profit(prices) -> int:
     """returns max profit"""
     dp = [[-1, -1] for _ in range(len(prices))]
-    return helper(prices, 0, 0, dp)
+    return helper(prices, 0, 1, dp)
 
 
 def helper(prices, index, buy, dp):
@@ -33,12 +33,12 @@ def helper(prices, index, buy, dp):
         return dp[index][buy]
     if not buy:
         dp[index][buy] = max(
-            -prices[index] + helper(prices, index + 1, 1, dp),
+            prices[index] + helper(prices, index + 1, 1, dp),
             helper(prices, index + 1, 0, dp),
         )
     elif buy:
         dp[index][buy] = max(
-            prices[index] + helper(prices, index + 1, 0, dp),
+            -prices[index] + helper(prices, index + 1, 0, dp),
             helper(prices, index + 1, 1, dp),
         )
     return dp[index][buy]
@@ -47,7 +47,7 @@ def helper(prices, index, buy, dp):
 ipt = [7, 1, 5, 3, 6, 4]
 # print(max_profit([4, 9, 0, 4, 10]))
 now = time.time()
-print(maxprofit_recursion(ipt, 0, 0))
+print(maxprofit_recursion(ipt, 0, 1))
 print("Time taken for recursion:", time.time() - now)
 now = time.time()
 print(max_profit(ipt))
