@@ -2,6 +2,61 @@
 Find the way to get the to the particular number on dice
 """
 
+# recursion
+import time
+
+
+def dice_rolls(target):
+    if target == 0:
+        return 1
+    if target < 0:
+        return 0
+
+    total_ways = 0
+    for i in range(1, 7):
+        total_ways += dice_rolls(target - i)
+    return total_ways
+
+
+# memoization
+def dice_rolls_memo(target, memo):
+    if target == 0:
+        return 1
+    if target < 0:
+        return 0
+    if memo[target] != -1:
+        return memo[target]
+
+    total_ways = 0
+    for i in range(1, 7):
+        total_ways += dice_rolls_memo(target - i, memo)
+
+    memo[target] = total_ways
+    return total_ways
+
+
+# bottom up dp
+def dice_rolls_dp(target):
+    dp = [0] * (target + 1)
+    dp[0] = 1
+    for i in range(1, target + 1):
+        for j in range(1, 7):
+            if i - j >= 0:
+                dp[i] += dp[i - j]
+    return dp[target]
+
+
+now = time.time()
+print(dice_rolls(25))
+print("Time taken (recursion):", time.time() - now)
+now = time.time()
+memo = [-1] * 26
+print(dice_rolls_memo(25, memo))
+print("Time taken (memoization):", time.time() - now)
+now = time.time()
+print(dice_rolls_dp(25))
+print("Time taken (bottom up dp):", time.time() - now)
+
 
 # Recursion
 def dice(pat, target):
@@ -19,8 +74,8 @@ def dice2(pat, target, result=[]):
     return result
 
 
-dice("", 4)
-print(dice2("", 4, []))
+# dice("", 4)
+# print(dice2("", 4, []))
 
 
 def coin_sum(coins, index, target):
