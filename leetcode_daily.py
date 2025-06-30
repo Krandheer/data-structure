@@ -1440,4 +1440,15 @@ def partitionString(s: str) -> List[str]:
     return ans
 
 
-print(partitionString("abbccccd"))
+def find_LHS(nums: List[int]) -> int:
+    nums.sort()
+    has = {}
+    for i, n in enumerate(nums):
+        has[n] = i
+
+    n = len(nums)
+    max_len = 0
+    for ind, num in enumerate(nums):
+        if num + 1 in has:
+            max_len = max(max_len, has[num + 1] - ind + 1)
+    return max_len
