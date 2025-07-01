@@ -1452,3 +1452,14 @@ def find_LHS(nums: List[int]) -> int:
         if num + 1 in has:
             max_len = max(max_len, has[num + 1] - ind + 1)
     return max_len
+
+
+def possibleStringCount(word: str) -> int:
+    ans = 1
+    prev = ""
+    for ch in word:
+        if ch != prev:
+            prev = ch
+        else:
+            ans += 1
+    return ans
