@@ -1463,3 +1463,78 @@ def possibleStringCount(word: str) -> int:
         else:
             ans += 1
     return ans
+
+
+def possibleStringCount2(word: str, k: int) -> int:
+    def helper(index, prev, curr, ans, total):
+        if index >= len(word):
+            return
+        if curr == prev:
+            ans += 1
+            if ans >= k:
+                total += 1
+            helper(index + 1, curr, word[index], ans, total)
+            ans -= 1
+            helper(index + 1, curr, word[index], ans, total)
+        else:
+            ans += 1
+            if ans >= k:
+                total += 1
+            helper(index + 1, curr, word[index], ans, total)
+
+    total = 0
+    prev = ""
+    curr = word[0]
+    ans = 0
+    index = 0
+    helper(index, prev, curr, ans, total)
+    return total
+
+
+def findWords(words: List[str]) -> List[str]:
+    first = "qwertyuiop"
+    second = "asdfghjkl"
+    third = "zxcvbnm"
+    ans = []
+
+    def check(word):
+        check = -1
+        for ch in word:
+            ch = ch.lower()
+            if ch in first:
+                temp = check
+                check = 0
+                if temp != -1 and temp != check:
+                    return False
+            if ch in second:
+                temp = check
+                check = 1
+                if temp != -1 and temp != check:
+                    return False
+            if ch in third:
+                temp = check
+                check = 2
+                if temp != -1 and temp != check:
+                    return False
+        return True
+
+    for word in words:
+        take = check(word)
+        if take:
+            ans.append(word)
+    return ans
+
+
+def finalString(s: str) -> str:
+    temp = []
+    for ind, ch in enumerate(s):
+        if ch == "i":
+            temp.append(ind)
+
+    for ind, i in enumerate(temp):
+        i = i - ind
+        s = s[:i][::-1] + s[i + 1 :]
+    return s
+
+
+# print(possibleStringCount2("aabbccdd", 7))
