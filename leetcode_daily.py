@@ -2,7 +2,10 @@ import bisect
 import heapq
 from collections import Counter, defaultdict, deque
 import math
+from operator import le
 from typing import List
+
+from matplotlib.dates import MO
 
 
 def find_minimumTime(strength: List[int], K: int) -> int:
@@ -1465,32 +1468,6 @@ def possibleStringCount(word: str) -> int:
     return ans
 
 
-def possibleStringCount2(word: str, k: int) -> int:
-    def helper(index, prev, curr, ans, total):
-        if index >= len(word):
-            return
-        if curr == prev:
-            ans += 1
-            if ans >= k:
-                total += 1
-            helper(index + 1, curr, word[index], ans, total)
-            ans -= 1
-            helper(index + 1, curr, word[index], ans, total)
-        else:
-            ans += 1
-            if ans >= k:
-                total += 1
-            helper(index + 1, curr, word[index], ans, total)
-
-    total = 0
-    prev = ""
-    curr = word[0]
-    ans = 0
-    index = 0
-    helper(index, prev, curr, ans, total)
-    return total
-
-
 def findWords(words: List[str]) -> List[str]:
     first = "qwertyuiop"
     second = "asdfghjkl"
@@ -1537,4 +1514,24 @@ def finalString(s: str) -> str:
     return s
 
 
-# print(possibleStringCount2("aabbccdd", 7))
+def possibleStringCount2(word: str, k: int) -> int:
+    groups = []
+    count = 0
+    prev = word[0]
+    for curr in word:
+        if curr == prev:
+            count += 1
+        else:
+            groups.append(count)
+            count = 1
+            prev = curr
+    groups.append(count)
+    n = len(groups)
+    if k <= n:
+        prod = 1
+        for i in groups:
+            prod *= i
+        return prod
+
+
+print(possibleStringCount2("aabbccdd", 7))
