@@ -1534,4 +1534,18 @@ def possibleStringCount2(word: str, k: int) -> int:
         return prod
 
 
-print(possibleStringCount2("aabbccdd", 7))
+def kthCharacter(k: int, operations: List[int]) -> str:
+    def find_upper_bound(k):
+        upper_bound = 0
+        temp = 1
+        while temp < k:
+            temp *= 2
+            upper_bound += 1
+        return upper_bound
+
+    change = 0
+    while k > 1:
+        upper_bound = find_upper_bound(k)
+        change += operations[upper_bound - 1]
+        k = k - (2 ** (upper_bound - 1))
+    return chr(change % 26 + 97)
