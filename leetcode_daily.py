@@ -1514,26 +1514,6 @@ def finalString(s: str) -> str:
     return s
 
 
-def possibleStringCount2(word: str, k: int) -> int:
-    groups = []
-    count = 0
-    prev = word[0]
-    for curr in word:
-        if curr == prev:
-            count += 1
-        else:
-            groups.append(count)
-            count = 1
-            prev = curr
-    groups.append(count)
-    n = len(groups)
-    if k <= n:
-        prod = 1
-        for i in groups:
-            prod *= i
-        return prod
-
-
 def kthCharacter(k: int, operations: List[int]) -> str:
     def find_upper_bound(k):
         upper_bound = 0
