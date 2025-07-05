@@ -2,10 +2,7 @@ import bisect
 import heapq
 from collections import Counter, defaultdict, deque
 import math
-from operator import le
 from typing import List
-
-from matplotlib.dates import MO
 
 
 def find_minimumTime(strength: List[int], K: int) -> int:
