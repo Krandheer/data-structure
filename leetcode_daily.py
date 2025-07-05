@@ -1529,3 +1529,13 @@ def kthCharacter(k: int, operations: List[int]) -> str:
         change += operations[upper_bound - 1]
         k = k - (2 ** (upper_bound - 1))
     return chr(change % 26 + 97)
+
+
+def findLucky(arr: List[int]) -> int:
+    freq = Counter(arr)
+    ans = -1
+    for v, f in freq.items():
+        if v == f and v > ans:
+            ans = v
+
+    return ans
