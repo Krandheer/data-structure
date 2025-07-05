@@ -1531,7 +1531,7 @@ def kthCharacter(k: int, operations: List[int]) -> str:
     return chr(change % 26 + 97)
 
 
-def findLucky(arr: List[int]) -> int:
+def find_lucky(arr: List[int]) -> int:
     freq = Counter(arr)
     ans = -1
     for v, f in freq.items():
