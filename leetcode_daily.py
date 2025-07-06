@@ -1536,3 +1536,28 @@ def find_lucky(arr: List[int]) -> int:
             ans = v
 
     return ans
+
+
+# leetcode 1865, potd
+class FindSumPairs:
+    def __init__(self, nums1: List[int], nums2: List[int]):
+        self.nums1 = nums1
+        self.nums2 = nums2
+        self.freq = Counter(nums2)
+
+    def add(self, index: int, val: int) -> None:
+        temp = self.nums2[index]
+        self.nums2[index] += val
+        if temp + val not in self.freq:
+            self.freq[temp + val] = 1
+        else:
+            self.freq[temp + val] += 1
+        self.freq[temp] -= 1
+
+    def count(self, tot: int) -> int:
+        count = 0
+        for i in self.nums1:
+            if tot - i in self.freq:
+                count += self.freq[tot - i]
+
+        return count
