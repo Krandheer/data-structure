@@ -1575,3 +1575,40 @@ def countKDifference(nums: List[int], k: int) -> int:
                 if i > ind:
                     ans += 1
     return ans
+
+
+# quite interesting problem, lc 2563, fair pairs
+"""
+Given a 0-indexed integer array nums of size n and two integers lower and upper, 
+return the number of fair pairs.
+A pair (i, j) is fair if:
+    1. 0 <= i < j < n, and
+    2. lower <= nums[i] + nums[j] <= upper
+
+first condition doesn't matter as sum is associative. So we can do sorting.
+Then use two pointers approach twice, first find all pair which are less than upper bound
+and then find all pair which are less than lower bound and then we are done.
+"""
+
+
+def countFairPairs(nums: List[int], lower: int, upper: int) -> int:
+    nums.sort()
+
+    left, right = 0, len(nums) - 1
+    count_within_upper = 0
+    while left < right:
+        if nums[left] + nums[right] <= upper:
+            count_within_upper += right - left
+            left += 1
+        else:
+            right -= 1
+
+    left, right = 0, len(nums) - 1
+    count_below_lower = 0
+    while left < right:
+        if nums[left] + nums[right] < lower:
+            count_below_lower += right - left
+            left += 1
+        else:
+            right -= 1
+    return count_within_upper - count_below_lower
