@@ -1559,5 +1559,4 @@ class FindSumPairs:
         for i in self.nums1:
             if tot - i in self.freq:
                 count += self.freq[tot - i]
-
         return count
