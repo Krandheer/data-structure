@@ -1560,3 +1560,18 @@ class FindSumPairs:
             if tot - i in self.freq:
                 count += self.freq[tot - i]
         return count
+
+
+def countKDifference(nums: List[int], k: int) -> int:
+    nums.sort()
+    freq = defaultdict(list)
+    for ind, num in enumerate(nums):
+        freq[num].append(ind)
+    ans = 0
+    for ind, num in enumerate(nums):
+        if num + k in freq:
+            indexes = freq[num + k]
+            for i in indexes:
+                if i > ind:
+                    ans += 1
+    return ans
