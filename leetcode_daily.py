@@ -1612,3 +1612,26 @@ def countFairPairs(nums: List[int], lower: int, upper: int) -> int:
         else:
             right -= 1
     return count_within_upper - count_below_lower
+
+
+def maxEvents(events: List[List[int]]) -> int:
+    events.sort()
+    n = max(e[1] for e in events)
+    min_heap = []
+    ans = 0
+    i = 0
+    for day in range(1, n + 1):
+        while i < len(events) and events[i][0] == day:
+            heapq.heappush(min_heap, events[i][1])
+            i += 1
+
+        # remove the events that have ended
+        while min_heap and min_heap[0] < day:
+            heapq.heappop(min_heap)
+
+        # attend event that starts today or earlier, one event a day
+        if min_heap:
+            heapq.heappop(min_heap)
+            ans += 1
+
+    return ans
