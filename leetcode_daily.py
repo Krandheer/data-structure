@@ -1,4 +1,5 @@
 import bisect
+from functools import lru_cache
 import heapq
 from collections import Counter, defaultdict, deque
 import math
@@ -1635,3 +1636,24 @@ def maxEvents(events: List[List[int]]) -> int:
             ans += 1
 
     return ans
+
+
+def maxValue(self, events: List[List[int]], k: int) -> int:
+    events.sort()
+    starts = [e[0] for e in events]
+    n = len(events)
+
+    @lru_cache(maxsize=None)
+    def dp(i: int, count: int) -> int:
+        if i == n or count == k:
+            return 0
+        # Option 1: Skip this event
+        skip = dp(i + 1, count)
+        # Option 2: Take this event
+        _, end, value = events[i]
+        # Find the next event with start time > current end
+        next_i = bisect.bisect_right(starts, end)
+        take = value + dp(next_i, count + 1)
+        return max(skip, take)
+
+    return dp(0, 0)
