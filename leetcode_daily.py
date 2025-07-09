@@ -1,4 +1,5 @@
 import bisect
+from curses import window
 from functools import lru_cache
 import heapq
 from collections import Counter, defaultdict, deque
@@ -1657,3 +1658,27 @@ def maxValue(self, events: List[List[int]], k: int) -> int:
         return max(skip, take)
 
     return dp(0, 0)
+
+
+def maxFreeTime(
+    eventTime: int, k: int, startTime: List[int], endTime: List[int]
+) -> int:
+
+    gaps = [startTime[0]]
+    n = len(startTime)
+    for i in range(1, n):
+        gaps.append(startTime[i] - endTime[i - 1])
+    gaps.append(eventTime - endTime[-1])
+
+    i = k + 1
+    window_sum = sum(gaps[: k + 1])
+    ans = window_sum
+    while i <= len(gaps):
+        window_sum += gaps[i] - gaps[i - (k + 1)]
+        ans = max(ans, window_sum)
+        i += 1
+
+    return ans
+
+
+print(maxFreeTime(21, 2, [18, 20], [20, 21]))
