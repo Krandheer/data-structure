@@ -1680,4 +1680,31 @@ def maxFreeTime(
     return ans
 
 
-print(maxFreeTime(21, 2, [18, 20], [20, 21]))
+def mostBooked(self, n: int, meetings) -> int:
+    meetings.sort()
+    room_meeting_count = [0] * n
+
+    available_rooms = list(range(n))
+    heapq.heapify(available_rooms)
+
+    occupied_rooms = []
+
+    for start, end in meetings:
+
+        while occupied_rooms and occupied_rooms[0][0] <= start:
+            end_time, room_number = heapq.heappop(occupied_rooms)
+            heapq.heappush(available_rooms, room_number)
+
+        duration = end - start
+
+        if available_rooms:
+            room_number = heapq.heappop(available_rooms)
+            heapq.heappush(occupied_rooms, (end, room_number))
+            room_meeting_count[room_number] += 1
+        else:
+            end_time, room_number = heapq.heappop(occupied_rooms)
+            new_end = end_time + duration
+            heapq.heappush(occupied_rooms, (new_end, room_number))
+            room_meeting_count[room_number] += 1
+
+    return room_meeting_count.index(max(room_meeting_count))
