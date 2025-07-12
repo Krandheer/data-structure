@@ -1708,3 +1708,31 @@ def mostBooked(self, n: int, meetings) -> int:
             room_meeting_count[room_number] += 1
 
     return room_meeting_count.index(max(room_meeting_count))
+
+
+def earliestAndLatest(n: int, firstPlayer: int, secondPlayer: int) -> List[int]:
+    f = firstPlayer - 1
+    s = secondPlayer - 1
+    mn = float("inf")
+    mx = float("-inf")
+
+    @lru_cache(maxsize=None)
+    def count(mask, i, j, round):
+        nonlocal mn, mx
+        if i >= j:
+            count(mask, 0, n - 1, round + 1)
+        elif mask & (1 << i) == 0:
+            count(mask, i + 1, j, round)
+        elif mask & (1 << j) == 0:
+            count(mask, i, j - 1, round)
+        elif i == f and j == s:
+            mx = max(mx, round)  # type: ignore
+            mn = min(mn, round)  # type: ignore
+        else:
+            if i != f and i != s:
+                count(mask ^ (1 << i), i + 1, j - 1, round)
+            if j != f and j != s:
+                count(mask ^ (1 << j), i + 1, j - 1, round)
+
+    count((1 << n) - 1, 0, n - 1, 1)
+    return [mn, mx]  # type: ignore
