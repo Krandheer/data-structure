@@ -1753,3 +1753,63 @@ def matchPlayersAndTrainers(players: List[int], trainers: List[int]) -> int:
             j += 1
 
     return count
+
+
+def isLongPressedName(name: str, typed: str) -> bool:
+    prev = typed[0]
+    i = 1
+    temp = (typed[0], 1)
+    groups = []
+    while i < len(typed):
+        if typed[i] == prev:
+            temp = (typed[i], temp[1] + 1)
+            i += 1
+            if i == len(typed):
+                groups.append(temp)
+        else:
+            groups.append(temp)
+            temp = (typed[i], 1)
+            prev = typed[i]
+            i += 1
+    groups.append(temp)
+
+    group2 = []
+    j = 1
+    prev = name[0]
+    temp2 = (name[0], 1)
+    while j < len(name):
+        if name[j] == prev:
+            temp2 = (name[j], temp2[1] + 1)
+            j += 1
+            if j == len(name):
+                group2.append(temp2)
+        else:
+            group2.append(temp2)
+            temp2 = (name[j], 1)
+            prev = name[j]
+            j += 1
+    group2.append(temp2)
+
+    if len(group2) != len(groups):
+        return False
+
+    else:
+        for i in range(len(groups)):
+            if group2[i][0] != groups[i][0] or group2[i][1] > groups[i][1]:
+                return False
+
+    return True
+
+
+def maximizeGreatness(nums: List[int]) -> int:
+    temp = []
+    nums.sort()
+    i, j = 0, 0
+    while i < len(nums) and j < len(nums):
+        if nums[i] < nums[j]:
+            temp.append(nums[j])
+            i += 1
+            j += 1
+        else:
+            j += 1
+    return len(temp)
