@@ -1802,14 +1802,14 @@ def isLongPressedName(name: str, typed: str) -> bool:
 
 
 def maximizeGreatness(nums: List[int]) -> int:
-    temp = []
+    count = 0
     nums.sort()
     i, j = 0, 0
     while i < len(nums) and j < len(nums):
         if nums[i] < nums[j]:
-            temp.append(nums[j])
+            count += 1
             i += 1
             j += 1
         else:
             j += 1
-    return len(temp)
+    return count
