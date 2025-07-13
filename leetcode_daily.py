@@ -1834,3 +1834,28 @@ def maxProfitAssignment(
         total_profit += max_profit
 
     return total_profit
+
+
+# great use case of binary search
+def successfulPairs(spells: List[int], potions: List[int], success: int) -> List[int]:
+    pairs = []
+    potions.sort()
+    n = len(potions)
+    for i in spells:
+        if i * potions[-1] < success:
+            pairs.append(0)
+            continue
+        low = 0
+        high = n - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if potions[mid] * i >= success:
+                high = mid - 1
+            else:
+                # it makes sure to point to least index for which potions[mid] * i >= success
+                low = mid + 1
+        pairs.append(n - low)
+    return pairs
+
+
+print(successfulPairs(spells=[5, 1, 3], potions=[1, 2, 3, 4, 5], success=7))
