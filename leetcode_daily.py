@@ -1,4 +1,5 @@
 import bisect
+from curses.ascii import isalnum
 from functools import lru_cache
 import heapq
 from collections import Counter, defaultdict, deque
@@ -1858,4 +1859,25 @@ def successfulPairs(spells: List[int], potions: List[int], success: int) -> List
     return pairs
 
 
-print(successfulPairs(spells=[5, 1, 3], potions=[1, 2, 3, 4, 5], success=7))
+def isValid(word: str) -> bool:
+    if len(word) < 3:
+        return False
+
+    word = word.lower()
+    check_v = False
+    check_c = False
+    vowels = "aeiou"
+    conson = "bcdfghjklmnpqrstvwxyz"
+
+    for i in vowels:
+        if i in word:
+            check_v = True
+    if check_v:
+        for i in conson:
+            if i in word:
+                check_c = True
+    else:
+        return False
+    if check_v and check_c and (word.isalnum() or word.isalpha()):
+        return True
+    return False
