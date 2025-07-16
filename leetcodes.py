@@ -83,9 +83,13 @@ def daily_temperatures(temperatures: List[int]) -> List[int]:
     # monotonic stack, push element while maintaining monotonicity,
     # pop elements that voilate monotonocity
     stack = []
+    ans = [0] * len(temperatures)
     for ind, temp in enumerate(temperatures):
         while stack and temp > temperatures[stack[-1]]:
             idx = stack.pop()
-            temperatures[idx] = ind - idx
+            ans[idx] = ind - idx
         stack.append(ind)
     return temperatures
+
+
+print(daily_temperatures([73, 74, 75, 71, 69, 72, 76, 73]))
