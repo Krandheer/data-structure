@@ -1881,3 +1881,27 @@ def isValid(word: str) -> bool:
     if check_v and check_c and (word.isalnum() or word.isalpha()):
         return True
     return False
+
+
+def maximumLength(nums: List[int]) -> int:
+    if not nums:
+        return 0
+    even, odd = 0, 0
+
+    for num in nums:
+        if num % 2 == 0:
+            even += 1
+        else:
+            odd += 1
+
+    evenOdd = 1
+    prev = nums[0] % 2
+    i = 1
+    while i < len(nums):
+        num = nums[i] % 2
+        if prev != num:
+            evenOdd += 1
+            prev = num
+        i += 1
+
+    return max(even, odd, evenOdd)
