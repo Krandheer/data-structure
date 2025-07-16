@@ -1883,6 +1883,7 @@ def isValid(word: str) -> bool:
     return False
 
 
+# the key idea to this problem was that there will be only 0,1 as remainder when dividing by 2
 def maximumLength(nums: List[int]) -> int:
     if not nums:
         return 0
