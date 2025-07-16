@@ -1,5 +1,4 @@
 from collections import defaultdict
-from operator import le
 from typing import List
 
 
@@ -61,7 +60,7 @@ def characterReplacement(s: str, k: int) -> int:
     return ans
 
 
-def checkInclusion(s1: str, s2: str) -> bool:
+def check_inclusion(s1: str, s2: str) -> bool:
     s1_map = defaultdict(int)
     for i in s1:
         s1_map[i] += 1
@@ -80,7 +79,7 @@ def checkInclusion(s1: str, s2: str) -> bool:
     return False
 
 
-def dailyTemperatures(temperatures: List[int]) -> List[int]:
+def daily_temperatures(temperatures: List[int]) -> List[int]:
     # monotonic stack, push element while maintaining monotonicity,
     # pop elements that voilate monotonocity
     stack = []
