@@ -81,12 +81,12 @@ def checkInclusion(s1: str, s2: str) -> bool:
 
 
 def dailyTemperatures(temperatures: List[int]) -> List[int]:
-    # monotonic stack, push element while maintaining monotonicity, pop elements that voilate
-    # monotonocity
+    # monotonic stack, push element while maintaining monotonicity,
+    # pop elements that voilate monotonocity
     stack = []
-    for i in range(len(temperatures)):
-        while stack and temperatures[i] > temperatures[stack[-1]]:
+    for ind, temp in enumerate(temperatures):
+        while stack and temp > temperatures[stack[-1]]:
             idx = stack.pop()
-            temperatures[idx] = i - idx
-        stack.append(i)
+            temperatures[idx] = ind - idx
+        stack.append(ind)
     return temperatures
