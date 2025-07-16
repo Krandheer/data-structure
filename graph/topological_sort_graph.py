@@ -1,16 +1,18 @@
 """
-topological sorting exists only in DAG, directed acyclic graph, as otherwise it gets
-in that cycle from which it could not come out.
-print node in order of which they come in graph, means if there is edge between u and v
+Topological sorting exists only in DAG, as otherwise it gets in that cycle 
+from which it could not come out.
+
+Print node in order of which they come in graph, means if there is edge between u and v
 and u pointing to v then u should come first then v.
-we can use indegree concept to do this, when indegree is 0 then take it in queue
+
+We can use indegree concept to do this, when indegree is 0 then take it in queue
 and print it and traverse rest of its child
-kahn algorithm uses this concept of indegree to do topological sorting.
+Kahn algorithm uses this concept of indegree to do topological sorting.
 
 If length of graph and topological sort is not same then that means cycle
 exists.
 
-this could also be used to detect cycle and edges present in cycle,
+This could also be used to detect cycle and edges present in cycle,
 after kahn algo completes, the node which are not visited or whose indegree is not 0
 will be there in cycle.
 
