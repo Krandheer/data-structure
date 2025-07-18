@@ -2,7 +2,7 @@ import heapq
 from typing import List
 
 
-# a good problem, if you want min sum instead use max-heap
+# a good problem, if you want min sum then use max-heap instead of min-heap
 # most subsequence problem are about dp because we can't use window or two pointer
 # but many time they could be solved using some trick like here.
 def max_subsequence(nums: List[int], k: int) -> List[int]:
