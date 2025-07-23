@@ -1906,3 +1906,32 @@ def maximumLength(nums: List[int]) -> int:
         i += 1
 
     return max(even, odd, evenOdd)
+
+
+def maximumGain(s: str, x: int, y: int) -> int:
+    def get_max(first, second, s, maxi):
+        stack = []
+        ans = 0
+        for ch in s:
+            if ch == first and stack and stack[-1] == second:
+                stack.pop()
+                ans += maxi
+            else:
+                stack.append(ch)
+        return "".join(stack), ans
+
+    ans = 0
+    if x > y:
+        s, gain = get_max("a", "b", s, x)
+        ans += gain
+        _, gain = get_max("b", "a", s, y)
+        ans += gain
+    else:
+        s, gain = get_max("b", "a", s, y)
+        ans += gain
+        _, gain = get_max("a", "b", s, x)
+        ans += gain
+    return ans
+
+
+print(maximumGain(s="cdbcbbaaabab", x=4, y=5))
