@@ -1934,4 +1934,48 @@ def maximumGain(s: str, x: int, y: int) -> int:
     return ans
 
 
-print(maximumGain(s="cdbcbbaaabab", x=4, y=5))
+def maxSubarrays(n: int, conflictingPairs: List[List[int]]) -> int:
+    valid = 0
+    conflictingPoints = [[] for _ in range(n + 1)]
+
+    for a, b in conflictingPairs:
+        a, b = min(a, b), max(a, b)
+        conflictingPoints[b].append(a)
+
+    maxConflict = 0
+    secondMaxConflict = 0
+    extra = [0] * (n + 1)
+
+    for end in range(1, n + 1):
+        for u in conflictingPoints[end]:
+            if u >= maxConflict:
+                secondMaxConflict = maxConflict
+                maxConflict = u
+            elif u > secondMaxConflict:
+                secondMaxConflict = u
+
+        valid += end - maxConflict
+        extra[maxConflict] += maxConflict - secondMaxConflict
+
+    return valid + max(extra)
+
+
+def countHillValley(nums: List[int]) -> int:
+    temp = []
+    prev = None
+    for num in nums:
+        if prev == num:
+            continue
+        prev = num
+        temp.append(num)
+
+    count = 0
+    for i in range(1, len(temp) - 1):
+        if temp[i] > temp[i - 1] and temp[i] > temp[i + 1]:
+            count += 1
+        if temp[i] < temp[i - 1] and temp[i] < temp[i + 1]:
+            count += 1
+    return count
+
+
+print(countHillValley([6, 6, 5, 5, 4, 1]))
