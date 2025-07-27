@@ -1971,9 +1971,9 @@ def countHillValley(nums: List[int]) -> int:
 
     count = 0
     for i in range(1, len(temp) - 1):
-        num, prev, next = temp[i], temp[i - 1], temp[i + 1]
-        if num > prev and num > next:
+        curr, prev, next = temp[i], temp[i - 1], temp[i + 1]
+        if curr > prev and curr > next:
             count += 1
-        if num < prev and num < next:
+        if curr < prev and curr < next:
             count += 1
     return count
