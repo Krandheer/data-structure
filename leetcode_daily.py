@@ -1976,6 +1976,3 @@ def countHillValley(nums: List[int]) -> int:
         if temp[i] < temp[i - 1] and temp[i] < temp[i + 1]:
             count += 1
     return count
-
-
-print(countHillValley([6, 6, 5, 5, 4, 1]))
