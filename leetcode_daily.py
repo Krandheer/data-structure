@@ -4,6 +4,7 @@ from functools import lru_cache
 import heapq
 from collections import Counter, defaultdict, deque
 import math
+from re import I
 from typing import List
 
 
@@ -1977,3 +1978,27 @@ def countHillValley(nums: List[int]) -> int:
         if curr < prev and curr < next:
             count += 1
     return count
+
+
+def smallestSubarrays(nums: List[int]) -> List[int]:
+    max_or = 0
+    for num in nums:
+        max_or |= num
+
+    l, r = 0, 0
+
+    curr_or = 0
+    ans = []
+    while l <= r < len(nums):
+        curr_or |= nums[r]
+        if curr_or == max_or:
+            ans.append(r - l + 1)
+            l += 1
+            r = l
+            curr_or = 0
+        else:
+            r += 1
+    return ans
+
+
+print(smallestSubarrays([1, 2]))
