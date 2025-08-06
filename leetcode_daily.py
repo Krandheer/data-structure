@@ -2001,4 +2001,43 @@ def smallestSubarrays(nums: List[int]) -> List[int]:
     return ans
 
 
-print(smallestSubarrays([1, 2]))
+def buildSegmentTree(index, left, right, baskets, segmentTree):
+    if left == right:
+        segmentTree[index] = baskets[left]
+        return
+    mid = (left + right) // 2
+    buildSegmentTree(2 * index + 1, left, mid, baskets, segmentTree)
+    buildSegmentTree(2 * index + 2, mid + 1, right, baskets, segmentTree)
+    segmentTree[index] = max(segmentTree[2 * index + 1], segmentTree[2 * index + 2])
+
+
+def querySegmentTree(index, left, right, fruit, segmentTree):
+    if segmentTree[index] < fruit:
+        return False
+
+    if left == right:
+        temp = segmentTree[index]
+        segmentTree[index] = -1
+        return temp >= fruit
+
+    found = False
+    mid = (left + right) // 2
+    if segmentTree[2 * index + 1] >= fruit:
+        found = querySegmentTree(2 * index + 1, left, mid, fruit, segmentTree)
+    elif segmentTree[2 * index + 2] >= fruit:
+        found = querySegmentTree(2 * index + 2, mid + 1, right, fruit, segmentTree)
+    if found:
+        segmentTree[index] = max(segmentTree[2 * index + 1], segmentTree[2 * index + 2])
+    return found
+
+
+def numOfUnplacedFruits(fruits: List[int], baskets: List[int]) -> int:
+    n = len(baskets)
+    segmentTree = [-1] * (4 * n)
+    buildSegmentTree(0, 0, n - 1, baskets, segmentTree)
+    unplaced = 0
+    for fruit in fruits:
+        if not querySegmentTree(0, 0, n - 1, fruit, segmentTree):
+            unplaced += 1
+
+    return unplaced
