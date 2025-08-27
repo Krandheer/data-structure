@@ -2041,3 +2041,29 @@ def numOfUnplacedFruits(fruits: List[int], baskets: List[int]) -> int:
             unplaced += 1
 
     return unplaced
+
+
+def longestSubarray(nums):
+    maxi = float("-inf")
+    maxi_without_zero = float("-inf")
+    left, right = 0, 0
+    n = len(nums)
+    zeros = 0
+    while left <= right < n:
+        if nums[right] == 0:
+            zeros += 1
+        if zeros <= 1:
+            if zeros == 0:
+                maxi_without_zero = max(maxi_without_zero, right - left + 1)
+            maxi = max(maxi, right - left + 1)
+            right += 1
+        else:
+            if nums[left] == 0:
+                zeros -= 1
+            left += 1
+    if maxi_without_zero > maxi:
+        return maxi_without_zero - 1
+    return maxi - 1
+
+
+print(longestSubarray([0, 1, 1, 1, 0, 1, 1, 0, 1]))
