@@ -2066,4 +2066,14 @@ def longestSubarray(nums):
     return maxi - 1
 
 
-print(longestSubarray([0, 1, 1, 1, 0, 1, 1, 0, 1]))
+def sumZero(n: int) -> List[int]:
+    ans = []
+    is_odd = n & 1 == 0
+    temp = n // 2
+    for i in range(1, temp + 1):
+        if is_odd and i == n // 2:
+            ans.append(0)
+        ans.append(i)
+        ans.append(-i)
+        temp -= 1
+    return ans
