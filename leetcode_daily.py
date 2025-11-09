@@ -2090,4 +2090,30 @@ def countOperations(num1: int, num2: int) -> int:
     return ans
 
 
-print(countOperations(2, 3))
+# leetcode 3738, biweekly contest 8/11/2025
+def longestNonDecreasing(nums):
+    n = len(nums)
+    if n == 1:
+        return 1
+
+    left = [1] * n
+    right = [1] * n
+
+    for i in range(1, n):
+        if nums[i] >= nums[i - 1]:
+            left[i] = left[i - 1] + 1
+
+    for i in range(n - 2, -1, -1):
+        if nums[i] <= nums[i + 1]:
+            right[i] = right[i + 1] + 1
+
+    ans = max(left)
+    if ans != n:
+        ans += 1
+    for i in range(1, n - 1):
+        if nums[i - 1] <= nums[i + 1]:
+            ans = max(ans, left[i - 1] + right[i + 1] + 1)
+    return ans
+
+
+print(longestNonDecreasing([1, 2, 3, 1, 2]))
