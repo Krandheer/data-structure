@@ -2077,3 +2077,17 @@ def sumZero(n: int) -> List[int]:
         ans.append(-i)
         temp -= 1
     return ans
+
+
+def countOperations(num1: int, num2: int) -> int:
+    ans = 0
+    while num1 != 0 and num2 != 0:
+        ans += 1
+        if num1 >= num2:
+            num1 -= num2
+        else:
+            num2 -= num1
+    return ans
+
+
+print(countOperations(2, 3))
