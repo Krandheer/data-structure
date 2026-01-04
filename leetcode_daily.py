@@ -1,10 +1,8 @@
 import bisect
-from curses.ascii import isalnum
 from functools import lru_cache
 import heapq
 from collections import Counter, defaultdict, deque
 import math
-from re import I
 from typing import List
 
 
