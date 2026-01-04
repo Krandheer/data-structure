@@ -2151,8 +2151,5 @@ def sumFourDivisors(nums: List[int]) -> int:
     return ans
 
 
-print(sumFourDivisors([21, 4, 7]))
-
-
 # need to watch solution video for this
 # https://leetcode.com/problems/count-subarrays-with-majority-element-ii/description/
