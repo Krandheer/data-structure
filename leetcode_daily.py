@@ -2116,4 +2116,43 @@ def longestNonDecreasing(nums):
     return ans
 
 
-print(longestNonDecreasing([1, 2, 3, 1, 2]))
+def countTrapezoids(points: List[List[int]]) -> int:
+    dy = defaultdict(set)
+    for point in points:
+        dy[point[1]].add(point[0])
+
+    temp = []
+    for x, y in dy.items():
+        temp.append(len(y))
+
+    ans = 0
+    for ind, i in enumerate(temp):
+        for j in range(ind + 1, len(temp)):
+            ans += i * (temp[j] - 1)
+    return ans
+
+
+# print(countTrapezoids([[1, 0], [2, 0], [3, 0], [2, 2], [3, 2]]))
+
+
+def sumFourDivisors(nums: List[int]) -> int:
+    ans = 0
+    for ele in nums:
+        temp = [1, ele]
+        for i in range(2, int(math.sqrt(ele)) + 1):
+            if ele % i == 0:
+                temp.append(i)
+                if ele // i != i:
+                    temp.append(ele // i)
+            if len(temp) > 4:
+                break
+        if len(temp) == 4:
+            ans += sum(temp)
+    return ans
+
+
+print(sumFourDivisors([21, 4, 7]))
+
+
+# need to watch solution video for this
+# https://leetcode.com/problems/count-subarrays-with-majority-element-ii/description/
