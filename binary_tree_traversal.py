@@ -1,4 +1,5 @@
 from collections import deque
+from typing import Optional
 
 """
 preorder, postorder, inorder all of these methods are depth first searches.
@@ -8,9 +9,9 @@ level order is breadth first search for tree.
 
 class TreeNode:
     def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
+        self.value: int = value
+        self.left: Optional[TreeNode] = None
+        self.right: Optional[TreeNode] = None
 
 
 def level_order(root):
