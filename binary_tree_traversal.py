@@ -108,7 +108,8 @@ root.left.right = TreeNode(5)
 # print(preorder_traversal(root, []))
 # print(preorder_traversal2(root))
 print(level_order2(root))
-# result = level_order(root)
+result = level_order(root)
+print(result)
 # final_res = []
 # for k, v in result.items():
 #     final_res.append(v)
