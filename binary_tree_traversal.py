@@ -56,6 +56,13 @@ def level_order2(root):
 
 
 def inorder_traversal(root, result):
+    # .     1
+    # .   /   \
+    # .  2     3
+    # . / \
+    # .4   5
+    # result = 4, 2, 5, 1, 3
+    # left -> root -> right
     if not root:
         return
     inorder_traversal(root.left, result)
@@ -65,6 +72,13 @@ def inorder_traversal(root, result):
 
 
 def preorder_traversal(root, result):
+    # .     1
+    # .   /   \
+    # .  2     3
+    # . / \
+    # .4   5
+    # result = 1, 2, 4, 5, 3
+    # root -> left -> right
     if not root:
         return
     result.append(root.value)
@@ -92,6 +106,13 @@ def preorder_traversal2(root):
 
 
 def postorder_traversal(root, result):
+    # .     1
+    # .   /   \
+    # .  2     3
+    # . / \
+    # .4   5
+    # result = 4, 5, 2, 3, 1
+    # left -> right -> root
     if not root:
         return
     postorder_traversal(root.left, result)
@@ -100,21 +121,21 @@ def postorder_traversal(root, result):
     return result
 
 
+# .     1
+# .   /   \
+# .  2     3
+# . / \
+# .4   5
 root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
 root.left.left = TreeNode(4)
 root.left.right = TreeNode(5)
 
+# print(inorder_traversal(root, []))
 # print(preorder_traversal(root, []))
-# print(preorder_traversal2(root))
-print(level_order2(root))
-result = level_order(root)
-print(result)
-# final_res = []
-# for k, v in result.items():
-#     final_res.append(v)
-# print(final_res)
+# print(postorder_traversal(root, []))
+# print(level_order(root))
 
 
 # TODO: lca ( least common ancestor) need to write code for this for bst and bt
