@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 
 class TreeNode:
@@ -44,14 +44,23 @@ def minimumDeleteSum(s1: str, s2: str) -> int:
     return dfs(0, 0)
 
 
-def monotonic_increasing(arr):
-    stack = []
-    for i in range(len(arr)):
-        while stack and stack[-1] > arr[i]:
-            stack.pop()
-        stack.append(arr[i])
-    return stack
+def maximalRectangle(matrix: List[List[str]]) -> int:
+    ans = 0
+    m, n = len(matrix), len(matrix[0])
+    heights = [0] * n
+    for i in range(m):
+        for j in range(n):
+            if matrix[i][j] == "1":
+                heights[j] += 1
+            else:
+                heights[j] = 0
 
-
-arr = [5, 2, 4, 1, 3]
-print(monotonic_increasing(arr))
+        stack = []
+        for j in range(n + 1):
+            curr_height = heights[j] if j < n else 0
+            while stack and curr_height < heights[stack[-1]]:
+                h = heights[stack.pop()]
+                w = j if not stack else j - stack[-1] - 1
+                ans = max(ans, h * w)
+            stack.append(j)
+    return ans
