@@ -27,8 +27,10 @@ def subtreeWithAllDeepest(root: Optional[TreeNode]) -> Optional[TreeNode]:
 
 def minimumDeleteSum(s1: str, s2: str) -> int:
     def dfs(i, j):
-        if i == len(s1) or j == len(s2):
-            return 0
+        if i == len(s1):
+            return sum(ord(char) for char in s2[j:])
+        if j == len(s2):
+            return sum(ord(char) for char in s1[i:])
 
         if s1[i] != s2[j]:
             return min(
@@ -40,3 +42,16 @@ def minimumDeleteSum(s1: str, s2: str) -> int:
             return dfs(i + 1, j + 1)
 
     return dfs(0, 0)
+
+
+def monotonic_increasing(arr):
+    stack = []
+    for i in range(len(arr)):
+        while stack and stack[-1] > arr[i]:
+            stack.pop()
+        stack.append(arr[i])
+    return stack
+
+
+arr = [5, 2, 4, 1, 3]
+print(monotonic_increasing(arr))
