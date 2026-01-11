@@ -64,3 +64,23 @@ def maximalRectangle(matrix: List[List[str]]) -> int:
                 ans = max(ans, h * w)
             stack.append(j)
     return ans
+
+
+def largestRectangleArea(heights: List[int]) -> int:
+    heights.append(0)
+    # this stack will help in finding the lowest height in
+    # right and left of current height
+    stack = []
+    ans = 0
+    for ind, h in enumerate(heights):
+        while stack and h < heights[stack[-1]]:
+            curr_h = heights[stack.pop()]
+            w = ind
+            if stack:
+                w = w - stack[-1] - 1
+            ans = max(ans, w * curr_h)
+        stack.append(ind)
+    return ans
+
+
+print(largestRectangleArea([2, 1, 5, 6, 2, 3]))
