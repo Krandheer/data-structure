@@ -23,7 +23,7 @@ def max_subsequence(nums: List[int], k: int):
         if ind == len(nums):
             return float("-inf")
         skip = dp(ind + 1)
-        take = nums[i] + dp(ind + 1)
+        take = nums[ind] + dp(ind + 1)
         return max(skip, take)
 
     ans = dp(0)
