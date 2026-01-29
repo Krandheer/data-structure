@@ -64,3 +64,58 @@ def maximalRectangle(matrix: List[List[str]]) -> int:
                 ans = max(ans, h * w)
             stack.append(j)
     return ans
+
+
+def maximizeSquareHoleArea(n: int, m: int, hBars: List[int], vBars: List[int]) -> int:
+    h_con = 1
+    v_con = 1
+    max_h = 1
+    max_v = 1
+    hBars.sort()
+    vBars.sort()
+    for ind in range(1, len(hBars)):
+        if hBars[ind - 1] + 1 == hBars[ind]:
+            h_con += 1
+        else:
+            h_con = 1
+        max_h = max(max_h, h_con)
+
+    for ind in range(1, len(vBars)):
+        if vBars[ind - 1] + 1 == vBars[ind]:
+            v_con += 1
+        else:
+            v_con = 1
+        max_v = max(max_v, v_con)
+
+    side = min(max_h, max_v) + 1
+    return side * side
+
+
+# print(maximizeSquareHoleArea(3, 2, [3, 2, 4], [3, 2]))
+
+
+def minBitwiseArray(nums: List[int]) -> List[int]:
+    ans = []
+    for i in range(len(nums)):
+        temp = -1
+        for j in range(1001):
+            if nums[i] == j | (j + 1):
+                temp = j
+                break
+        ans.append(temp)
+    return ans
+
+
+def minimumDifference(nums: List[int], k: int) -> int:
+    nums.sort()
+    l, r = 0, k - 1
+    ans = 0
+    while r < len(nums):
+        ans = min(ans, nums[r] - nums[l])
+        l += 1
+        r += 1
+
+    return ans
+
+
+print(minimumDifference([9, 4, 1, 7], 2))
