@@ -116,6 +116,3 @@ def minimumDifference(nums: List[int], k: int) -> int:
         r += 1
 
     return ans
-
-
-print(minimumDifference([9, 4, 1, 7], 2))
