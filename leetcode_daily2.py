@@ -1,4 +1,9 @@
+from abc import abstractmethod
+from collections import defaultdict
+from functools import lru_cache
 from typing import List, Optional
+
+from traitlets import default
 
 
 class TreeNode:
@@ -116,3 +121,60 @@ def minimumDifference(nums: List[int], k: int) -> int:
         r += 1
 
     return ans
+
+
+class Solution:
+    def minimumDistance(self, word: str) -> int:
+        char_map = defaultdict(tuple)
+        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        k = 0
+        for i in range(6):
+            for j in range(6):
+                char_map[chars[k]] = (i, j)
+                k += 1
+                if k == 26:
+                    break
+            if k == 26:
+                break
+
+        def calc_dist(c1, c2):
+            x1, y1 = c1
+            x2, y2 = c2
+            return abs(x1 - x2) + abs(y1 - y2)
+
+        @lru_cache(maxsize=None)
+        def solve(ind: int, f1: str, f2: str) -> int:
+            if ind >= len(word):
+                return 0
+
+            if f1 != "" and f2 != "":
+                return min(
+                    (
+                        calc_dist(char_map[f1], char_map[word[ind]])
+                        + solve(ind + 1, word[ind], f2)
+                    ),
+                    (
+                        calc_dist(char_map[f2], char_map[word[ind]])
+                        + solve(ind + 1, f1, word[ind])
+                    ),
+                )
+            elif f1 != "" and f2 == "":
+                return min(
+                    (
+                        calc_dist(char_map[f1], char_map[word[ind]])
+                        + solve(ind + 1, word[ind], f2)
+                    ),
+                    solve(ind + 1, f1, word[ind]),
+                )
+            elif f1 == "" and f2 != "":
+                return min(
+                    (
+                        calc_dist(char_map[f2], char_map[word[ind]])
+                        + solve(ind + 1, f1, word[ind])
+                    ),
+                    solve(ind + 1, word[ind], f2),
+                )
+            else:
+                return min(solve(ind + 1, word[ind], f2), solve(ind + 1, f1, word[ind]))
+
+        return solve(0, "", "")
