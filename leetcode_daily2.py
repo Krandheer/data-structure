@@ -1,3 +1,4 @@
+from bisect import bisect_left
 from collections import defaultdict
 from functools import lru_cache
 from typing import List, Optional
@@ -175,3 +176,22 @@ class Solution:
                 return min(solve(ind + 1, word[ind], f2), solve(ind + 1, f1, word[ind]))
 
         return solve(0, "", "")
+
+
+def minMirrorPairDistance(nums: List[int]) -> int:
+    ans = 10**9
+    seen = {}
+    for ind, num in enumerate(nums):
+        if num in seen:
+            j = seen[num]
+            ans = min(ans, abs(j - ind))
+
+        mirror = 0
+        while num >= 0:
+            num, rem = divmod(num, 10)
+            mirror = mirror * 10 + rem
+        seen[mirror] = ind
+    return ans if ans != 10**9 else -1
+
+
+print(minMirrorPairDistance([12, 21, 45, 33, 54]))
