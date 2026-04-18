@@ -194,4 +194,55 @@ def minMirrorPairDistance(nums: List[int]) -> int:
     return ans if ans != 10**9 else -1
 
 
-print(minMirrorPairDistance([12, 21, 45, 33, 54]))
+def mirrorDistance(n: int) -> int:
+    mirror = 0
+    temp = n
+    while temp > 0:
+        temp, rem = divmod(temp, 10)
+        mirror = mirror * 10 + rem
+
+    return abs(n - mirror)
+
+
+def countAndSay(n: int) -> str:
+    def rle(words: str) -> str:
+        prev = words[0]
+        ans = ""
+        count = 0
+        for ch in words:
+            if ch != prev:
+                ans = ans + f"{count}{prev}"
+                count = 0
+                prev = ch
+            count += 1
+        return ans + f"{count}{prev}"
+
+    if n == 1:
+        return "1"
+    ans = "1"
+    for i in range(2, n + 1):
+        ans = rle(ans)
+    return ans
+
+
+def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
+    ans = []
+
+    def solve(ind, target, temp):
+        if target == 0:
+            # copy the array not reference to the array
+            ans.append(temp[:])
+            return
+        if ind >= len(candidates) or target < 0:
+            return
+
+        # take case
+        temp.append(candidates[ind])
+        solve(ind, target - candidates[ind], temp)
+        temp.pop()
+
+        # skip case
+        solve(ind + 1, target, temp)
+
+    solve(0, target, [])
+    return ans
