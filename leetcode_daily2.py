@@ -309,3 +309,29 @@ def maxDistance(nums1: List[int], nums2: List[int]) -> int:
             j += 1
         ans = max(ans, (j - i) - 1)
     return ans
+
+
+def search(nums: List[int], target: int) -> bool:
+    n = len(nums)
+    k = 0
+    for i in range(1, n):
+        if nums[i - 1] > nums[i]:
+            k = i
+            break
+
+    def solve(start, end, target):
+        while start <= end:
+            mid = end - (end - start) // 2
+            if nums[mid] == target:
+                return True
+            if nums[mid] < target:
+                start = mid + 1
+            else:
+                end = mid - 1
+        return False
+
+    first = solve(0, k - 1, target)
+    second = solve(k, n - 1, target)
+    if first or second:
+        return True
+    return False
