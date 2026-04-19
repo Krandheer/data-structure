@@ -301,4 +301,11 @@ def solveQueries(nums: List[int], queries: List[int]) -> List[int]:
     return ans
 
 
-print(solveQueries([1, 3, 1, 4, 1, 3, 2], [0, 3, 5]))
+def maxDistance(nums1: List[int], nums2: List[int]) -> int:
+    j = 0
+    ans = 0
+    for i, num in enumerate(nums1):
+        while j < len(nums2) and nums2[j] >= num:
+            j += 1
+        ans = max(ans, (j - i) - 1)
+    return ans
