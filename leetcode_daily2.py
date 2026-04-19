@@ -269,3 +269,36 @@ def combinationSum2(candidates: List[int], target: int) -> List[List[int]]:
 
     solve(0, target, [])
     return ans
+
+
+def solveQueries(nums: List[int], queries: List[int]) -> List[int]:
+    freq = defaultdict(list)
+    for ind, num in enumerate(nums):
+        freq[num].append(ind)
+    n = len(nums)
+    ans = []
+    for q in queries:
+        t = nums[q]
+        lookup = freq[t]
+        if len(lookup) == 1:
+            ans.append(-1)
+            continue
+
+        pos = bisect_left(lookup, q)
+        temp = float("inf")
+
+        # Check next neighbor (with wrap-around)
+        next_pos = (pos + 1) % len(lookup)
+        d = abs(lookup[next_pos] - q)
+        temp = min(temp, d, n - d)
+
+        # Check prev neighbor (with wrap-around)
+        prev_pos = (pos - 1) % len(lookup)
+        d = abs(lookup[prev_pos] - q)
+        temp = min(temp, d, n - d)
+
+        ans.append(temp)
+    return ans
+
+
+print(solveQueries([1, 3, 1, 4, 1, 3, 2], [0, 3, 5]))
