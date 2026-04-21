@@ -1,12 +1,30 @@
-def find(graph, node):
-    # this finds the root of the node
+from typing import List
+
+
+def find(graph: List[int], node: int):
+    """
+    Finds the representative (or parent) of the set that a given node belongs to.
+    This function implements the "find" operation in the Disjoint Set Union (DSU) or Union-Find data structure.
+    It recursively traverses the graph to find the root parent of the given node. If the node is its own parent
+    (indicated by a negative value in the graph), it returns the node itself.
+
+    Args:
+        graph (list[int]): The disjoint set data structure represented as a list, where each index represents a node.
+                        A negative value at an index indicates the size of the set (as a negative number) and that
+                        the node is a root parent.
+        node (int): The node whose parent is to be found.
+
+    Returns:
+        int: The representative (or root parent) of the set that the node belongs to.
+    """
+
     if graph[node] < 0:
         return node
     else:
         return find(graph, graph[node])
 
 
-def union(graph, u, v, ans):
+def union(graph: List[int], u: int, v: int, ans: List[List[int]]):
     a = find(graph, u)
     b = find(graph, v)
 
