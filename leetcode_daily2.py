@@ -335,3 +335,22 @@ def search(nums: List[int], target: int) -> bool:
     if first or second:
         return True
     return False
+
+
+def twoEditWords(queries: List[str], dictionary: List[str]) -> List[str]:
+    ans = []
+    for word in queries:
+        for temp in dictionary:
+            count = 0
+            for ind, ch in enumerate(word):
+                if ch != temp[ind]:
+                    count += 1
+                if count > 2:
+                    break
+            if count <= 2:
+                ans.append(word)
+                break
+    return ans
+
+
+print(twoEditWords(["word", "note", "ants", "wood"], ["wood", "joke", "moat"]))
