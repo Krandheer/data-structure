@@ -386,11 +386,15 @@ def findDuplicates(nums: List[int]) -> List[int]:
 
 
 def validDigit(n: int, x: int) -> bool:
+    ans = False
     while n > 0:
-        rem, n = divmod(n, 10)
-        if rem == x and n != 0:
-            return True
-        return False
+        n, rem = divmod(n, 10)
+        if rem == x:
+            if n == 0:
+                ans = False
+            else:
+                ans = True
+    return ans
 
 
 def validDigit2(n: int, x: int) -> bool:
@@ -403,9 +407,6 @@ def validDigit2(n: int, x: int) -> bool:
     return False
 
 
-# print(validDigit2(101, 0))
-# 232, 2
-# 5, 1
 def kthRemainingInteger(nums: list[int], queries: list[list[int]]) -> list[int]:
     even_indices = []
     even_values = []
