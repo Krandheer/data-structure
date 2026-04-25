@@ -419,7 +419,6 @@ def kthRemainingInteger(nums: list[int], queries: list[list[int]]) -> list[int]:
     for l, r, k in queries:
         left = bisect_left(even_indices, l)
         right = bisect_right(even_indices, r)
-        # temp = [nums[i] for i in even_indices[left:right]]
         low, high = 1, 2 * 10**9
         while low < high:
             mid = (low + high) // 2
