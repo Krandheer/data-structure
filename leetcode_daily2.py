@@ -1,4 +1,4 @@
-from bisect import bisect_left
+from bisect import bisect_left, bisect_right
 from collections import defaultdict
 from functools import lru_cache
 from typing import List, Optional
@@ -353,4 +353,80 @@ def twoEditWords(queries: List[str], dictionary: List[str]) -> List[str]:
     return ans
 
 
-print(twoEditWords(["word", "note", "ants", "wood"], ["wood", "joke", "moat"]))
+def distance(nums: List[int]) -> List[int]:
+    freq = defaultdict(list)
+    for ind, num in enumerate(nums):
+        freq[num].append(ind)
+    n = len(nums)
+    arr = [0] * n
+    for v in freq.values():
+        total = sum(v)
+        curr_sum = 0
+        for i, ind in enumerate(v):
+            left = ind * i - curr_sum
+            right = (total - curr_sum - ind) - ind * (len(v) - i - 1)
+            arr[ind] = right + left
+            curr_sum += ind
+    return arr
+
+
+def findDuplicates(nums: List[int]) -> List[int]:
+    ans = []
+    for num in nums:
+        num = abs(num)
+        if nums[num - 1] > 0:
+            nums[num - 1] = -nums[num - 1]
+        else:
+            ans.append(abs(num))
+    return ans
+
+
+# nums = [10, 2, 5, 10, 9, 1, 1, 4, 3, 7]
+# print(findDuplicates([4, 3, 2, 7, 8, 2, 3, 1]))
+
+
+def validDigit(n: int, x: int) -> bool:
+    while n > 0:
+        rem, n = divmod(n, 10)
+        if rem == x and n != 0:
+            return True
+        return False
+
+
+def validDigit2(n: int, x: int) -> bool:
+    num = str(n)
+    if num[0] == str(x):
+        return False
+    for i in range(1, len(num)):
+        if num[i] == str(x):
+            return True
+    return False
+
+
+# print(validDigit2(101, 0))
+# 232, 2
+# 5, 1
+def kthRemainingInteger(nums: list[int], queries: list[list[int]]) -> list[int]:
+    even_indices = []
+    even_values = []
+    for i, num in enumerate(nums):
+        if num % 2 == 0:
+            even_indices.append(i)
+            even_values.append(num)
+
+    ans = []
+    for l, r, k in queries:
+        left = bisect_left(even_indices, l)
+        right = bisect_right(even_indices, r)
+        # temp = [nums[i] for i in even_indices[left:right]]
+        low, high = 1, 2 * 10**9
+        while low < high:
+            mid = (low + high) // 2
+            removed = bisect_right(even_values, 2 * mid, left, right) - left
+            valid = mid - removed
+            if valid >= k:
+                high = mid
+            else:
+                low = mid + 1
+        ans.append(2 * low)
+    return ans
