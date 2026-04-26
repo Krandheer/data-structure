@@ -34,7 +34,7 @@ def bfs_cycle(graph, node, par):
         node, par = queue.popleft()
         for child in graph[node]:
             if child not in visited:
-                queue.append((child, node))  # Append a tuple (child, node)
+                queue.append((child, node))
                 visited.add(child)
             else:
                 if child != par:
@@ -50,7 +50,7 @@ def dfs_cycle(graph, node, par, visited=None):
     for child in graph[node]:
         if child not in visited:
             return dfs_cycle(graph, child, node, visited)
-        elif child != par:
+        if child != par:
             return True
     return False
 
