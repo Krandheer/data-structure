@@ -19,6 +19,7 @@ def find(graph: List[int], node: int):
     """
 
     if graph[node] < 0:
+        # value of parent is being returned, not count
         return node
     else:
         return find(graph, graph[node])
@@ -30,7 +31,7 @@ def union(graph: List[int], u: int, v: int, ans: List[List[int]]):
 
     if a == b:
         print(f"can't add, it's already part of the family,{u}, {v} ")
-        ans.append([u, v])
+        ans.append([u, v, a])
     else:
         if graph[a] == graph[b]:
             # b becomes parent and a points to b
