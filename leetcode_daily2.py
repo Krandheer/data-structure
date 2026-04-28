@@ -1,6 +1,7 @@
 from bisect import bisect_left, bisect_right
 from collections import defaultdict
 from functools import lru_cache
+import heapq
 from typing import List, Optional
 
 
@@ -429,4 +430,76 @@ def kthRemainingInteger(nums: list[int], queries: list[list[int]]) -> list[int]:
             else:
                 low = mid + 1
         ans.append(2 * low)
+    return ans
+
+
+def findValidElements(nums: list[int]) -> list[int]:
+    n = len(nums)
+    temp = [False] * n
+    maxi = float("-inf")
+    for i, num in enumerate(nums):
+        if num > maxi:
+            maxi = num
+            temp[i] = True
+
+    maxi = float("-inf")
+    for i in range(n - 1, -1, -1):
+        if nums[i] > maxi:
+            temp[i] = True
+            maxi = nums[i]
+
+    ans = []
+    for i, t in enumerate(temp):
+        if t:
+            ans.append(nums[i])
+    return ans
+
+
+def sortVowels(s: str) -> str:
+    freq = defaultdict(int)
+    for ch in s:
+        if ch in "aeiou":
+            freq[ch] += 1
+
+    heap = []
+    uid = 0
+    for ch, count in freq.items():
+        heapq.heappush(heap, (-count, uid, ch))
+        uid += 1
+
+    ans = ""
+    count = 0
+    top_ch = ""
+
+    for ch in s:
+        if ch in "aeiou":
+            if count == 0:
+                count, _, top_ch = heapq.heappop(heap)
+                count = -count
+            ans += top_ch
+            count -= 1
+        else:
+            ans += ch
+
+    return ans
+
+
+def minOperations(grid: List[List[int]], x: int) -> int:
+    temp = []
+    m, n = len(grid), len(grid[0])
+    for i in range(m):
+        for j in range(n):
+            temp.append(grid[i][j])
+    temp.sort()
+    if len(temp) == 1:
+        return 0
+    idx = len(temp) // 2
+    target = temp[idx]
+    for num in temp:
+        if abs(target - num) % x != 0:
+            return -1
+
+    ans = 0
+    for num in temp:
+        ans += abs(target - num) // x
     return ans
