@@ -9,18 +9,18 @@ def monotonic_increasing(arr):
 
 # for next/prev smaller element maintain monotonic increasing stack
 # for next/prev greater element maintain monotonic decreasing stack
-def next_greater(nums):
-    n = len(nums)
+def next_greater(arr):
+    n = len(arr)
     res = [-1] * n
     stack = []
 
     for i in range(n):
-        while stack and nums[stack[-1]] < nums[i]:
-            res[stack.pop()] = nums[i]
+        while stack and arr[stack[-1]] < arr[i]:
+            res[stack.pop()] = arr[i]
         stack.append(i)
 
     return res
 
 
-arr = [5, 2, 4, 1, 3]
-print(next_greater(arr))
+nums = [5, 2, 4, 1, 3]
+print(next_greater(nums))
