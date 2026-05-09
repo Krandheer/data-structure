@@ -1,7 +1,8 @@
 from bisect import bisect_left, bisect_right
-from collections import defaultdict
+from collections import defaultdict, deque
 from functools import lru_cache
 import heapq
+from math import inf
 from typing import List, Optional
 
 
@@ -503,3 +504,172 @@ def minOperations(grid: List[List[int]], x: int) -> int:
     for num in temp:
         ans += abs(target - num) // x
     return ans
+
+
+def firstStableIndex(nums: list[int], k: int) -> int:
+    ans = -1
+    n = len(nums)
+    min_arr = [0] * (n + 1)
+    mini = nums[-1]
+    min_arr[n - 1] = mini
+    for i in range(n - 1, -1, -1):
+        if nums[i] < mini:
+            mini = nums[i]
+        min_arr[i] = mini
+
+    maxi = nums[0]
+    for i in range(n):
+        if nums[i] > maxi:
+            maxi = nums[i]
+        mini = min_arr[i]
+        if maxi - mini <= k:
+            ans = i
+            break
+    return ans
+
+
+def maxPathScore(grid: List[List[int]], k: int):
+    m, n = len(grid), len(grid[0])
+
+    def solve(i, j, cost):
+        if i >= m or j >= n:
+            return -inf
+        curr_cost = 0
+        if grid[i][j] != 0:
+            curr_cost = 1
+        if cost + curr_cost > k:
+            return -inf
+
+        if i == m - 1 and j == n - 1:
+            return grid[i][j]
+        res = max(solve(i + 1, j, cost + curr_cost), solve(i, j + 1, cost + curr_cost))
+        return grid[i][j] + res
+
+    ans = solve(0, 0, 0)
+    if ans == -inf:
+        return -1
+    return ans
+
+
+def maxValue(nums: List[int]) -> List[int]:
+    n = len(nums)
+    ans = [0] * n
+    # [value, left, right]
+    stack = []
+
+    for i in range(n):
+        curr_val = nums[i]
+        curr_left = i
+        curr_right = i
+
+        while stack and stack[-1][0] > nums[i]:
+            top_val, top_left, _ = stack.pop()
+            curr_val = max(curr_val, top_val)
+            curr_left = top_left
+
+        stack.append((curr_val, curr_left, curr_right))
+
+    for i in range(len(stack)):
+        for j in range(stack[i][1], stack[i][2] + 1):
+            ans[j] = stack[i][0]
+
+    return ans
+
+
+def minJumps(self, nums: List[int]) -> int:
+    n = len(nums)
+
+    if n == 1:
+        return 0
+
+    maxi = max(nums)
+
+    primes = list(range(maxi + 1))
+
+    for i in range(2, int(maxi**0.5) + 1):
+        if primes[i] == i:
+            for j in range(i * i, maxi + 1, i):
+                if primes[j] == j:
+                    primes[j] = i
+
+    mp = {}
+
+    for i, val in enumerate(nums):
+        x = val
+        used = set()
+        while x > 1:
+
+            p = primes[x]
+
+            if p not in used:
+                if p not in mp:
+                    mp[p] = []
+                mp[p].append(i)
+                used.add(p)
+            x //= p
+
+    q = deque([0])
+    dist = [-1] * n
+    dist[0] = 0
+    while q:
+        i = q.popleft()
+        steps = dist[i]
+        if i == n - 1:
+            return steps
+
+        if i - 1 >= 0 and dist[i - 1] == -1:
+            dist[i - 1] = steps + 1
+            q.append(i - 1)
+
+        if i + 1 < n and dist[i + 1] == -1:
+            dist[i + 1] = steps + 1
+            q.append(i + 1)
+
+        val = nums[i]
+
+        if val > 1 and primes[val] == val:
+            for nxt in mp.get(val, []):
+
+                if dist[nxt] == -1:
+                    dist[nxt] = steps + 1
+                    q.append(nxt)
+
+            mp[val] = []
+
+    return -1
+
+
+def rotateGrid(grid: List[List[int]], k: int) -> List[List[int]]:
+    m, n = len(grid), len(grid[0])
+    layers = min(m // 2, n // 2)
+    for layer in range(layers):
+        top = layer
+        left = layer
+        bottom = m - layer - 1
+        right = n - layer - 1
+        nums = []
+        for j in range(left, right + 1):
+            nums.append(grid[top][j])
+        for i in range(top + 1, bottom):
+            nums.append(grid[i][right])
+        for j in range(right, left - 1, -1):
+            nums.append(grid[bottom][j])
+        for i in range(bottom - 1, top, -1):
+            nums.append(grid[i][left])
+        total = len(nums)
+        k = k % total
+        nums = nums[k:] + nums[:k]
+        idx = 0
+        for j in range(left, right + 1):
+            grid[top][j] = nums[idx]
+            idx += 1
+        for i in range(top + 1, bottom):
+            grid[i][right] = nums[idx]
+            idx += 1
+        for j in range(right, left - 1, -1):
+            grid[bottom][j] = nums[idx]
+            idx += 1
+        for i in range(bottom - 1, top, -1):
+            grid[i][left] = nums[idx]
+            idx += 1
+    return grid
