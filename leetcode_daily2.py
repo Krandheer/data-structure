@@ -673,3 +673,51 @@ def rotateGrid(grid: List[List[int]], k: int) -> List[List[int]]:
             grid[i][left] = nums[idx]
             idx += 1
     return grid
+
+
+def minimumEffort(tasks: List[List[int]]) -> int:
+    tasks.sort(key=lambda x: x[1] - x[0], reverse=True)
+
+    def isPossible(limit):
+        for task in tasks:
+            if limit >= task[1]:
+                limit -= task[0]
+            else:
+                return False
+        return True
+
+    l, r = 0, 10**9
+    ans = 0
+    while l < r:
+        limit = r - (r - l) // 2
+        if isPossible(limit):
+            ans = limit - 1
+            r = limit - 1
+        else:
+            l = limit + 1
+    return ans
+
+
+def canReach(arr: List[int], start: int) -> bool:
+    visited = set()
+    n = len(arr)
+
+    def recur(ind):
+        if arr[ind] == 0:
+            return True
+
+        left = ind - arr[ind]
+        right = ind + arr[ind]
+        visited.add(ind)
+        left_res, right_res = False, False
+
+        if left >= 0 and left not in visited:
+            left_res = recur(left)
+        if right < n and right not in visited:
+            right_res = recur(right)
+        if left_res or right_res:
+            return True
+        else:
+            return False
+
+    return recur(start)
