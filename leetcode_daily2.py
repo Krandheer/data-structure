@@ -4,6 +4,7 @@ from functools import lru_cache
 import heapq
 from math import inf
 from typing import List, Optional
+from urllib import request
 
 
 class TreeNode:
@@ -721,3 +722,29 @@ def canReach(arr: List[int], start: int) -> bool:
             return False
 
     return recur(start)
+
+
+def splitNum(num: int) -> int:
+    temp = []
+    while num > 0:
+        num, rem = divmod(num, 10)
+        temp.append(rem)
+
+    temp.sort()
+    temp = [str(num) for num in temp]
+    num1 = []
+    num2 = []
+    i = 0
+    while i < len(temp):
+        if i & 1:
+            num1.append(temp[i])
+        else:
+            num2.append(temp[i])
+        i += 1
+
+    num1 = int("".join(num1))
+    num2 = int("".join(num2))
+    return num1 + num2
+
+
+print((splitNum(4325)))
