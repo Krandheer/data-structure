@@ -4,7 +4,6 @@ from functools import lru_cache
 import heapq
 from math import inf
 from typing import List, Optional
-from urllib import request
 
 
 class TreeNode:
@@ -747,4 +746,22 @@ def splitNum(num: int) -> int:
     return num1 + num2
 
 
-print((splitNum(4325)))
+def maxIceCream(costs: List[int], coins: int) -> int:
+    max_cost = max(costs)
+    freq = [0] * (max_cost + 1)
+
+    for cost in costs:
+        freq[cost] += 1
+
+    ans = 0
+    for cost in range(1, max_cost + 1):
+        if freq[cost] == 0:
+            continue
+        can_buy = min(freq[cost], coins // cost)
+        ans += can_buy
+        coins -= can_buy * cost
+
+        if coins < cost:
+            break
+
+    return ans
