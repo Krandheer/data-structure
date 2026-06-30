@@ -16,8 +16,8 @@ def split(a_list):
 def merge(left, right):
     """merge two sorted list in one sorted list and return the sorted combined list"""
     l = []
-    i = 0
-    j = 0
+    i = 0  # left array
+    j = 0  # right array
 
     while i < len(left) and j < len(right):
         if left[i] < right[j]:

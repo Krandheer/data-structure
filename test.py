@@ -1,8 +1,7 @@
 import asyncio
 from concurrent.futures import ProcessPoolExecutor
-from re import A
 import time
-from unittest import result
+import requests
 
 
 def fetch_data(param):
