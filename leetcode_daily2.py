@@ -765,3 +765,64 @@ def maxIceCream(costs: List[int], coins: int) -> int:
             break
 
     return ans
+
+
+def maxDistance(moves: str):
+    freq = defaultdict(int)
+    for ch in moves:
+        freq[ch] += 1
+
+    maxi = 0
+    string = ""
+    coord = [0, 0]
+    for k, v in freq.items():
+        if k == "D":
+            coord[-1] -= 1
+        elif k == "U":
+            coord[-1] += 1
+        elif k == "L":
+            coord[0] -= 1
+        elif k == "R":
+            coord[0] += 1
+        if v > maxi and k != "_":
+            maxi = v
+            string = k
+    extra = freq.get("_", 0)
+    if string == "D":
+        coord[-1] -= extra
+    elif string == "U":
+        coord[-1] += extra
+    elif string == "R":
+        coord[0] += extra
+    elif string == "L":
+        coord[0] -= extra
+    else:
+        coord[0] += extra
+    return abs(coord[0]) + abs(coord[1])
+
+
+def pathExistenceQueries(
+    n: int, nums: List[int], maxDiff: int, queries: List[List[int]]
+) -> List[bool]:
+    comp = [0]
+    comp_count = 0
+    for i in range(1, n):
+        if nums[i] - nums[i - 1] > maxDiff:
+            comp_count += 1
+
+        comp.append(comp_count)
+
+    ans = []
+    for u, v in queries:
+        if comp[u] == comp[v]:
+            ans.append(True)
+        else:
+            ans.append(False)
+    return ans
+
+
+n = 2
+nums = [1, 3]
+maxDiff = 1
+queries = [[0, 0], [0, 1]]
+print(pathExistenceQueries(n, nums, maxDiff, queries))
