@@ -1,4 +1,4 @@
-from bisect import bisect_left, bisect_right
+import bisect
 from collections import defaultdict, deque
 from functools import lru_cache
 import heapq
@@ -286,7 +286,7 @@ def solveQueries(nums: List[int], queries: List[int]) -> List[int]:
             ans.append(-1)
             continue
 
-        pos = bisect_left(lookup, q)
+        pos = bisect.bisect_left(lookup, q)
         temp = float("inf")
 
         # Check next neighbor (with wrap-around)
@@ -303,7 +303,7 @@ def solveQueries(nums: List[int], queries: List[int]) -> List[int]:
     return ans
 
 
-def maxDistance(nums1: List[int], nums2: List[int]) -> int:
+def maxDistance1(nums1: List[int], nums2: List[int]) -> int:
     j = 0
     ans = 0
     for i, num in enumerate(nums1):
@@ -419,12 +419,12 @@ def kthRemainingInteger(nums: list[int], queries: list[list[int]]) -> list[int]:
 
     ans = []
     for l, r, k in queries:
-        left = bisect_left(even_indices, l)
-        right = bisect_right(even_indices, r)
+        left = bisect.bisect_left(even_indices, l)
+        right = bisect.bisect_right(even_indices, r)
         low, high = 1, 2 * 10**9
         while low < high:
             mid = (low + high) // 2
-            removed = bisect_right(even_values, 2 * mid, left, right) - left
+            removed = bisect.bisect_right(even_values, 2 * mid, left, right) - left
             valid = mid - removed
             if valid >= k:
                 high = mid
@@ -821,8 +821,48 @@ def pathExistenceQueries(
     return ans
 
 
-n = 2
-nums = [1, 3]
-maxDiff = 1
-queries = [[0, 0], [0, 1]]
-print(pathExistenceQueries(n, nums, maxDiff, queries))
+def shuffle(nums: List[int], n: int) -> List[int]:
+    l = 0
+    r = n
+    ans = []
+    start = 1
+    while l < n or r < 2 * n:
+        if start:
+            ans.append(nums[l])
+            l += 1
+            start = 1 - start
+        else:
+            ans.append(nums[r])
+            start = 1 - start
+            r += 1
+    return ans
+
+
+def find_prod(nums):
+    n = len(nums)
+    pref = [1] * n
+    suff = [1] * n
+    ans = []
+    for i in range(1, n):
+        pref[i] = pref[i - 1] * nums[i - 1]
+
+    for j in range(n - 2, -1, -1):
+        suff[j] = suff[j + 1] * nums[j + 1]
+
+    for k in range(n):
+        ans.append(pref[k] * suff[k])
+    return ans
+
+
+def maximumLengthSubstring(s: str) -> int:
+    freq = defaultdict(int)
+    l, r = 0, 0
+    ans = 0
+    while r < len(s):
+        freq[s[r]] += 1
+        while freq[s[r]] > 2:
+            freq[s[l]] -= 1
+            l += 1
+        ans = max(ans, r - l + 1)
+        r += 1
+    return ans
