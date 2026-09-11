@@ -7,11 +7,11 @@ def bfs(graph, start):
     visited.add(start)
 
     while queue:
-        vertex = queue.popleft()
-        print(vertex, end=" ")
+        node = queue.popleft()
+        print(node, end=" ")
 
         # visit all adjacent vertices that haven't been visited yet
-        for neighbor in graph[vertex]:
+        for neighbor in graph[node]:
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append(neighbor)
