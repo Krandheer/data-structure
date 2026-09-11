@@ -58,4 +58,4 @@ ans = []
 for u, v in ipt:
     ans = union(graph, u, v, ans)
 print(ans)
-# print(graph)
+print(graph)
