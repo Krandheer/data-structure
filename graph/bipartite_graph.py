@@ -1,3 +1,5 @@
+# adjancy list representation of graph
+
 graph = {
     1: [3],
     2: [1, 3, 6],
