@@ -14,13 +14,14 @@ def next_greater(arr):
     res = [-1] * n
     stack = []
 
-    for i in range(n):
-        while stack and arr[stack[-1]] < arr[i]:
-            res[stack.pop()] = arr[i]
-        stack.append(i)
+    for ind, num in enumerate(arr):
+        while stack and arr[stack[-1]] < num:
+            res[stack.pop()] = num
+        stack.append(ind)
 
     return res
 
 
 nums = [5, 2, 4, 1, 3]
 print(next_greater(nums))
+print(monotonic_increasing(nums))
