@@ -89,7 +89,7 @@ def daily_temperatures(temperatures: List[int]) -> List[int]:
             idx = stack.pop()
             ans[idx] = ind - idx
         stack.append(ind)
-    return temperatures
+    return ans
 
 
 print(daily_temperatures([73, 74, 75, 71, 69, 72, 76, 73]))
