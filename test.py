@@ -1,22 +1,26 @@
-from collections import Counter
+from typing import OrderedDict
 
 
-class Solution:
-    def subarraysWithKDistinct(self, nums: list[int], k: int) -> int:
-        def atmost(k):
-            freq = Counter()
-            l = r = ans = 0
-            while r < len(nums):
-                freq[nums[r]] += 1
+class LRUCache:
 
-                while len(freq) > k:
-                    freq[nums[l]] -= 1
-                    if freq[nums[l]] == 0:
-                        del freq[nums[l]]
-                    l += 1
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.data = OrderedDict()
 
-                ans += r - l + 1
-                r += 1
-            return ans
+    def get(self, key: int) -> int:
+        if key not in self.data:
+            return -1
+        self.data.move_to_end(key)
+        return self.data[key]
 
-        return atmost(k) - atmost(k - 1)
+    def put(self, key: int, value: int) -> None:
+        self.data[key] = value
+        self.data.move_to_end(key)
+        if len(self.data) > self.capacity:
+            self.data.popitem(last=False)
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
