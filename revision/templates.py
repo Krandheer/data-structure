@@ -561,7 +561,12 @@ def diameter(root: Optional[TreeNode]) -> int:
              between any two nodes of a binary tree.
     Example: tree [3, 5, 1, 6, 2, null, null, null, null, 7, 4] -> 4 (7 -> 2
              -> 5 -> 3 -> 1)
-    Idea: Post-order: child returns height, parent updates a global best.
+    Idea: Every path has one highest node where it bends (left arm + right
+          arm). Each node does two jobs:
+            1. RECORD: the best path that bends here = left arm + right arm.
+               Only this node sees both arms, so record it now.
+            2. REPORT: tell the parent its longest single arm, because a
+               parent can only extend a straight line, not a fork.
     """
     best = 0
 
@@ -569,9 +574,15 @@ def diameter(root: Optional[TreeNode]) -> int:
         nonlocal best
         if not node:
             return 0
-        l, r = height(node.left), height(node.right)
-        best = max(best, l + r)  # path THROUGH node
-        return 1 + max(l, r)  # path going UP from node
+        left_arm = height(node.left)  # edges from node down the left side
+        right_arm = height(node.right)  # edges from node down the right side
+
+        # Job 1 (RECORD): path that bends at this node. The parent can't use
+        # it, so save it now or it's lost.
+        best = max(best, left_arm + right_arm)
+
+        # Job 2 (REPORT): parent can only continue one straight arm.
+        return 1 + max(left_arm, right_arm)
 
     height(root)
     return best
