@@ -574,15 +574,9 @@ def diameter(root: Optional[TreeNode]) -> int:
         nonlocal best
         if not node:
             return 0
-        left_arm = height(node.left)  # edges from node down the left side
-        right_arm = height(node.right)  # edges from node down the right side
-
-        # Job 1 (RECORD): path that bends at this node. The parent can't use
-        # it, so save it now or it's lost.
-        best = max(best, left_arm + right_arm)
-
-        # Job 2 (REPORT): parent can only continue one straight arm.
-        return 1 + max(left_arm, right_arm)
+        l, r = height(node.left), height(node.right)
+        best = max(best, l + r)  # path THROUGH node
+        return 1 + max(l, r)  # path going UP from node
 
     height(root)
     return best
@@ -761,6 +755,7 @@ class DSU:
              False if they were already joined (that edge would close a
              cycle, as in LeetCode 684). components = number of groups.
     """
+
     def __init__(self, n: int):
         self.parent = list(range(n))
         self.size = [1] * n
@@ -1074,6 +1069,7 @@ class Trie:
     Example: insert "apple": search "apple" -> True, search "app" -> False,
              starts_with "app" -> True
     """
+
     def __init__(self):
         self.root = {}
 
@@ -1270,12 +1266,25 @@ if __name__ == "__main__":
     assert search_rotated([4, 5, 6, 7, 0, 1, 2], 0) == 4
     assert search_rotated([4, 5, 6, 7, 0, 1, 2], 3) == -1
     assert kth_largest([3, 2, 1, 5, 6, 4], 2) == 5
-    assert merge_k_sorted([[1, 4, 5], [1, 3, 4], [2, 6], []]) == [1, 1, 2, 3, 4, 4, 5, 6]
+    assert merge_k_sorted([[1, 4, 5], [1, 3, 4], [2, 6], []]) == [
+        1,
+        1,
+        2,
+        3,
+        4,
+        4,
+        5,
+        6,
+    ]
     mf = MedianFinder()
     for val, want in [(5, 5), (15, 10), (1, 5), (3, 4)]:
         mf.add(val)
         assert mf.median() == want
-    assert merge_intervals([[1, 3], [8, 10], [2, 6], [15, 18]]) == [[1, 6], [8, 10], [15, 18]]
+    assert merge_intervals([[1, 3], [8, 10], [2, 6], [15, 18]]) == [
+        [1, 6],
+        [8, 10],
+        [15, 18],
+    ]
     assert min_meeting_rooms([[0, 30], [5, 10], [15, 20]]) == 2
     assert max_overlap_sweep([[1, 4], [4, 5], [2, 3]]) == 2
     assert min_arrows([[10, 16], [2, 8], [1, 6], [7, 12]]) == 2
@@ -1308,7 +1317,9 @@ if __name__ == "__main__":
     assert min_obstacles_0_1_bfs([[0, 1, 1], [1, 1, 0], [1, 1, 0]]) == 2
     assert has_cycle_directed(3, [[0, 1], [1, 2], [2, 0]])
     assert not has_cycle_directed(3, [[0, 1], [0, 2], [1, 2]])
-    assert num_islands([list("11000"), list("11000"), list("00100"), list("00011")]) == 3
+    assert (
+        num_islands([list("11000"), list("11000"), list("00100"), list("00011")]) == 3
+    )
     assert topo_sort(4, [[0, 1], [0, 2], [1, 3], [2, 3]]) == [0, 1, 2, 3]
     assert topo_sort(2, [[0, 1], [1, 0]]) == []
     dsu = DSU(5)
@@ -1319,9 +1330,19 @@ if __name__ == "__main__":
 
     assert len(subsets([1, 2, 3])) == 8
     assert sorted(permutations([1, 2, 3])) == [
-        [1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]
+        [1, 2, 3],
+        [1, 3, 2],
+        [2, 1, 3],
+        [2, 3, 1],
+        [3, 1, 2],
+        [3, 2, 1],
     ]
-    assert combination_sum2([10, 1, 2, 7, 6, 1, 5], 8) == [[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]
+    assert combination_sum2([10, 1, 2, 7, 6, 1, 5], 8) == [
+        [1, 1, 6],
+        [1, 2, 5],
+        [1, 7],
+        [2, 6],
+    ]
 
     assert rob([2, 7, 9, 3, 1]) == 12
     assert coin_change([1, 2, 5], 11) == 3 and coin_change([2], 3) == -1
