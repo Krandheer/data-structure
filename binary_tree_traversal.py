@@ -136,6 +136,3 @@ root.left.right = TreeNode(5)
 # print(preorder_traversal(root, []))
 # print(postorder_traversal(root, []))
 # print(level_order(root))
-
-
-# TODO: lca ( least common ancestor) need to write code for this for bst and bt
