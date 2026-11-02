@@ -36,7 +36,7 @@ def vertical_order_traversal(root):
     sorted_columns = sorted(column_map.items(), key=lambda x: x[0])
 
     # Extract the values in sorted order
-    result = [values for column, values in sorted_columns]
+    result = [values for _, values in sorted_columns]
 
     # print(result)
     return result
